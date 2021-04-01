@@ -1,15 +1,19 @@
 {
     "name": "djamina/p5",
+    "description": "personal blog",
     "autoload": {
         "psr-4": {
             "App\\": "../library",
             "App\\Controller\\": "../src/controllers",
-            "": "../src"
+            "": "../src/models"
         },
-        "files": ["../config/routes.php"]
+        "files": ["../config/routes.php", "../config/database.php", "helpers.php"]
     },
     "require": {
         "twig/twig": "^3.0",
-        "twig/string-extra": "^3.3"
+        "twig/string-extra": "^3.3",
+        "illuminate/database": "^8.35",
+        "illuminate/events": "^8.35",
+        "twig/intl-extra": "^3.3"
     }
 }

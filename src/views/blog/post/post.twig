@@ -1,0 +1,39 @@
+{% extends 'layout/layout.twig' %}
+{% block header %} class = "header-top" {% endblock %}
+{% block main %}
+
+    <main id="main">
+
+        <!-- ======= blog Details ======= -->
+        <div id="blog-details" class="blog-details section-show">
+            <div class="container ">
+
+                <div class="row">
+                    <a href="{{ route('blog.index') }}" class="text-end"> <i class="fas fa-arrow-up"></i> Retour </a>
+                        <h2 class="blog-title">{{ post.title }}</h2>
+
+                        <div class="blog-details-slider ">
+                            <img src="{{ post.img }}" alt="">
+                        </div>
+                </div>
+                <div class="row blog-info">
+                    <h3>{{ user.username }}</h3>
+                    <ul>
+                        <li><strong>Category</strong>: {{ category.name }}</li>
+                        <li><strong>Project date</strong>: {{ post.dateUpdated | format_datetime() }}</li>
+                        <li><strong>{{ post.hook}}</strong></li>
+                    </ul>
+
+                    <p>
+                        {{ post.content | u.wordwrap(50) }}
+                    </p>
+                </div>
+
+
+            </div>
+        </div><!-- End blog Details -->
+
+    </main><!-- End #main -->
+
+
+{% endblock %}

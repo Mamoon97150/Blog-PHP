@@ -703,13 +703,12 @@ section .container {
 # blog Details
 --------------------------------------------------------------*/
 .blog-details {
-  padding-top: 40px;
   background: rgba(0, 0, 0, 0.8);
   position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
+  left: 30px;
+  right: 30px;
+  top: 100px;
+  bottom: 30px;
   overflow-y: auto;
 }
 
@@ -726,6 +725,7 @@ section .container {
 
 .blog-details .blog-info {
   padding-top: 45px;
+  margin-top: 3em;
 }
 
 .blog-details .blog-info h3 {
@@ -831,7 +831,7 @@ section .container {
 .contact .php-email-form .error-message {
   display: none;
   background: rgba(255, 255, 255, 0.08);
-  background: #ed3c0d;
+  background: #ff9d00;
   text-align: left;
   padding: 15px;
   font-weight: 600;

@@ -7,10 +7,17 @@ class HomeController extends FrontController
 {
 
 
-    public function index()
+    public function show()
     {
-        return $this->renderView('home.twig');
+         $this->renderView('home');
     }
+
+    public function sendEmail()
+    {
+
+    }
+
+
 
 
 }

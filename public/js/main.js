@@ -54,7 +54,7 @@
   })
 
   /**
-   * Scrool with ofset on links with a class name .scrollto
+   * Scroll with offset on links with a class name .scrollto
    */
   on('click', '#navbar .nav-link', function(e) {
     let section = select(this.hash)
@@ -206,23 +206,23 @@
   /**
    * Initiate blog lightbox 
    */
-  const blogLightbox = GLightbox({
+  /*const blogLightbox = GLightbox({
     selector: '.blog-lightbox'
   });
-
+*/
   /**
    * Initiate blog details lightbox 
    */
-  const blogDetailsLightbox = GLightbox({
+  /*const blogDetailsLightbox = GLightbox({
     selector: '.blog-details-lightbox',
     width: '90%',
     height: '90vh'
-  });
+  });*/
 
   /**
    * blog details slider
    */
-  new Swiper('.blog-details-slider', {
+  /*new Swiper('.blog-details-slider', {
     speed: 400,
     loop: true,
     autoplay: {
@@ -235,7 +235,7 @@
       clickable: true
     }
   });
-
+*/
 
 
 })()
