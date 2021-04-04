@@ -39,7 +39,16 @@ class UserController extends FrontController
                 $request->session('auth', $user['role']);
                 $request->session('username', $user['username']);
                 $request->session('id', $user['id']);
-                header('location: /?success=true');
+
+                if ($user['role'] == 'admin')
+                {
+                    return redirect('admin.index', ['user' => $request->session('auth')]);
+                }
+                else
+                {
+                    header('location: /?success=true');
+                }
+
             }
             else
             {
