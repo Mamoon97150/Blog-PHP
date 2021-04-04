@@ -60,7 +60,7 @@ class Request
             $controller = $action[0];
             $controller = new $controller;
             $method = $action[1];
-            return isset($this->parameters) ? $controller->$method(implode($this->parameters)) : $controller->$method();
+            call_user_func_array([$controller, $method], $this->parameters);
         }
         else
         {
@@ -76,8 +76,8 @@ class Request
             $controller = $action[0];
             $controller = new $controller;
             $method = $action[1];
-            return isset($this->parameters) ? $controller->$method($this->request, implode($this->parameters)) : $controller->$method($this->request);
-        }
+            array_unshift($this->parameters, $this->request);
+            call_user_func_array([$controller, $method], $this->parameters);}
         else
         {
             call_user_func_array($this->action, $this->parameters);

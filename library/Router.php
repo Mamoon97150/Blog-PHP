@@ -49,9 +49,10 @@ class Router
                     {
                         foreach ($parameters as $key => $value)
                         {
-                            $url = str_replace("{{$key}}", $value, $path);
-                            return '/'.$url;
+                            $path = str_replace("{{$key}}", $value, $path);
+
                         }
+                        return '/'.$path;
                     }
                     else
                     {
