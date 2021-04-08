@@ -57,7 +57,9 @@ function authenticator()
     return array(
         'status' => $request->session('auth'),
         'username' => $request->session('username'),
-        'id' => $request->session('id')
+        'email' => $request->session('email'),
+        'id' => $request->session('id'),
+        'img' => $request->session('img')
     );
 }
 

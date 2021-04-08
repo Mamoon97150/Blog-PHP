@@ -30,19 +30,26 @@ class UserController extends FrontController
             'password' => ['required']
         ]);
 
-        $user = \Users::where('username', $request->name('username'))->first()->toArray();
+        $Users = new \Users();
+        $user = $Users->findUser('username', $request->name('username'), 'email', $request->name('username'));
+
 
         if (!is_null($user))
         {
-            if ($request->name('password') === $user['password'])
+            $user->toArray();
+            var_dump($user);
+            // check if password is right (hash)
+            if (password_verify($request->name('password'), $user['password']))
             {
                 $request->session('auth', $user['role']);
                 $request->session('username', $user['username']);
+                $request->session('email', $user['email']);
                 $request->session('id', $user['id']);
+                $request->session('img', $user['img']);
 
                 if ($user['role'] == 'admin')
                 {
-                    return redirect('admin.index', ['user' => $request->session('auth')]);
+                    return redirect('admin.index', ['user' => strtolower($request->session('username'))]);
                 }
                 else
                 {
@@ -52,12 +59,12 @@ class UserController extends FrontController
             }
             else
             {
-                echo 'Incorrect password';
+                return $request->validator([ 'password' => ['incorrect'] ]);
             }
         }
         else
         {
-            $request->lastRedirect();
+            return $request->validator([ 'username' => ['incorrect'] ]);
         }
 
 
@@ -67,6 +74,41 @@ class UserController extends FrontController
     {
         session_destroy();
         redirect('home.show');
+    }
+
+    public function signUp(HTTPRequest $request)
+    {
+        $value = $request->validator([
+            'username' => ['required', "min:3"],
+            'email' => ['required'],
+            'password' => ['required', "min:5"]
+        ]);
+
+
+        $data = $request->name();
+        $user = new \Users();
+
+        // check if username exists
+        if ($user->userExists('username', $data['username']) == false)
+        {
+            //check if email exists
+            if ($user->userExists('email', $data['email']) == false)
+            {
+                $user->addUser($data);
+            }
+            else
+            {
+                return $request->validator([ 'email' => ['exists'] ]);
+            }
+        }
+        else
+        {
+            return $request->validator([ 'username' => ['exists'] ]);
+        }
+
+
+        return redirect('user.login');
+
     }
 
 }

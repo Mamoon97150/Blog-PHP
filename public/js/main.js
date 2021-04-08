@@ -186,7 +186,7 @@
         }
       });
 
-      let blogFilters = select('#blog-filters li', true);
+      /*let blogFilters = select('#blog-filters li', true);
 
       on('click', '#blog-filters li', function(e) {
         e.preventDefault();
@@ -198,7 +198,7 @@
         blogIsotope.arrange({
           filter: this.getAttribute('data-filter')
         });
-      }, true);
+      }, true);*/
     }
 
   });

@@ -11,36 +11,48 @@ class BlogController extends FrontController
     public function index()
     {
 
-        $posts = \Posts::with(['category','user'])->orderBy('created_at', 'desc')->get()->toArray();
+       $posts = new \Posts();
+       $posts = $posts->allPosts();
+
         $this->renderView('blog/blog', compact('posts'));
     }
 
     public function indexUser($id)
     {
-        $posts = \Posts::with(['category','user'])->where('user_id', $id)->orderBy('created_at', 'desc')->get()->toArray();
+        $posts = new \Posts();
+        $posts = $posts->postsBy('user_id', $id);
 
         $this->renderView('blog/blog', compact('posts'));
     }
 
     public function indexCategory($id)
     {
-        $posts = \Posts::with(['category','user'])->where('category_id', $id)->orderBy('created_at', 'desc')->get()->toArray();
+        $posts = new \Posts();
+        $posts = $posts->postsBy('category_id', $id);
 
         $this->renderView('blog/blog', compact('posts'));
     }
 
     public function show($id)
     {
-        $posts = \Posts::orderBy('created_at', 'desc')->limit(5)->get()->toArray();
-        $post = \Posts::find($id)->toArray();
 
-        $comments = \Comments::with('user')->where('post_id', $id)->get()->toArray();
-        $count = \Comments::where('post_id',$id)->count();
+        $Post = new \Posts();
+        $post = $Post->showPost($id);
+        $posts = $Post->recentPosts(5);
 
-        $categories = \Category::orderBy('name', 'asc')->get()->toArray();
-        $category = \Category::where('id', $post['category_id'])->first();
+        $Comments = new \Comments();
+        $comments = $Comments->commentsByPost($id);
+        $count = $Comments->commentsCount('post_id', $id);
 
-        $user = \Users::where('id', $post['user_id'])->first();
+        $Category = new \Category();
+        $category = $Category->categoryOfPost($post);
+        $categories = $Category->allCategories();
+
+        $test = $Category->postsInCategory();
+        var_dump($test);
+
+        $Users = new \Users();
+        $user = $Users->author($post);
 
         $this->renderView('blog/post/post', compact(['posts', 'post', 'categories', 'category', 'user', 'comments', 'count']));
     }

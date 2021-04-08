@@ -11,10 +11,13 @@ App\Router::get('/blog/post/show/{id}', 'App\Controller\BlogController@show')->n
 App\Router::post('/comment/create', 'App\Controller\CommentController@createComment')->name('comment.createComment');
 App\Router::get('/comment/delete/{id}/{postId}', 'App\Controller\CommentController@delete')->name('comment.delete');
 
+//AUTH
 App\Router::get('/user/login', 'App\Controller\UserController@login')->name('user.login');
 App\Router::get('/user/forgot', 'App\Controller\UserController@forgot')->name('user.forgot');
 App\Router::get('/user/register', 'App\Controller\UserController@register')->name('user.register');
 App\Router::post('/user/signin', 'App\Controller\UserController@signIn')->name('user.signin');
 App\Router::get('/user/logout', 'App\Controller\UserController@signOut')->name('user.logout');
+\App\Router::post('/user/signUp', 'App\Controller\UserController@signUp')->name('user.signUp');
 
-App\Router::get('/admin/dashboard/{user}', 'App\Controller\AdminController@index')->name('admin.index');
+App\Router::get('/admin/dashboard', 'App\Controller\AdminController@index')->name('admin.index');
+App\Router::get('/admin/dashboard/posts', 'App\Controller\AdminController@adminPost')->name('admin.adminPost');

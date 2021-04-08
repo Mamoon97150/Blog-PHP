@@ -14,13 +14,16 @@ class CommentController extends FrontController
         $id = $request->name('post_id');
         $message = $request->name();
 
-        \Comments::create($message);
+        $comment = new \Comments();
+        $comment->addComment($message);
         return redirect('blog.show',['id' => $id]);
     }
 
     public function delete($id, $postId)
     {
-        \Comments::destroy($id);
+        $comment = new \Comments();
+        $comment->eraseComment($id);
+
         return redirect('blog.show', ['id' => $postId]);
     }
 

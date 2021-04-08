@@ -60,6 +60,13 @@ class HTTPRequest
                             $this->min($key, $this->posts[$key], $rule);
                             break;
 
+                        case 'exists' :
+                            $this->errors[$key][] = "<i class='fas fa-exclamation-triangle'></i> This <span class='fw-bolder text-decoration-underline'>$key</span> already exists !";
+                            break;
+
+                        case 'incorrect' :
+                            $this->errors[$key][] = "<i class='fas fa-exclamation-triangle'></i> Incorrect <span class='fw-bolder text-decoration-underline'>$key</span> !";
+                            break;
                     }
                     $this->session('input', $this->posts);
                 }
