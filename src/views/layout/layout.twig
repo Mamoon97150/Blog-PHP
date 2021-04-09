@@ -82,6 +82,8 @@
         <div class="credits">
             {% if auth.status == null %}
                 <a class="float-start " href="{{ route('user.login') }}" >Sign In</a>
+            {% elseif auth.status == "admin" %}
+                <a class="float-start " href="{{ route('admin.index') }}" >Dashboard</a>
             {% else %}
                 <a class="float-start" href="{{ route('user.logout') }}" >Sign Out</a>
             {% endif %}

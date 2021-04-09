@@ -38,7 +38,7 @@ class BlogController extends FrontController
 
         $Post = new \Posts();
         $post = $Post->showPost($id);
-        $posts = $Post->recentPosts(5);
+        $posts = $Post->recentPosts();
 
         $Comments = new \Comments();
         $comments = $Comments->commentsByPost($id);
@@ -47,9 +47,6 @@ class BlogController extends FrontController
         $Category = new \Category();
         $category = $Category->categoryOfPost($post);
         $categories = $Category->allCategories();
-
-        $test = $Category->postsInCategory();
-        var_dump($test);
 
         $Users = new \Users();
         $user = $Users->author($post);
@@ -60,6 +57,12 @@ class BlogController extends FrontController
     public function create(HTTPRequest $request)
     {
 
+    }
+
+    public function delete($id)
+    {
+        $Posts = new \Posts();
+        $post = $Posts->delete($id);
     }
 
 }

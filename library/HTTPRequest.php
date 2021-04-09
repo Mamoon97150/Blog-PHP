@@ -38,6 +38,31 @@ class HTTPRequest
         }
     }
 
+
+    public function loadFiles($name, $file_destination, array $datatype)
+    {
+        $file_name = $_FILES[$name]['name'];
+        $file_extension = strrchr($file_name, '.');
+        $file_tmp = $_FILES[$name]['tmp_name'];
+        $file_destination = $file_destination.$file_name;
+
+        if (in_array($file_extension, $datatype))
+        {
+            if (move_uploaded_file($file_tmp, $file_destination))
+            {
+                return $file_destination;
+            }
+            else
+            {
+                echo "There was an error";
+            }
+        }
+        else
+        {
+            echo "Wrong extension !";
+        }
+    }
+
     public function validator(array $rules)
     {
         foreach ($rules as $key => $valueArray)

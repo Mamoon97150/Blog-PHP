@@ -5,6 +5,8 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 class Posts extends Model
 {
+    protected $guarded = [];
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -44,4 +46,20 @@ class Posts extends Model
         return self::orderBy('created_at', 'desc')->first();
     }
 
+    public function createPost($data)
+    {
+        return self::create([
+            'user_id' => $data['user_id'],
+            'title' => $data['title'],
+            'hook' => $data['hook'],
+            'content' => $data['content'],
+            'img' => $data['img'],
+            'category_id' => $data['category_id'],
+        ]);
+    }
+
+    public function erasePost($id)
+    {
+        return self::destroy($id);
+    }
 }
