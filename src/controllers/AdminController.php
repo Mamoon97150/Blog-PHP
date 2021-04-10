@@ -41,34 +41,34 @@ class AdminController extends FrontController
         $this->renderView('admin/posts/addpost', compact('categories'));
     }
 
-    public function createPost(HTTPRequest $request)
+    public function editPost($id)
     {
-        $img = $request->loadFiles('image', 'img/loaders/', ['.jpg', '.JPG', '.png', '.PNG', '.jpeg', '.JPEG']);
-        $values = $request->validator([
-            'title' => ['required'],
-            'hook' => ['required'],
-            'content' => ['required'],
-            'category' => ['required']
-        ]);
-        $data = array_merge_recursive($values, ['img' => 'public/'.$img]);
+        $Category = new \Category();
+        $categories = $Category->allCategories();
 
-        var_dump($data);
-
-        $Post = new \Posts();
-        $post = $Post->createPost($data);
+        $Posts = new \Posts();
+        $post = $Posts->showPost($id);
 
 
-
-        return redirect('admin.adminPost');
+        $this->renderView('admin/posts/editpost', compact(['categories', 'post']));
     }
 
-    public function deletePost($id)
+    public function adminComments()
     {
-        $Post = new \Posts();
-        $post = $Post->erasePost($id);
+        $comment = new \Comments();
 
-        return redirect('admin.adminPost');
+        $comments = $comment->allComments();
+
+        $this->renderView('admin/comments/comments', compact('comments'));
     }
 
+    public function pendingComments()
+    {
+        $comment = new \Comments();
+
+        $comments = $comment->commentsPendingApproval();
+
+        $this->renderView('admin/comments/pending', compact('comments'));
+    }
 
 }

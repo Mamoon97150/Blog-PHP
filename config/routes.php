@@ -14,17 +14,30 @@ App\Router::get('/blog/post/show/{id}', 'App\Controller\BlogController@show')->n
 App\Router::post('/comment/create', 'App\Controller\CommentController@createComment')->name('comment.createComment');
 App\Router::get('/comment/delete/{id}/{postId}', 'App\Controller\CommentController@delete')->name('comment.delete');
 
+
 //AUTH
-App\Router::get('/user/login', 'App\Controller\UserController@login')->name('user.login');
-App\Router::get('/user/forgot', 'App\Controller\UserController@forgot')->name('user.forgot');
-App\Router::get('/user/register', 'App\Controller\UserController@register')->name('user.register');
-App\Router::post('/user/signin', 'App\Controller\UserController@signIn')->name('user.signin');
-App\Router::get('/user/logout', 'App\Controller\UserController@signOut')->name('user.logout');
-\App\Router::post('/user/signUp', 'App\Controller\UserController@signUp')->name('user.signUp');
+//views
+App\Router::get('/user/login', 'App\Controller\LoginController@login')->name('user.login');
+App\Router::get('/user/forgot', 'App\Controller\LoginController@forgot')->name('user.forgot');
+App\Router::get('/user/register', 'App\Controller\LoginController@register')->name('user.register');
+//method
+App\Router::post('/user/signin', 'App\Controller\LoginController@signIn')->name('user.signin');
+App\Router::get('/user/logout', 'App\Controller\LoginController@signOut')->name('user.logout');
+\App\Router::post('/user/signUp', 'App\Controller\LoginController@signUp')->name('user.signUp');
 
 //ADMIN DASHBOARD
+//views
 App\Router::get('/admin/dashboard', 'App\Controller\AdminController@index')->name('admin.index');
 App\Router::get('/admin/dashboard/posts', 'App\Controller\AdminController@adminPost')->name('admin.adminPost');
-App\Router::get('/admin/dashboard/addpost', 'App\Controller\AdminController@addPost')->name('admin.addPost');
-App\Router::post('/admin/dashboard/createpost', 'App\Controller\AdminController@createPost')->name('admin.createPost');
-App\Router::get('/admin/dashboard/posts/delete/{id}', 'App\Controller\AdminController@deletePost')->name('admin.deletePost');
+App\Router::get('/admin/dashboard/posts/add', 'App\Controller\AdminController@addPost')->name('admin.addPost');
+App\Router::get('/admin/dashboard/posts/edit/{id}', 'App\Controller\AdminController@editPost')->name('admin.editPost');
+//posts
+App\Router::post('/admin/dashboard/posts/create', 'App\Controller\PostController@createPost')->name('admin.createPost');
+App\Router::post('/admin/dashboard/posts/update/{id}', 'App\Controller\PostController@updatePost')->name('admin.updatePost');
+App\Router::get('/admin/dashboard/posts/delete/{id}', 'App\Controller\PostController@deletePost')->name('admin.deletePost');
+//comments
+App\Router::get('/admin/dashboard/comments', 'App\Controller\AdminController@adminComments')->name('admin.adminComments');
+App\Router::get('/admin/dashboard/comments/pending', 'App\Controller\AdminController@pendingComments')->name('admin.pendingComments');
+App\Router::get('/admin/dashboard/comments/approve/{id}', 'App\Controller\CommentController@approveComments')->name('admin.approveComments');
+
+//users

@@ -28,10 +28,15 @@ class Users extends Model
         return self::where($column, $value)->orWhere($column2, $value2)->first();
     }
 
+    public function getUser($id)
+    {
+        return self::where('id',$id)->first()->toArray();
+    }
+
     public function addUser(array $user)
     {
         // Hashing password
-        $password = password_hash($user['password'], PASSWORD_DEFAULT);
+        $password = password_hash($user['password'], PASSWORD_ARGON2I);
 
         // creating new user in db with hashed password
         return self::create([

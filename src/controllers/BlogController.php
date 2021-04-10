@@ -53,16 +53,4 @@ class BlogController extends FrontController
 
         $this->renderView('blog/post/post', compact(['posts', 'post', 'categories', 'category', 'user', 'comments', 'count']));
     }
-
-    public function create(HTTPRequest $request)
-    {
-
-    }
-
-    public function delete($id)
-    {
-        $Posts = new \Posts();
-        $post = $Posts->delete($id);
-    }
-
 }

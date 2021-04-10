@@ -294,81 +294,70 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">Add posts</h1>
-                <p class="mb-4">Add a post to my blog</p>
-                <form method="post" action="{{ route('admin.createPost') }}" enctype="multipart/form-data">
-                    <div class="row g-3">
-                        <div class="col-12 ">
-                            <label for="author"></label>
-                            <input type="hidden" class="form-control" id="author" name="user_id" value="{{ auth.id }}">
-                        </div>
-                        <div class="form-group row col-12">
-                            <label for="inputTitle" class="col-form-label col-sm-2">Title :</label>
-                            <input type="text" class="form-control col-sm-10" id="inputTitle" name="title" value="{{ post.title }}">
-                            {{ error.title | markdown }}
-                        </div>
-                        <div class="col-12 form-group row">
-                            <label for="textareaHook" class="form-label col-sm-2">Hook :</label>
-                            <textarea type="text" class="form-control col-sm-10" id="textareaHook" name="hook" rows="5"></textarea>
-                            <script>
-                                CKEDITOR.replace( 'textareaHook',{
-                                    height:80,
-                                    width: '83%',
-                                    extraPlugins: 'autogrow',
-                                    autoGrow_minHeight: 100,
-                                    autoGrow_maxHeight: 600,
-                                    autoGrow_bottomSpace: 50,
-                                    removePlugins: 'resize'
-                                })
-                            </script>
-                            {{ error.hook | markdown }}
-                        </div>
-                        <div class="col-md-12 form-group row">
-                            <label for="textareaPost" class="form-label col-sm-2">Post :</label>
-                            <textarea type="text" class="form-control col-sm-10" id="textareaPost" name="content" placeholder="" rows="15"></textarea>
-                            <script>
-                                CKEDITOR.replace( 'textareaPost' , {
-                                    height:200,
-                                    width: '83%',
-                                    extraPlugins: 'autogrow',
-                                    autoGrow_minHeight: 300,
-                                    autoGrow_maxHeight: 600,
-                                    autoGrow_bottomSpace: 50,
-                                    removePlugins: 'resize'
-                                });
-                            </script>
-                            {{ error.content | markdown }}
-                        </div>
-                        <div class="form-group row col-12">
-                            <div class="col-sm-2">
+                <h1 class="h3 mb-2 text-gray-800">All comments</h1>
+                <p class="mb-4">Manage your comments</p>
 
-                            </div>
-                            <div class="col-sm-5 form-label-group">
-                                <label for="inputCategory" class="form-label"></label>
-                                <select id="inputCategory" class="custom-select" name="category_id">
-                                    <option selected>Choose post category...</option>
-                                    {% for category in categories %}
-                                        <option value="{{ category.id }}">{{ category.name | capitalize}}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="col-sm-5 custom-file mt-4">
-                                <input type="file" class="custom-file-input" id="image" name="image">
-                                <label for="image" class="custom-file-label">Choose image...</label>
-                            </div>
-                        </div>
-
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Posts</h6>
                     </div>
-                    <div class="row justify-content-center mt-4">
-                        <div class="col-6">
-                            <button type="submit" class="btn btn-primary btn-block">Add post</button>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="postsTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Post</th>
+                                    <th>Comment</th>
+                                    <th>User</th>
+                                    <th>Created</th>
+                                    <th>Updated</th>
+                                    <th>Approved ?</th>
+                                    <th>Delete</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>Post</th>
+                                    <th>Comment</th>
+                                    <th>User</th>
+                                    <th>Created</th>
+                                    <th>Updated</th>
+                                    <th>Approved ?</th>
+                                    <th>Delete</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                {% for comment in comments %}
+                                    <tr>
+                                        <td>{{ comment.posts.title }}</td>
+                                        <td>{{ comment.comment | u.truncate(50, '...', false) | raw }}</td>
+                                        <td>{{ comment.user.username }}</td>
+                                        <td>{{ comment.created_at | format_datetime('short', 'short') }}</td>
+                                        <td>{{ comment.updated_at | format_datetime('short', 'short') }}</td>
+                                        <td>
+                                            {% if comment.approved == 1 %}
+                                                yes
+                                            {% else %}
+                                                no
+                                            {% endif %}
+                                        </td>
+                                        <td><a href="{{ route('comment.delete', {'id':comment.id, 'postId':comment.post_id}) }}">Delete</a></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                </form>
+                </div>
+
             </div>
-        <!-- /.container-fluid -->
+
+            <!-- /.container-fluid -->
+
         </div>
-    <!-- End of Main Content -->
+        <!-- End of Main Content -->
+
         <!-- Footer -->
         <footer class="sticky-footer bg-dark">
             <div class="container my-auto">
@@ -409,6 +398,13 @@
         </div>
     </div>
 </div>
-
-
 {% endblock %}
+{% block extra %}
+    <!-- Plugins -->
+    <script src="../../../../public/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="../../../../public/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Custom scripts -->
+    <script src="../../../../public/js/extra/datatables.js"></script>
+{% endblock %}
+

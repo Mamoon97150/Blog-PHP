@@ -7,9 +7,9 @@ class Comments extends Model
 {
     protected $guarded = [];
 
-    public function post()
+    public function posts()
     {
-        return $this->belongsTo(Users::class);
+        return $this->belongsTo(Posts::class, 'post_id');
     }
 
     public function user()
@@ -17,11 +17,24 @@ class Comments extends Model
         return $this->belongsTo(Users::class);
     }
 
+    public function allComments()
+    {
+        return self::with(['posts','user'])->orderBy('created_at', 'desc')->get()->toArray();
+    }
+
     public function commentsByPost($id)
     {
         return self::with('user')->where('post_id', $id)->get()->toArray();
     }
+    public function commentsPendingApproval()
+    {
+        return self::with(['posts', 'user'])->where('approved', '=', '0' )->get()->toArray();
+    }
 
+    public function findComment($id)
+    {
+        return self::find($id)->toArray();
+    }
     public function commentsCount($column, $value)
     {
         return self::where($column ,$value)->count();
@@ -47,7 +60,13 @@ class Comments extends Model
         return self::groupBy(Capsule::raw('MONTH(created_at)'))
             ->select(Capsule::raw('created_at, COUNT(*) as count'))
             ->get()->toArray();
+    }
 
-/*        return Capsule::table('comments')->groupBy('MONTH(created_at)')->select('created_at', 'COUNT(*) as count')->toArray();*/
+    public function approval($id)
+    {
+        $comment = self::find($id);
+
+        $comment->approved = true;
+        $comment->save();
     }
 }

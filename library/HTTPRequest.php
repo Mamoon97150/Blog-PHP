@@ -26,6 +26,26 @@ class HTTPRequest
 
     }
 
+    public function except(string $name, $data = [])
+    {
+        if (!empty($data))
+        {
+            if (array_key_exists($name, $data))
+            {
+                unset($data[$name]);
+                return $data;
+            }
+        }
+        else
+        {
+            if (array_key_exists($name, $this->name()))
+            {
+                unset($_POST[$name]);
+                return $_POST;
+            }
+        }
+    }
+
     public function session($name, $data = null)
     {
         if (!empty($data) | $data != null)
@@ -54,12 +74,12 @@ class HTTPRequest
             }
             else
             {
-                echo "There was an error";
+                return null;
             }
         }
         else
         {
-            echo "Wrong extension !";
+            return null;
         }
     }
 

@@ -16,6 +16,11 @@ class Posts extends Model
         return $this->belongsTo(Users::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comments::class);
+    }
+
     public function allPosts()
     {
         return self::with(['category','user'])->orderBy('created_at', 'desc')->get()->toArray();
@@ -56,6 +61,11 @@ class Posts extends Model
             'img' => $data['img'],
             'category_id' => $data['category_id'],
         ]);
+    }
+
+    public function updatePost($id, $data)
+    {
+        return self::where('id', $id)->update($data);
     }
 
     public function erasePost($id)

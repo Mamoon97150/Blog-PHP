@@ -35,11 +35,11 @@
                             <div class="article-content">
                                 <p>
                                     <strong>
-                                        {{ post.hook}}
+                                        {{ post.hook | raw }}
                                     </strong>
                                 </p>
                                 <p>
-                                    {{ post.content | u.wordwrap(50) }}
+                                    {{ post.content | raw | nl2br }}
                                 </p>
                             </div>
                             <div>
@@ -53,24 +53,29 @@
                             </div>
                             <ul class="list-comments">
                                 {% for comment in comments %}
-                                    <li>
-                                        <div class="comment-avatar">
-                                            <img src="assets/img/testimonial-2.jpg" alt="">
-                                        </div>
-                                        <div class="comment-details">
-                                            {% if comment.user.role == 'admin' %}
-                                                <span class="float-end fst-italic text-danger"> Administrateur</span>
-                                            {% endif %}
-                                            <h4 class="comment-author">{{ comment.user.username }}</h4>
-                                            <span>published on {{ comment.updated_at | format_datetime('short', 'short')}}</span>
-                                            <p>
+                                    {% if comment.approved == '1' %}
+                                        <li>
+                                            <div class="comment-avatar col-sm-2">
+                                                <img src="{{ comment.user.img }}" alt="">
+                                                {% if comment.user.role == 'admin' %}
+                                                    <p class="mt-2">
+                                                        <span class="fst-italic text-danger"> Administrateur</span>
+                                                    </p>
+                                                {% endif %}
+                                            </div>
+                                            <div class="comment-details col-sm-10">
+
+                                                <h4 class="comment-author">{{ comment.user.username }}</h4>
+                                                <p>
+                                                    <span>published on {{ comment.updated_at | format_datetime('short', 'short')}}</span>
+                                                </p>
                                                 {{ comment.comment | markdown }}
-                                            </p>
-                                            {% if auth.id == comment.user_id %}
-                                                <a class="float-end" href="{{ route('comment.delete', {'id':comment.id, 'postId':post.id}) }}">Delete</a>
-                                            {% endif %}
-                                        </div>
-                                    </li>
+                                                {% if auth.id == comment.user_id or auth.status == 'admin'%}
+                                                    <a class="float-end" href="{{ route('comment.delete', {'id':comment.id, 'postId':post.id}) }}">Delete</a>
+                                                {% endif %}
+                                            </div>
+                                        </li>
+                                    {% endif %}
                                 {% endfor %}
                             </ul>
                         </div>
@@ -89,11 +94,12 @@
                                                 <input type="hidden" id="post_id" name="post_id" value="{{ post.id }}">
                                             </div>
                                             <div class="form-group">
-                                            <textarea id="textMessage" class="form-control input-mf" placeholder="Comment *" name="comment" cols="45" rows="8" required>
-                                            </textarea>
+                                                <label for="textMessage"></label>
+                                                <textarea id="textMessage" class="form-control input-mf" placeholder="Comment *" name="comment" cols="45" rows="8" required></textarea>
                                                 <script>
                                                     CKEDITOR.replace( 'textMessage' );
                                                 </script>
+                                                {{ error.comment | raw }}
                                             </div>
                                         </div>
                                         <div class="col-md-12">
