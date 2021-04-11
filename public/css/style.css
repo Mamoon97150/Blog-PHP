@@ -87,7 +87,7 @@ h6 {
   border-radius: 5rem;
 }
 
-/*--------------------------------------------------------------
+/* --------------------------------------------------------------
 # Header
 -------------------------------------------------------------- */
 #header {
@@ -220,9 +220,9 @@ h6 {
   }
 }
 
-/*--------------------------------------------------------------
+/* --------------------------------------------------------------
 # Navigation Menu
---------------------------------------------------------------*/
+-------------------------------------------------------------- */
 
 /*
 * Desktop Navigation */
@@ -528,7 +528,6 @@ section .container {
 .interests .icon-box:hover {
   background: rgba(255, 255, 255, 0.12);
 }
-
 
 /*--------------------------------------------------------------
 # Resume
@@ -1003,17 +1002,20 @@ section .container {
   background-color: rgba(255, 255, 255, 0.11);
 }
 
-.contact .php-email-form input::-webkit-input-placeholder, .contact .php-email-form textarea::-webkit-input-placeholder {
+.contact .php-email-form input::-webkit-input-placeholder,
+.contact .php-email-form textarea::-webkit-input-placeholder {
   color: rgba(255, 255, 255, 0.3);
   opacity: 1;
 }
 
-.contact .php-email-form input::-moz-placeholder, .contact .php-email-form textarea::-moz-placeholder {
+.contact .php-email-form input::-moz-placeholder,
+.contact .php-email-form textarea::-moz-placeholder {
   color: rgba(255, 255, 255, 0.3);
   opacity: 1;
 }
 
-.contact .php-email-form input::placeholder, .contact .php-email-form textarea::placeholder {
+.contact .php-email-form input::placeholder,
+.contact .php-email-form textarea::placeholder {
   color: rgba(255, 255, 255, 0.3);
   opacity: 1;
 }
@@ -1043,6 +1045,7 @@ section .container {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -1052,6 +1055,7 @@ section .container {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
