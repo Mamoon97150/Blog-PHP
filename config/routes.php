@@ -23,7 +23,8 @@ App\Router::get('/user/register', 'App\Controller\LoginController@register')->na
 //method
 App\Router::post('/user/signin', 'App\Controller\LoginController@signIn')->name('user.signin');
 App\Router::get('/user/logout', 'App\Controller\LoginController@signOut')->name('user.logout');
-\App\Router::post('/user/signUp', 'App\Controller\LoginController@signUp')->name('user.signUp');
+App\Router::post('/user/signUp', 'App\Controller\LoginController@signUp')->name('user.signUp');
+App\Router::post('/user/change-password', 'App\Controller\UserController@changePassword')->name('user.password');
 
 //ADMIN DASHBOARD
 //views
@@ -39,5 +40,10 @@ App\Router::get('/admin/dashboard/posts/delete/{id}', 'App\Controller\PostContro
 App\Router::get('/admin/dashboard/comments', 'App\Controller\AdminController@adminComments')->name('admin.adminComments');
 App\Router::get('/admin/dashboard/comments/pending', 'App\Controller\AdminController@pendingComments')->name('admin.pendingComments');
 App\Router::get('/admin/dashboard/comments/approve/{id}', 'App\Controller\CommentController@approveComments')->name('admin.approveComments');
-
 //users
+App\Router::get('/admin/dashboard/users', 'App\Controller\AdminController@adminUsers')->name('admin.adminUsers');
+App\Router::get('/admin/dashboard/users/admin', 'App\Controller\AdminController@manageAdmin')->name('admin.manageAdmin');
+App\Router::get('/admin/dashboard/users/users', 'App\Controller\AdminController@manageUser')->name('admin.manageUser');
+App\Router::get('/admin/dashboard/users/delete', 'App\Controller\UserController@deleteUser')->name('user.delete');
+App\Router::get('/admin/dashboard/users/user/{id}', 'App\Controller\UserController@makeUser')->name('admin.makeUser');
+App\Router::get('/admin/dashboard/users/admin/{id}', 'App\Controller\UserController@makeAdmin')->name('admin.makeAdmin');

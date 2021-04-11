@@ -37,7 +37,6 @@ class LoginController extends FrontController
         if (!is_null($user))
         {
             $user->toArray();
-            var_dump($user);
             // check if password is right (hash)
             if (password_verify($request->name('password'), $user['password']))
             {
@@ -81,8 +80,10 @@ class LoginController extends FrontController
             'password' => ['required', "min:5"]
         ]);
 
+        $img = $request->loadFiles('image', 'img/profile/', ['.jpg', '.JPG', '.png', '.PNG', '.jpeg', '.JPEG']);
 
-        $data = $request->name();
+        $data = array_merge_recursive($value, ['img' => '/public/'.$img]);
+
         $user = new \Users();
 
         // check if username exists

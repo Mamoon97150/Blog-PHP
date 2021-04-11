@@ -95,8 +95,9 @@
                     </a>
                     <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="login.html">All users</a>
-                            <a class="collapse-item" href="register.html">Admin</a>
+                            <a class="collapse-item" href="{{ route('admin.adminUsers') }}">All users</a>
+                            <a class="collapse-item" href="{{ route('admin.manageAdmin') }}">Admin</a>
+                            <a class="collapse-item" href="{{ route('admin.manageUser') }}">User</a>
                         </div>
                     </div>
                 </li>

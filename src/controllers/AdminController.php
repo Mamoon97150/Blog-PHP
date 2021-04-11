@@ -71,4 +71,29 @@ class AdminController extends FrontController
         $this->renderView('admin/comments/pending', compact('comments'));
     }
 
+    public function adminUsers()
+    {
+        $user = new \Users();
+        $users = $user->allUsers();
+
+        $this->renderView('admin/users/users', compact('users'));
+
+    }
+
+    public function manageAdmin()
+    {
+        $user = new \Users();
+        $users = $user->userByRole('admin');
+
+        $this->renderView('admin/users/adminRole', compact('users'));
+    }
+
+    public function manageUser()
+    {
+        $user = new \Users();
+        $users = $user->userByRole('user');
+
+        $this->renderView('admin/users/userRole', compact('users'));
+    }
+
 }

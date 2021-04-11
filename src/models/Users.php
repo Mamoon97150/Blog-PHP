@@ -28,21 +28,22 @@ class Users extends Model
         return self::where($column, $value)->orWhere($column2, $value2)->first();
     }
 
-    public function getUser($id)
+    public function userByRole($role)
     {
-        return self::where('id',$id)->first()->toArray();
+        return self::where('role',$role)->get()->toArray();
     }
 
     public function addUser(array $user)
     {
         // Hashing password
-        $password = password_hash($user['password'], PASSWORD_ARGON2I);
+        $password = password_hash($user['password'], PASSWORD_DEFAULT);
 
         // creating new user in db with hashed password
         return self::create([
             'username' => $user['username'],
             'email' => $user['email'],
-            'password' => $password
+            'password' => $password,
+            'img' => $user['img']
         ]);
 
     }
@@ -58,5 +59,17 @@ class Users extends Model
     public function countUsers()
     {
         return self::count();
+    }
+
+    public function eraseUser($id)
+    {
+        return self::destroy($id);
+    }
+
+    public function changeRole($id, $status)
+    {
+        $user = self::find($id);
+        $user->role = $status;
+        $user->save();
     }
 }

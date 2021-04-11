@@ -61,6 +61,8 @@ class HTTPRequest
 
     public function loadFiles($name, $file_destination, array $datatype)
     {
+
+        var_dump($_FILES);
         $file_name = $_FILES[$name]['name'];
         $file_extension = strrchr($file_name, '.');
         $file_tmp = $_FILES[$name]['tmp_name'];
