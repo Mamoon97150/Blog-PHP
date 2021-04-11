@@ -1,5 +1,5 @@
 // Set new default font family and font color to mimic Bootstrap's default styling
-Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+Chart.defaults.global.defaultFontFamily = "Nunito", '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
 function number_format(number, decimals, dec_point, thousands_sep) {
@@ -66,7 +66,7 @@ $(document).ready(function () {
       var ctx = $("#myAreaChart");
 
       var LineGraph = new Chart(ctx, {
-        type: 'line',
+        type: "line",
         data: chartdata,
         options: {
           maintainAspectRatio: false,
@@ -81,7 +81,7 @@ $(document).ready(function () {
           scales: {
             xAxes: [{
               time: {
-                unit: 'date'
+                unit: "date"
               },
               gridLines: {
                 display: false,
@@ -124,12 +124,12 @@ $(document).ready(function () {
             yPadding: 15,
             displayColors: false,
             intersect: false,
-            mode: 'index',
+            mode: "index",
             caretPadding: 10,
             callbacks: {
               label: function(tooltipItem, chart) {
                 var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+                return datasetLabel + ':' + number_format(tooltipItem.yLabel);
               }
             }
           }
@@ -137,8 +137,7 @@ $(document).ready(function () {
       });
     },
     error: function (dataArea) {
-      console.log(dataArea);
-      print("Unable to load Chat data")
+      print("Unable to load Chat data");
     }
   });
 });

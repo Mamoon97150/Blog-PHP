@@ -23,6 +23,7 @@ class Router
 
     public static function run()
     {
+        session_start();
         foreach (self::$request[$_SERVER['REQUEST_METHOD']] as $route)
         {
             if ($route->match(trim($_GET['url']), '/'))
@@ -52,11 +53,6 @@ class Router
                             $path = str_replace("{{$key}}", $value, $path);
 
                         }
-                        return '/'.$path;
-                    }
-                    else
-                    {
-
                         return '/'.$path;
                     }
                 }

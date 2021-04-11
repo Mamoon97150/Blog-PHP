@@ -24,7 +24,6 @@ class CommentController extends FrontController
     {
         $request = new HTTPRequest();
         $comments = new \Comments();
-        $user = new \Users();
 
         if ($request->session('id') == $comment['user_id'] || $request->session('auth') == 'admin')
         {
@@ -38,7 +37,7 @@ class CommentController extends FrontController
     public function approveComments($id)
     {
         $comments = new \Comments();
-        $comment = $comments->approval($id);
+        $comments->approval($id);
 
         return redirect('admin.pendingComments');
     }

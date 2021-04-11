@@ -62,17 +62,3 @@ function authenticator()
         'img' => $request->session('img')
     );
 }
-
-function isAdmin()
-{
-    $request = request();
-
-    if ($request->session('auth') === 'admin')
-    {
-        return true;
-    }
-    else
-    {
-        redirect('user.login');
-    }
-}

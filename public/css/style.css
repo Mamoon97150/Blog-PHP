@@ -5,7 +5,7 @@
 * License: https://bootstrapmade.com/license/
 */
 
-/*--------------------------------------------------------------
+/* --------------------------------------------------------------
 # General
 -------------------------------------------------------------- */
 body {
@@ -43,7 +43,12 @@ a:hover {
   text-decoration: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: "Raleway", sans-serif;
 }
 
@@ -53,14 +58,14 @@ h1, h2, h3, h4, h5, h6 {
 
 .button {
   display: inline-block;
-  padding: .3rem .6rem;
+  padding: 0.3rem 0.6rem;
   text-align: center;
   vertical-align: middle;
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
   font-size: 1rem;
-  border-radius: .3rem;
+  border-radius: 0.3rem;
   border: 1px solid transparent;
   transition: all 500ms ease;
   cursor: pointer;
@@ -84,7 +89,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /*--------------------------------------------------------------
 # Header
---------------------------------------------------------------*/
+-------------------------------------------------------------- */
 #header {
   transition: ease-in-out 0.3s;
   position: relative;
@@ -108,7 +113,8 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Poppins", sans-serif;
 }
 
-#header h1 a, #header h1 a:hover {
+#header h1 a,
+#header h1 a:hover {
   color: #fff;
   line-height: 1;
   display: inline-block;
@@ -185,7 +191,8 @@ h1, h2, h3, h4, h5, h6 {
   background: rgba(0, 0, 0, 0.9);
 }
 
-#header.header-top .social-links, #header.header-top h2 {
+#header.header-top .social-links,
+#header.header-top h2 {
   display: none;
 }
 
@@ -207,6 +214,7 @@ h1, h2, h3, h4, h5, h6 {
   #header.header-top {
     height: 60px;
   }
+
   #header.header-top h1 {
     font-size: 26px;
   }
@@ -217,8 +225,7 @@ h1, h2, h3, h4, h5, h6 {
 --------------------------------------------------------------*/
 
 /*
-* Desktop Navigation 
-*/
+* Desktop Navigation */
 
 .navbar {
   padding: 0;
@@ -273,13 +280,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .navbar a:hover::before,
-.navbar li:hover > a:before,
+.navbar li:hover > a::before,
 .navbar .active::before {
   visibility: visible;
   width: 25px;
 }
 
-.navbar a:hover, .navbar .active, .navbar li:hover > a {
+.navbar a:hover,
+.navbar .active,
+.navbar li:hover > a {
   color: #fff;
 }
 
@@ -383,6 +392,7 @@ section .container {
   section {
     top: 120px;
   }
+
   section.section-show {
     top: 80px;
   }
@@ -396,7 +406,7 @@ section .container {
   margin: 0 0 20px 0;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #aaaaaa;
+  color: #aaa;
   font-family: "Poppins", sans-serif;
 }
 
@@ -410,7 +420,6 @@ section .container {
 }
 
 .section-title p {
-  margin: 0;
   margin: -15px 0 15px 0;
   font-size: 36px;
   font-weight: 700;
@@ -454,7 +463,6 @@ section .container {
   margin-bottom: 0;
 }
 
-
 /*--------------------------------------------------------------
 # Skills
 --------------------------------------------------------------*/
@@ -487,7 +495,7 @@ section .container {
 .skills .progress-bar {
   width: 1px;
   height: 10px;
-  transition: .9s;
+  transition: 0.9s;
   background-color: #ff9d00;
 }
 
@@ -613,7 +621,8 @@ section .container {
   border-radius: 4px;
 }
 
-.blog #blog-filters li:hover, .blog #blog-filters li.filter-active {
+.blog #blog-filters li:hover,
+.blog #blog-filters li.filter-active {
   background: #ff9d00;
 }
 
@@ -656,8 +665,8 @@ section .container {
 .blog-wrap .card-category .category {
   color: #fff;
   display: inline-block;
-  font-size: .7rem;
-  letter-spacing: .1px;
+  font-size: 0.7rem;
+  letter-spacing: 0.1px;
   margin-bottom: 0;
 }
 
@@ -666,8 +675,7 @@ section .container {
   margin-top: 0.6rem;
 }
 
-.card-footer
-{
+.card-footer {
   border-top: white solid 0.1em;
 }
 
@@ -777,7 +785,7 @@ section .container {
   }
 }
 
-/*------/Comments/------*/
+/* ------/Comments/------ */
 .box-comments .list-comments li {
   padding-bottom: 40px;
   list-style: none;
@@ -844,7 +852,7 @@ section .container {
   color: white;
 }
 
-.widget-sidebar .list-sidebar li:before {
+.widget-sidebar .list-sidebar li::before {
   position: absolute;
   content: "";
   width: 10px;
@@ -871,8 +879,8 @@ section .container {
 .widget-tags ul li {
   display: inline-block;
   background-color: #ff9d00;
-  padding: .2rem .6rem;
-  margin-bottom: .5rem;
+  padding: 0.2rem 0.6rem;
+  margin-bottom: 0.5rem;
   border-radius: 15px;
 }
 
@@ -979,7 +987,8 @@ section .container {
   animation: animate-loading 1s linear infinite;
 }
 
-.contact .php-email-form input, .contact .php-email-form textarea {
+.contact .php-email-form input,
+.contact .php-email-form textarea {
   border-radius: 0;
   box-shadow: none;
   font-size: 14px;
