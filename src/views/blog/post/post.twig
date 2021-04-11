@@ -97,7 +97,9 @@
                                                 <label for="textMessage"></label>
                                                 <textarea id="textMessage" class="form-control input-mf" placeholder="Comment *" name="comment" cols="45" rows="8" required></textarea>
                                                 <script>
-                                                    CKEDITOR.replace( 'textMessage' );
+                                                    CKEDITOR.replace( 'textMessage', {
+                                                        toolbar:'basic',
+                                                    } );
                                                 </script>
                                                 {{ error.comment | raw }}
                                             </div>

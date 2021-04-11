@@ -310,7 +310,7 @@
                                 <tbody>
                                 {% for post in posts %}
                                 <tr>
-                                    <td>{{ post.title }}</td>
+                                    <td><a href="{{ route('blog.show', {'id':post.id}) }}">{{ post.title }}</a></td>
                                     <td>{{ post.category.name | capitalize}}</td>
                                     <td>{{ post.user.username}}</td>
                                     <td>{{ post.created_at | format_datetime('short', 'short') }}</td>

@@ -313,6 +313,7 @@
                                     <textarea type="text" class="form-control col-sm-10" id="textareaHook" name="hook" rows="5">{{ post.hook }}</textarea>
                                     <script>
                                         CKEDITOR.replace( 'textareaHook',{
+                                            toolbar:'admin',
                                             height:80,
                                             width: '83%',
                                             extraPlugins: 'autogrow',
@@ -329,6 +330,7 @@
                                     <textarea type="text" class="form-control col-sm-10" id="textareaPost" name="content" placeholder="" rows="15">{{ post.content }}</textarea>
                                     <script>
                                         CKEDITOR.replace( 'textareaPost' , {
+                                            toolbar:'admin',
                                             height:200,
                                             width: '83%',
                                             extraPlugins: 'autogrow',
