@@ -9,15 +9,7 @@ class HomeController extends FrontController
 
     public function show()
     {
+
          $this->renderView('home');
     }
-
-    public function sendEmail()
-    {
-
-    }
-
-
-
-
 }

@@ -29,10 +29,6 @@ class FrontController
         $twig->addExtension(new IntlExtension());
         $twig->addExtension(new MarkdownExtension());
 
-        $twig->addFilter(new TwigFilter('markdown', function ($value){
-            return Markdown::defaultTransform($value);
-        }, ['is_safe' => ['html']]));
-
         $twig->addFunction(new TwigFunction('route', function ($name, $parameters = []) {
             routeName($name, $parameters);
         }));

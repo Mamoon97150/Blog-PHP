@@ -16,6 +16,6 @@
         "illuminate/events": "^8.35",
         "twig/intl-extra": "^3.3",
         "twig/markdown-extra": "^3.3",
-        "michelf/php-markdown": "^1.9"
+        "swiftmailer/swiftmailer": "^6.0"
     }
 }

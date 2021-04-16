@@ -17,7 +17,7 @@
     } else {
       return document.querySelector(el);
     }
-  }
+  };
 
   /**
    * Easy event listener function
@@ -98,41 +98,41 @@
         }, 350);
       } else {
         sections.forEach((item) => {
-          item.classList.remove("section-show")
+          item.classList.remove("section-show");
         })
-        section.classList.add("section-show")
+        section.classList.add("section-show");
       }
 
-      scrollto(this.hash)
+      scrollto(this.hash);
     }
-  }, true)
+  }, true);
 
   /**
    * Activate/show sections on load with hash links
    */
   window.addEventListener("load", () => {
     if (window.location.hash) {
-      let initial_nav = select(window.location.hash)
+      let initialNav = select(window.location.hash);
 
-      if (initial_nav) {
-        let header = select("#header")
-        let navlinks = select("#navbar .nav-link", true)
+      if (initialNav) {
+        let header = select("#header");
+        let navlinks = select("#navbar .nav-link", true);
 
-        header.classList.add("header-top")
+        header.classList.add("header-top");
 
         navlinks.forEach((item) => {
           if (item.getAttribute("href") === window.location.hash) {
-            item.classList.add("active")
+            item.classList.add("active");
           } else {
-            item.classList.remove("active")
+            item.classList.remove("active");
           }
         })
 
         setTimeout(function() {
-          initial_nav.classList.add("section-show")
+          initialNav.classList.add("section-show");
         }, 350);
 
-        scrollto(window.location.hash)
+        scrollto(window.location.hash);
       }
     }
   });
@@ -142,10 +142,10 @@
    */
   const typed = select(".typed")
   if (typed) {
-    let typed_strings = typed.getAttribute("data-typed-items")
-    typed_strings = typed_strings.split(',')
+    let typedStrings = typed.getAttribute("data-typed-items");
+    typedStrings = typedStrings.split(",");
     new Typed(".typed", {
-      strings: typed_strings,
+      strings: typedStrings,
       loop: true,
       typeSpeed: 100,
       backSpeed: 50,
@@ -160,11 +160,11 @@
   if (skilsContent) {
     new Waypoint({
       element: skilsContent,
-      offset: '80%',
+      offset: "80%",
       handler: function(direction) {
         let progress = select(".progress .progress-bar", true);
         progress.forEach((el) => {
-          el.style.width = el.getAttribute("aria-valuenow") + '%'
+          el.style.width = el.getAttribute("aria-valuenow") + "%"
         });
       }
     })
@@ -174,14 +174,14 @@
   /**
    * Porfolio isotope and filter
    */
-  window.addEventListener('load', () => {
-    let blogContainer = select('.blog-container');
+  window.addEventListener("load", () => {
+    let blogContainer = select(".blog-container");
     if (blogContainer) {
       let blogIsotope = new Isotope(blogContainer, {
-        itemSelector: '.blog-item',
+        itemSelector: ".blog-item",
         percentPosition: true,
         masonry: {
-          columnWidth: '.blog-item'
+          columnWidth: ".blog-item"
         }
       });
 
@@ -194,7 +194,7 @@
    * Initiate blog lightbox
    */
   const blogLightbox = GLightbox({
-    selector: '.blog-lightbox'
+    selector: ".blog-lightbox"
   });
 
-})()
+})();

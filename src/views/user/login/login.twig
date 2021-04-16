@@ -28,12 +28,12 @@
                                                 <input type="text" class="form-control form-control-user {{ (error.username in error) ? 'border border-danger' : '' }}"
                                                        id="username" name="username" aria-describedby="emailHelp"
                                                        placeholder="Enter Username..." value="{{ post.username }}">
-                                                <span class="text-danger">{{ error.username | markdown }}</span>
+                                                <span class="text-danger">{{ error.username | raw }}</span>
                                             </div>
                                             <div class="form-group">
                                                 <input type="password" class="form-control form-control-user {{ (error.username in error) ? 'border border-danger' : '' }}"
                                                        id="password" name="password" placeholder="Password" value="{{ post.password }}">
-                                                <span class="text-danger">{{ error.password | markdown }}</span>
+                                                <span class="text-danger">{{ error.password | raw }}</span>
                                             </div>
                                             <div class="form-group">
                                                 <div class="custom-control custom-checkbox small">

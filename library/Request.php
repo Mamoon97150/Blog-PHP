@@ -17,13 +17,14 @@ class Request
         $this->action = $action;
     }
 
+
     public function name(string $name = null)
     {
         $this->routeName[$name][] = $this->path;
         return $this->routeName;
     }
 
-    public function match($url)
+    public function match($url): bool
     {
         $path = preg_replace('#({[\w]+})#', '([^/]+)', $this->path);
         $pathToMatch = "#^$path$#";
@@ -34,10 +35,8 @@ class Request
             $this->parameters = $results;
             return true;
         }
-        else
-        {
-            return false;
-        }
+
+        return false;
     }
 
     public function execute()

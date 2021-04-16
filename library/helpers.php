@@ -14,8 +14,11 @@ function routeName($name ,$parameters = [])
 {
     unset($_SESSION['errors']);
     unset($_SESSION['input']);
+
     $path = \App\Router::url($name, $parameters);
+
     echo $path;
+
 }
 
 function redirect($name, $parameters = [])

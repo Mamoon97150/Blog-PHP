@@ -13,17 +13,15 @@ class HTTPRequest
         $this->posts = $this->name();
     }
 
+    // Récupère le nom des champs ou d'un champ spécifique
     public function name(string $name = null)
     {
         if ($name == null)
         {
             return $_POST;
         }
-        else
-        {
-            return $_POST[$name];
-        }
 
+        return $_POST[$name];
     }
 
     public function except(string $name, $data = [])
@@ -46,6 +44,7 @@ class HTTPRequest
         }
     }
 
+    //creation de la session
     public function session($name, $data = null)
     {
         if (!empty($data) | $data != null)
@@ -59,10 +58,9 @@ class HTTPRequest
     }
 
 
+    //gestion du téléchargement des images ou autre fichiers
     public function loadFiles($name, $file_destination, array $datatype)
     {
-
-        var_dump($_FILES);
         $file_name = $_FILES[$name]['name'];
         $file_extension = strrchr($file_name, '.');
         $file_tmp = $_FILES[$name]['tmp_name'];
@@ -85,6 +83,7 @@ class HTTPRequest
         }
     }
 
+    //validation des formulaire
     public function validator(array $rules)
     {
         foreach ($rules as $key => $valueArray)
@@ -133,7 +132,7 @@ class HTTPRequest
     private function required( $name, $value)
     {
         $value = trim($value);
-        if (!isset($value) || is_null($value) || empty($value))
+        if (!isset($value) || $value === null || empty($value))
         {
             $this->errors[$name][] = '<i class="fas fa-exclamation-triangle"></i>'.ucfirst($name)." is required</br>";
         }
@@ -163,6 +162,7 @@ class HTTPRequest
         }
     }
 
+    //récupération des erreurs  de la session
     public function getErrors()
     {
         if ($this->errors !== null)

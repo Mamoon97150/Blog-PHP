@@ -362,9 +362,9 @@ h6 {
   position: relative;
 }
 
-/*--------------------------------------------------------------
+/* --------------------------------------------------------------
 # Sections General
---------------------------------------------------------------*/
+-------------------------------------------------------------- */
 section {
   overflow: hidden;
   position: absolute;
@@ -755,7 +755,6 @@ section .container {
 .blog-details .post-meta ul a {
   color: #ff9d00;
 }
-
 
 .blog-details .blog-info h3 {
   font-size: 22px;

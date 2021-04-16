@@ -2,7 +2,7 @@
 
 //HOMEPAGE
 App\Router::get('/', 'App\Controller\HomeController@show')->name('home.show');
-App\Router::post('/', 'App\Controller\HomeController@sendEmail');
+App\Router::post('/', 'App\Controller\MailController@sendContactEmail')->name('home.contact');
 
 //BOLG PUBLIC-SIDE
 App\Router::get('/blog', 'App\Controller\BlogController@index')->name('blog.index');
@@ -24,7 +24,7 @@ App\Router::get('/user/register', 'App\Controller\LoginController@register')->na
 App\Router::post('/user/signin', 'App\Controller\LoginController@signIn')->name('user.signin');
 App\Router::get('/user/logout', 'App\Controller\LoginController@signOut')->name('user.logout');
 App\Router::post('/user/signUp', 'App\Controller\LoginController@signUp')->name('user.signUp');
-App\Router::post('/user/change-password', 'App\Controller\UserController@changePassword')->name('user.password');
+App\Router::post('/user/change-password', 'App\Controller\UserController@changePassword')->name('user.change');
 
 //ADMIN DASHBOARD
 //views

@@ -21,7 +21,7 @@ class PostController extends FrontController
         $data = array_merge_recursive($values, ['img' => '/public/'.$img]);
 
         $Post = new \Posts();
-        $post = $Post->createPost($data);
+        $Post->createPost($data);
 
 
 
@@ -38,23 +38,21 @@ class PostController extends FrontController
             'category' => ['required']
         ]);
 
-        if (!is_null($img))
+        if ($img === null)
         {
             $values = $request->except('img', $values);
             $data = array_merge_recursive($values, ['img' => '/public/'.$img]);
 
             $Post = new \Posts();
-            $post = $Post->updatePost($id, $data);
+            $Post->updatePost($id, $data);
 
             return redirect('admin.adminPost');
         }
-        else
-        {
-            $Post = new \Posts();
-            $post = $Post->updatePost($id, $values);
 
-            return redirect('admin.adminPost');
-        }
+        $Post = new \Posts();
+        $Post->updatePost($id, $values);
+
+        return redirect('admin.adminPost');
     }
 
 
@@ -62,7 +60,7 @@ class PostController extends FrontController
     public function deletePost($id)
     {
         $Post = new \Posts();
-        $post = $Post->erasePost($id);
+        $Post->erasePost($id);
 
         return redirect('admin.adminPost');
     }
