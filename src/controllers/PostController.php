@@ -5,9 +5,12 @@ namespace App\Controller;
 
 
 use App\HTTPRequest;
+use App\Model\Posts as PostModel;
+use App\Entity\Posts;
 
 class PostController extends FrontController
 {
+
 
     public function createPost(HTTPRequest $request)
     {
@@ -19,11 +22,9 @@ class PostController extends FrontController
             'category' => ['required']
         ]);
         $data = array_merge_recursive($values, ['img' => '/public/'.$img]);
+        $post = new Posts($data);
 
-        $Post = new \Posts();
-        $Post->createPost($data);
-
-
+        (new PostModel())->createPost($post);
 
         return redirect('admin.adminPost');
     }
@@ -38,19 +39,18 @@ class PostController extends FrontController
             'category' => ['required']
         ]);
 
-        if ($img === null)
+        if ($img !== null)
         {
             $values = $request->except('img', $values);
             $data = array_merge_recursive($values, ['img' => '/public/'.$img]);
 
-            $Post = new \Posts();
-            $Post->updatePost($id, $data);
+
+            (new PostModel())->updatePost($id, $data);
 
             return redirect('admin.adminPost');
         }
 
-        $Post = new \Posts();
-        $Post->updatePost($id, $values);
+        (new PostModel())->updatePost($id, $values);
 
         return redirect('admin.adminPost');
     }
@@ -59,8 +59,7 @@ class PostController extends FrontController
 
     public function deletePost($id)
     {
-        $Post = new \Posts();
-        $Post->erasePost($id);
+        (new PostModel())->erasePost($id);
 
         return redirect('admin.adminPost');
     }

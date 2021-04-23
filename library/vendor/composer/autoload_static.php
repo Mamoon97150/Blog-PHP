@@ -10,15 +10,19 @@ class ComposerStaticInitb9d83f6f0738d82f938e8bba4c3b5ba7
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
-        '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
+        '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '60799491728b879e74601d83e38b2cad' => __DIR__ . '/..' . '/illuminate/collections/helpers.php',
         '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
+        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
+        'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
+        'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
         'ef65a1626449d89d0811cf9befce46f0' => __DIR__ . '/..' . '/illuminate/events/functions.php',
+        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '0891f4079d1799e9d57a134b78547247' => __DIR__ . '/../..' . '/../config/routes.php',
         '4399ac6fb47cf6a3ab6cc2b5e90e2b96' => __DIR__ . '/../..' . '/../config/database.php',
         '4c66391ade646cc8c22fbacbbb450d5f' => __DIR__ . '/../..' . '/helpers.php',
@@ -40,10 +44,13 @@ class ComposerStaticInitb9d83f6f0738d82f938e8bba4c3b5ba7
         array (
             'Symfony\\Polyfill\\Php80\\' => 23,
             'Symfony\\Polyfill\\Php73\\' => 23,
+            'Symfony\\Polyfill\\Php72\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Intl\\Normalizer\\' => 33,
+            'Symfony\\Polyfill\\Intl\\Idn\\' => 26,
             'Symfony\\Polyfill\\Intl\\Icu\\' => 26,
             'Symfony\\Polyfill\\Intl\\Grapheme\\' => 31,
+            'Symfony\\Polyfill\\Iconv\\' => 23,
             'Symfony\\Polyfill\\Ctype\\' => 23,
             'Symfony\\Contracts\\Translation\\' => 30,
             'Symfony\\Contracts\\Service\\' => 26,
@@ -57,10 +64,6 @@ class ComposerStaticInitb9d83f6f0738d82f938e8bba4c3b5ba7
             'Psr\\SimpleCache\\' => 16,
             'Psr\\Container\\' => 14,
         ),
-        'M' => 
-        array (
-            'Michelf\\' => 8,
-        ),
         'I' => 
         array (
             'Illuminate\\Support\\' => 19,
@@ -71,9 +74,14 @@ class ComposerStaticInitb9d83f6f0738d82f938e8bba4c3b5ba7
             'Illuminate\\Container\\' => 21,
             'Illuminate\\Bus\\' => 15,
         ),
+        'E' => 
+        array (
+            'Egulias\\EmailValidator\\' => 23,
+        ),
         'D' => 
         array (
             'Doctrine\\Inflector\\' => 19,
+            'Doctrine\\Common\\Lexer\\' => 22,
         ),
         'C' => 
         array (
@@ -81,6 +89,8 @@ class ComposerStaticInitb9d83f6f0738d82f938e8bba4c3b5ba7
         ),
         'A' => 
         array (
+            'App\\Model\\' => 10,
+            'App\\Entity\\' => 11,
             'App\\Controller\\' => 15,
             'App\\' => 4,
         ),
@@ -115,6 +125,10 @@ class ComposerStaticInitb9d83f6f0738d82f938e8bba4c3b5ba7
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php73',
         ),
+        'Symfony\\Polyfill\\Php72\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php72',
+        ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
@@ -123,6 +137,10 @@ class ComposerStaticInitb9d83f6f0738d82f938e8bba4c3b5ba7
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer',
         ),
+        'Symfony\\Polyfill\\Intl\\Idn\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-intl-idn',
+        ),
         'Symfony\\Polyfill\\Intl\\Icu\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-icu',
@@ -130,6 +148,10 @@ class ComposerStaticInitb9d83f6f0738d82f938e8bba4c3b5ba7
         'Symfony\\Polyfill\\Intl\\Grapheme\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme',
+        ),
+        'Symfony\\Polyfill\\Iconv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-iconv',
         ),
         'Symfony\\Polyfill\\Ctype\\' => 
         array (
@@ -167,10 +189,6 @@ class ComposerStaticInitb9d83f6f0738d82f938e8bba4c3b5ba7
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
-        'Michelf\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/michelf/php-markdown/Michelf',
-        ),
         'Illuminate\\Support\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/collections',
@@ -201,13 +219,29 @@ class ComposerStaticInitb9d83f6f0738d82f938e8bba4c3b5ba7
         array (
             0 => __DIR__ . '/..' . '/illuminate/bus',
         ),
+        'Egulias\\EmailValidator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/egulias/email-validator/src',
+        ),
         'Doctrine\\Inflector\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector',
         ),
+        'Doctrine\\Common\\Lexer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer',
+        ),
         'Carbon\\' => 
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
+        ),
+        'App\\Model\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/../src/models',
+        ),
+        'App\\Entity\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/../src/entity',
         ),
         'App\\Controller\\' => 
         array (
@@ -217,10 +251,6 @@ class ComposerStaticInitb9d83f6f0738d82f938e8bba4c3b5ba7
         array (
             0 => __DIR__ . '/../..' . '/',
         ),
-    );
-
-    public static $fallbackDirsPsr4 = array (
-        0 => __DIR__ . '/../..' . '/../src/models',
     );
 
     public static $classMap = array (
@@ -242,7 +272,6 @@ class ComposerStaticInitb9d83f6f0738d82f938e8bba4c3b5ba7
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitb9d83f6f0738d82f938e8bba4c3b5ba7::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitb9d83f6f0738d82f938e8bba4c3b5ba7::$prefixDirsPsr4;
-            $loader->fallbackDirsPsr4 = ComposerStaticInitb9d83f6f0738d82f938e8bba4c3b5ba7::$fallbackDirsPsr4;
             $loader->classMap = ComposerStaticInitb9d83f6f0738d82f938e8bba4c3b5ba7::$classMap;
 
         }, null, ClassLoader::class);

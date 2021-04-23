@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use Michelf\Markdown;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
 use Twig\Extra\Intl\IntlExtension;

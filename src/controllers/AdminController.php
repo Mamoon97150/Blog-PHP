@@ -6,18 +6,22 @@ namespace App\Controller;
 
 
 use App\HTTPRequest;
+use App\Model\Category;
+use App\Model\Comments;
+use App\Model\Posts;
+use App\Model\Users;
 
 class AdminController extends FrontController
 {
     public function index()
     {
-        $Posts = new \Posts();
+        $Posts = new Posts();
         $post = $Posts->lastPosts();
 
-        $Users = new \Users();
+        $Users = new Users();
         $users = $Users->countUsers();
 
-        $Comments = new \Comments();
+        $Comments = new Comments();
         $commentsPending = $Comments->commentsCount('approved', '0');
         $comments = $Comments->countComments();
 
@@ -26,7 +30,7 @@ class AdminController extends FrontController
 
     public function adminPost()
     {
-        $Post = new \Posts();
+        $Post = new Posts();
 
         $posts = $Post->allPosts();
 
@@ -35,7 +39,7 @@ class AdminController extends FrontController
 
     public function addPost()
     {
-        $Category = new \Category();
+        $Category = new Category();
         $categories = $Category->allCategories();
 
         $this->renderView('admin/posts/addpost', compact('categories'));
@@ -43,10 +47,10 @@ class AdminController extends FrontController
 
     public function editPost($id)
     {
-        $Category = new \Category();
+        $Category = new Category();
         $categories = $Category->allCategories();
 
-        $Posts = new \Posts();
+        $Posts = new Posts();
         $post = $Posts->showPost($id);
 
 
@@ -55,7 +59,7 @@ class AdminController extends FrontController
 
     public function adminComments()
     {
-        $comment = new \Comments();
+        $comment = new Comments();
 
         $comments = $comment->allComments();
 
@@ -64,7 +68,7 @@ class AdminController extends FrontController
 
     public function pendingComments()
     {
-        $comment = new \Comments();
+        $comment = new Comments();
 
         $comments = $comment->commentsPendingApproval();
 
@@ -73,7 +77,7 @@ class AdminController extends FrontController
 
     public function adminUsers()
     {
-        $user = new \Users();
+        $user = new Users();
         $users = $user->allUsers();
 
         $this->renderView('admin/users/users', compact('users'));
@@ -82,7 +86,7 @@ class AdminController extends FrontController
 
     public function manageAdmin()
     {
-        $user = new \Users();
+        $user = new Users();
         $users = $user->userByRole('admin');
 
         $this->renderView('admin/users/adminRole', compact('users'));
@@ -90,7 +94,7 @@ class AdminController extends FrontController
 
     public function manageUser()
     {
-        $user = new \Users();
+        $user = new Users();
         $users = $user->userByRole('user');
 
         $this->renderView('admin/users/userRole', compact('users'));

@@ -5,6 +5,8 @@ namespace App\Controller;
 
 
 use App\HTTPRequest;
+use App\Model\Users as UserModel;
+use App\Entity\Users;
 
 class LoginController extends FrontController
 {
@@ -30,8 +32,7 @@ class LoginController extends FrontController
             'password' => ['required']
         ]);
 
-        $Users = new \Users();
-        $user = $Users->findUser('username', $request->name('username'), 'email', $request->name('username'));
+        $user = (new UserModel())->findUser('username', $request->name('username'), 'email', $request->name('username'));
 
 
         if (!is_null($user))

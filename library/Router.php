@@ -5,7 +5,7 @@ namespace App;
 
 class Router
 {
-    protected static $request;
+    private static $request;
 
     //stockage d'une route GET dans $request
     public static function get( string  $path, $action)

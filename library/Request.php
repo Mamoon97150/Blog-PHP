@@ -4,11 +4,11 @@ namespace App;
 
 class Request
 {
-    protected $path;
-    protected $action;
-    protected $parameters = [];
-    protected $request;
-    protected $routeName = [];
+    private $path;
+    private $action;
+    private $parameters = [];
+    private $request;
+    private $routeName = [];
 
     public function __construct(string $path, $action)
     {

@@ -1,5 +1,6 @@
 <?php
 
+namespace App\Model;
 
 class Category extends Model
 {
@@ -9,9 +10,9 @@ class Category extends Model
         return $this->hasMany(Posts::class);
     }
 
-    public function categoryOfPost($post)
+    public function categoryOfPost(\App\Entity\Posts $post)
     {
-        return self::where('id', $post['category_id'])->first();
+        return self::where('id', $post->getCategoryId())->first();
     }
 
     public function allCategories()

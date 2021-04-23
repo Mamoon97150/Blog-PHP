@@ -1,7 +1,8 @@
 <?php
 
+namespace App\Model;
 
-
+use App\Entity\Posts;
 
 class Users extends Model
 {
@@ -13,9 +14,9 @@ class Users extends Model
         return $this->hasMany(Posts::class);
     }
 
-    public function author($post)
+    public function author(Posts $post)
     {
-        return self::where('id', $post['user_id'])->first();
+        return self::where('id', $post->getUserId())->first();
     }
 
     public function allUsers()

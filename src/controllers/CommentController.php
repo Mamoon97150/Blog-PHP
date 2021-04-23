@@ -5,6 +5,8 @@ namespace App\Controller;
 
 
 use App\HTTPRequest;
+use App\Model\Comments as CommentModel;
+use App\Entity\Comment;
 
 class CommentController extends FrontController
 {
@@ -15,8 +17,9 @@ class CommentController extends FrontController
             'comment' => ['required']
         ]);
 
-        $comment = new \Comments();
-        $comment->addComment($message);
+        $comment = new Comment($message);
+        (new CommentModel())->addComment($comment);
+
         return redirect('blog.show',['id' => $id]);
     }
 

@@ -69,7 +69,7 @@
                                                 <p>
                                                     <span>published on {{ comment.updated_at | format_datetime('short', 'short')}}</span>
                                                 </p>
-                                                {{ comment.comment | markdown }}
+                                                {{ comment.comment | raw }}
                                                 {% if auth.id == comment.user_id or auth.status == 'admin'%}
                                                     <a class="float-end" href="{{ route('comment.delete', {'id':comment.id, 'postId':post.id}) }}">Delete</a>
                                                 {% endif %}

@@ -5,8 +5,8 @@ namespace App;
 
 class HTTPRequest
 {
-    protected $posts;
-    protected $errors;
+    private $posts;
+    private $errors;
 
     public function __construct()
     {

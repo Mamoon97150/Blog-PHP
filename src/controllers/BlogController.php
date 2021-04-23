@@ -4,52 +4,45 @@
 namespace App\Controller;
 
 
-use App\HTTPRequest;
+use App\Entity\Posts;
+use App\Model\Posts as PostModel;
+use App\Model\Comments as CommentModel;
+use App\Model\Category as CategoryModel;
+use App\Model\Users as UserModel;
 
 class BlogController extends FrontController
 {
     public function index()
     {
-
-       $posts = new \Posts();
-       $posts = $posts->allPosts();
-
+        $posts = (new PostModel())->allPosts();
         $this->renderView('blog/blog', compact('posts'));
     }
 
     public function indexUser($id)
     {
-        $posts = new \Posts();
-        $posts = $posts->postsBy('user_id', $id);
-
+        $posts = (new PostModel())->postsBy('user_id', $id);
         $this->renderView('blog/blog', compact('posts'));
     }
 
     public function indexCategory($id)
     {
-        $posts = new \Posts();
-        $posts = $posts->postsBy('category_id', $id);
-
+        $posts = (new PostModel())->postsBy('category_id', $id);
         $this->renderView('blog/blog', compact('posts'));
     }
 
     public function show($id)
     {
+        $data = (new PostModel())->showPost($id);
+        $post = new Posts($data);
+        $posts = ( new PostModel())->recentPosts();
 
-        $Post = new \Posts();
-        $post = $Post->showPost($id);
-        $posts = $Post->recentPosts();
+        $comments = (new CommentModel())->commentsByPost($id);
+        $count = (new CommentModel())->commentsCount('post_id', $id);
 
-        $Comments = new \Comments();
-        $comments = $Comments->commentsByPost($id);
-        $count = $Comments->commentsCount('post_id', $id);
+        $category = (new CategoryModel())->categoryOfPost($post);
+        $categories = (new CategoryModel())->allCategories();
 
-        $Category = new \Category();
-        $category = $Category->categoryOfPost($post);
-        $categories = $Category->allCategories();
-
-        $Users = new \Users();
-        $user = $Users->author($post);
+        $user = (new UserModel())->author($post);
 
         $this->renderView('blog/post/post', compact(['posts', 'post', 'categories', 'category', 'user', 'comments', 'count']));
     }

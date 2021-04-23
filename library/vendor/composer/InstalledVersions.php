@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '127b70d57ff4e5e3963befea244e1efbf102bf48',
+    'reference' => '344fd72990803342a2d9abf8f897967f67c1b232',
     'name' => 'djamina/p5',
   ),
   'versions' => 
@@ -42,7 +42,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '127b70d57ff4e5e3963befea244e1efbf102bf48',
+      'reference' => '344fd72990803342a2d9abf8f897967f67c1b232',
     ),
     'doctrine/inflector' => 
     array (
