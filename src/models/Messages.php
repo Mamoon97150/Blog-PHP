@@ -7,6 +7,7 @@ use App\Entity\Messages as Message;
 
 class Messages extends Model
 {
+    protected $guarded = [];
     public function addMessage(Message $data)
     {
         return self::create([
