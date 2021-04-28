@@ -33,7 +33,15 @@ class BlogController extends FrontController
     public function show($id)
     {
         $data = (new PostModel())->showPost($id);
-        $post = new Posts($data);
+        $post = (new Posts())
+            ->setId($data['id'])
+            ->setHook($data['hook'])
+            ->setTitle($data['title'])
+            ->setContent($data['content'])
+            ->setCategoryId($data['category_id'])
+            ->setUserId($data['user_id'])
+            ->setImg($data['img'])
+        ;
         $posts = ( new PostModel())->recentPosts();
 
         $comments = (new CommentModel())->commentsByPost($id);

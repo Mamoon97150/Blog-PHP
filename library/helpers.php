@@ -1,6 +1,8 @@
 <?php
 
-function request( $instance = null)
+use App\Controller\FrontController;
+
+function request($instance = null)
 {
    if ($instance == null)
    {
@@ -27,6 +29,20 @@ function redirect($name, $parameters = [])
     unset($_SESSION['input']);
     $path = \App\Router::url($name, $parameters);
     header(('location:'.$path));
+}
+
+function redirect404()
+{
+    header('HTTP/1.0 404 Not Found');
+    (new FrontController())->renderView("404");
+    exit();
+}
+
+function redirect403()
+{
+    header('HTTP/1.0 403 Access Denied');
+    (new FrontController())->renderView("403");
+    exit();
 }
 
 function setPost()

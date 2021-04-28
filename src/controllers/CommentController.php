@@ -17,7 +17,12 @@ class CommentController extends FrontController
             'comment' => ['required']
         ]);
 
-        $comment = new Comment($message);
+        $comment = (new Comment())
+            ->setId($message['id'])
+            ->setPostId($message['post_id'])
+            ->setUserId($message['user_id'])
+            ->setComment($message['comment'])
+        ;
         (new CommentModel())->addComment($comment);
 
         return redirect('blog.show',['id' => $id]);
@@ -26,12 +31,10 @@ class CommentController extends FrontController
     public function delete($id, $postId)
     {
         $request = new HTTPRequest();
-        $comments = new \Comments();
 
         if ($request->session('id') == $comment['user_id'] || $request->session('auth') == 'admin')
         {
-            $comment = new \Comments();
-            $comment->eraseComment($id);
+            (new CommentModel())->eraseComment($id);
         };
 
         return redirect('blog.show', ['id' => $postId]);
@@ -39,8 +42,7 @@ class CommentController extends FrontController
 
     public function approveComments($id)
     {
-        $comments = new \Comments();
-        $comments->approval($id);
+        (new CommentModel())->approval($id);
 
         return redirect('admin.pendingComments');
     }

@@ -2,7 +2,7 @@
 
 require_once "../library/vendor/autoload.php";
 
-$Comments = new \Comments();
+$Comments = new \App\Model\Comments();
 
 $commentsData = $Comments->commentsByDate();
 

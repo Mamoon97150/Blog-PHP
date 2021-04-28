@@ -5,13 +5,15 @@ namespace App\Controller;
 
 
 use App\HTTPRequest;
+use App\Model\Users as UserModel;
+use App\Entity\Users;
 
 class UserController extends FrontController
 {
     public function deleteUser($id)
     {
         $request = new HTTPRequest();
-        $users = new \Users();
+        $users = new UserModel();
 
         if ($request->session('auth') == 'admin')
         {
@@ -23,7 +25,7 @@ class UserController extends FrontController
 
     public function makeAdmin($id)
     {
-        $users = new \Users();
+        $users = new UserModel();
         $users->changeRole($id , 'admin');
 
         return redirect('admin.adminUsers');
@@ -31,7 +33,7 @@ class UserController extends FrontController
 
     public function makeUser($id)
     {
-        $users = new \Users();
+        $users = new UserModel();
         $users->changeRole($id , 'user');
 
         return redirect('admin.adminUsers');

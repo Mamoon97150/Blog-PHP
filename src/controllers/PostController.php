@@ -22,7 +22,15 @@ class PostController extends FrontController
             'category' => ['required']
         ]);
         $data = array_merge_recursive($values, ['img' => '/public/'.$img]);
-        $post = new Posts($data);
+        $post = (new Posts())
+            ->setHook($data['hook'])
+            ->setTitle($data['title'])
+            ->setContent($data['content'])
+            ->setCategoryId($data['category_id'])
+            ->setImg($data['img'])
+            ->setUserId($data['user_id'])
+        ;
+
 
         (new PostModel())->createPost($post);
 
@@ -43,7 +51,6 @@ class PostController extends FrontController
         {
             $values = $request->except('img', $values);
             $data = array_merge_recursive($values, ['img' => '/public/'.$img]);
-
 
             (new PostModel())->updatePost($id, $data);
 

@@ -14,22 +14,6 @@ class Comment
     protected mixed $updatedAt;
     protected mixed $approved;
 
-    public function __construct(array $data)
-    {
-        $this->hydrate($data);
-    }
-
-    public function hydrate(array $data)
-    {
-        $this->id = $data['id'];
-        $this->postId = $data['post_id'];
-        $this->userId = $data['user_id'];
-        $this->comment = $data['comment'];
-        $this->createdAt = $data['created_at'];
-        $this->updatedAt = $data['created_at'];
-        $this->approved = $data['approved'];
-    }
-
     /**
      * @return int
      */
@@ -47,27 +31,11 @@ class Comment
     }
 
     /**
-     * @param int $postId
-     */
-    public function setPostId(int $postId): void
-    {
-        $this->postId = $postId;
-    }
-
-    /**
      * @return int
      */
     public function getUserId(): int
     {
         return $this->userId;
-    }
-
-    /**
-     * @param int $userId
-     */
-    public function setUserId(int $userId): void
-    {
-        $this->userId = $userId;
     }
 
     /**
@@ -79,27 +47,11 @@ class Comment
     }
 
     /**
-     * @param string $comment
-     */
-    public function setComment(string $comment): void
-    {
-        $this->comment = $comment;
-    }
-
-    /**
      * @return mixed
      */
     public function getCreatedAt(): mixed
     {
         return $this->createdAt;
-    }
-
-    /**
-     * @param mixed $createdAt
-     */
-    public function setCreatedAt(mixed $createdAt): void
-    {
-        $this->createdAt = $createdAt;
     }
 
     /**
@@ -111,14 +63,6 @@ class Comment
     }
 
     /**
-     * @param mixed $updatedAt
-     */
-    public function setUpdatedAt(mixed $updatedAt): void
-    {
-        $this->updatedAt = $updatedAt;
-    }
-
-    /**
      * @return mixed
      */
     public function getApproved(): mixed
@@ -127,11 +71,74 @@ class Comment
     }
 
     /**
-     * @param mixed $approved
+     * @param int $id
+     * @return Comment
      */
-    public function setApproved(mixed $approved): void
+    public function setId(int $id): Comment
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @param int $postId
+     * @return Comment
+     */
+    public function setPostId(int $postId): Comment
+    {
+        $this->postId = $postId;
+        return $this;
+    }
+
+    /**
+     * @param int $userId
+     * @return Comment
+     */
+    public function setUserId(int $userId): Comment
+    {
+        $this->userId = $userId;
+        return $this;
+    }
+
+    /**
+     * @param string $comment
+     * @return Comment
+     */
+    public function setComment(string $comment): Comment
+    {
+        $this->comment = $comment;
+        return $this;
+    }
+
+    /**
+     * @param mixed $createdAt
+     * @return Comment
+     */
+    public function setCreatedAt(mixed $createdAt): Comment
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @param mixed $updatedAt
+     * @return Comment
+     */
+    public function setUpdatedAt(mixed $updatedAt): Comment
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    /**
+     * @param mixed $approved
+     * @return Comment
+     */
+    public function setApproved(mixed $approved): Comment
     {
         $this->approved = $approved;
+        return $this;
     }
+
 
 }

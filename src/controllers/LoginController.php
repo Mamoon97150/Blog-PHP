@@ -85,7 +85,7 @@ class LoginController extends FrontController
 
         $data = array_merge_recursive($value, ['img' => '/public/'.$img]);
 
-        $user = new \Users();
+        $user = new UserModel();
 
         // check if username exists
         if ($user->userExists('username', $data['username']) == false)

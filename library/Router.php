@@ -3,6 +3,8 @@
 namespace App;
 
 
+use App\Controller\FrontController;
+
 class Router
 {
     private static $request;
@@ -34,8 +36,8 @@ class Router
                 $route->execute();
                 die();
             }
-            header('HTTP/1.0 404 Not Found');
         }
+        return redirect404();
     }
 
     //parcourir les routes stockées et trouver la route associé

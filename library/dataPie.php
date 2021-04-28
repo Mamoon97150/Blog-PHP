@@ -1,8 +1,8 @@
 <?php
 require_once "../library/vendor/autoload.php";
 
-$Category = new \Category();
-$Posts = new \Posts();
+$Category = new \App\Model\Category();
+$Posts = new \App\Model\Posts();
 
 $data = $Category->postsInCategory();
 

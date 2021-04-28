@@ -12,6 +12,7 @@ use Twig\TwigFunction;
 use Twig\Loader\FilesystemLoader;
 
 
+
 class FrontController
 {
     public function renderView(string $path, $data = [])

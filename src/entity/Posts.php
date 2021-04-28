@@ -4,35 +4,20 @@
 namespace App\Entity;
 
 
+use DateTime;
+
 class Posts
 {
-    protected mixed $id;
-    protected int $categoryId;
-    protected string $title;
-    protected string $hook;
-    protected string $content;
-    protected mixed $createdAt;
-    protected mixed $updatedAt;
-    protected string $img;
-    protected int $userId;
+    private ?int $id;
+    private int $categoryId;
+    private string $title;
+    private string $hook;
+    private string $content;
+    private ?DateTime $createdAt;
+    private ?DateTime $updatedAt;
+    private string $img;
+    private int $userId;
 
-    public function __construct(array $data)
-    {
-        $this->hydrate($data);
-    }
-
-    public function hydrate(array $data)
-    {
-        $this->id = $data['id'];
-        $this->categoryId = $data['category_id'];
-        $this->title = $data['title'];
-        $this->hook = $data['hook'];
-        $this->content = $data['content'];
-        $this->createdAt = $data['created_at'];
-        $this->updatedAt = $data['updated_at'];
-        $this->img = $data['img'];
-        $this->userId = $data['user_id'];
-    }
 
     /**
      * @return int
@@ -53,9 +38,10 @@ class Posts
     /**
      * @param int $categoryId
      */
-    public function setCategoryId(int $categoryId): void
+    public function setCategoryId(int $categoryId): Posts
     {
         $this->categoryId = $categoryId;
+        return $this;
     }
 
     /**
@@ -69,9 +55,10 @@ class Posts
     /**
      * @param string $title
      */
-    public function setTitle(string $title): void
+    public function setTitle(string $title): Posts
     {
         $this->title = $title;
+        return $this;
     }
 
     /**
@@ -85,9 +72,10 @@ class Posts
     /**
      * @param mixed $hook
      */
-    public function setHook($hook): void
+    public function setHook($hook): Posts
     {
         $this->hook = $hook;
+        return $this;
     }
 
     /**
@@ -101,9 +89,10 @@ class Posts
     /**
      * @param mixed $content
      */
-    public function setContent($content): void
+    public function setContent($content): Posts
     {
         $this->content = $content;
+        return $this;
     }
 
     /**
@@ -133,9 +122,10 @@ class Posts
     /**
      * @param mixed $img
      */
-    public function setImg($img): void
+    public function setImg($img): Posts
     {
         $this->img = $img;
+        return $this;
     }
 
     /**
@@ -149,9 +139,40 @@ class Posts
     /**
      * @param int $userId
      */
-    public function setUserId(int $userId): void
+    public function setUserId(int $userId): Posts
     {
         $this->userId = $userId;
+        return $this;
+    }
+
+    /**
+     * @param int|null $id
+     * @return Posts
+     */
+    public function setId(?int $id): Posts
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @param DateTime|null $createdAt
+     * @return Posts
+     */
+    public function setCreatedAt(?DateTime $createdAt): Posts
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @param DateTime|null $updatedAt
+     * @return Posts
+     */
+    public function setUpdatedAt(?DateTime $updatedAt): Posts
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
     }
 
 

@@ -185,6 +185,4 @@ class HTTPRequest
     {
         header('location: '.$this->lastUrl());
     }
-
-
 }
