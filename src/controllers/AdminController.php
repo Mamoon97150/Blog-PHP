@@ -6,79 +6,66 @@ namespace App\Controller;
 
 
 use App\HTTPRequest;
-use App\Model\Category;
-use App\Model\Comments;
-use App\Model\Posts;
-use App\Model\Users;
+use App\Model\Posts as PostModel;
+use App\Model\Comments as CommentModel;
+use App\Model\Category as CategoryModel;
+use App\Model\Users as UserModel;
 
 class AdminController extends FrontController
 {
     public function index()
     {
-        $Posts = new Posts();
-        $post = $Posts->lastPosts();
 
-        $Users = new Users();
-        $users = $Users->countUsers();
-
-        $Comments = new Comments();
-        $commentsPending = $Comments->commentsCount('approved', '0');
-        $comments = $Comments->countComments();
+        $post = (new PostModel())->lastPosts();
+        $users =(new UserModel())->countUsers();
+        $commentsPending = (new CommentModel())->commentsCount('approved', '0');
+        $comments = (new CommentModel())->countComments();
 
         $this->renderView('admin/home', compact(['post', 'users', 'commentsPending', 'comments']));
     }
 
     public function adminPost()
     {
-        $Post = new Posts();
-
-        $posts = $Post->allPosts();
+        $postsData = (new PostModel())->allPosts();
+        $posts = (new PostController())->showPostList($postsData);
 
         $this->renderView('admin/posts/posts', compact('posts'));
     }
 
     public function addPost()
     {
-        $Category = new Category();
-        $categories = $Category->allCategories();
-
+        $categories = (new CategoryModel())->allCategories();
         $this->renderView('admin/posts/addpost', compact('categories'));
     }
 
-    public function editPost($id)
+    public function editPost($postId)
     {
-        $Category = new Category();
-        $categories = $Category->allCategories();
-
-        $Posts = new Posts();
-        $post = $Posts->showPost($id);
-
+        $categories = (new CategoryModel())->allCategories();
+        $post = (new PostController())->showPost($postId);
 
         $this->renderView('admin/posts/editpost', compact(['categories', 'post']));
     }
 
     public function adminComments()
     {
-        $comment = new Comments();
-
-        $comments = $comment->allComments();
+        $commentsData = (new CommentModel())->allComments();
+        $comments = (new CommentController())->showCommentList($commentsData);
 
         $this->renderView('admin/comments/comments', compact('comments'));
     }
 
     public function pendingComments()
     {
-        $comment = new Comments();
-
-        $comments = $comment->commentsPendingApproval();
+        $commentsData = (new CommentModel())->commentsPendingApproval();
+        $comments = (new CommentController())->showCommentList($commentsData);
 
         $this->renderView('admin/comments/pending', compact('comments'));
     }
 
     public function adminUsers()
     {
-        $user = new Users();
-        $users = $user->allUsers();
+        $usersData = (new UserModel())->allUsers();
+        $users = (new UserController())->showUserList($usersData);
 
         $this->renderView('admin/users/users', compact('users'));
 
@@ -86,16 +73,16 @@ class AdminController extends FrontController
 
     public function manageAdmin()
     {
-        $user = new Users();
-        $users = $user->userByRole('admin');
+        $usersData = (new UserModel())->userByRole('admin');
+        $users = (new UserController())->showUserList($usersData);
 
         $this->renderView('admin/users/adminRole', compact('users'));
     }
 
     public function manageUser()
     {
-        $user = new Users();
-        $users = $user->userByRole('user');
+        $usersData = (new UserModel())->userByRole('user');
+        $users = (new UserController())->showUserList($usersData);
 
         $this->renderView('admin/users/userRole', compact('users'));
     }

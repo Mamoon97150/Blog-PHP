@@ -2,7 +2,7 @@
 
 //HOMEPAGE
 App\Router::get('/', 'App\Controller\HomeController@show')->name('home.show');
-App\Router::post('/', 'App\Controller\MailController@sendContactEmail')->name('home.contact');
+App\Router::post('/', 'App\Controller\MessageController@createMessage')->name('home.contact');
 
 //BOLG PUBLIC-SIDE
 App\Router::get('/blog', 'App\Controller\BlogController@index')->name('blog.index');
@@ -47,3 +47,4 @@ App\Router::get('/admin/dashboard/users/users', 'App\Controller\AdminController@
 App\Router::get('/admin/dashboard/users/delete', 'App\Controller\UserController@deleteUser')->name('user.delete');
 App\Router::get('/admin/dashboard/users/user/{id}', 'App\Controller\UserController@makeUser')->name('admin.makeUser');
 App\Router::get('/admin/dashboard/users/admin/{id}', 'App\Controller\UserController@makeAdmin')->name('admin.makeAdmin');
+//message

@@ -10,6 +10,74 @@ use App\Entity\Users;
 
 class UserController extends FrontController
 {
+    public function createUser(HTTPRequest $request, array $data)
+    {
+        $user = new UserModel();
+
+        // check if username exists
+        if ($user->userExists('username', $data['username']) == false)
+        {
+            //check if email exists
+            if ($user->userExists('email', $data['email']) == false)
+            {
+                $user->addUser($data);
+            }
+            else
+            {
+                return $request->validator([ 'email' => ['exists'] ]);
+            }
+        }
+        else
+        {
+            return $request->validator([ 'username' => ['exists'] ]);
+        }
+
+    }
+
+    public function verifyUser(HTTPRequest $request, $user)
+    {
+        $user->toArray();
+        if (password_verify($request->name('password'), $user['password']))
+        {
+            $request->session('auth', $user['role']);
+            $request->session('username', $user['username']);
+            $request->session('email', $user['email']);
+            $request->session('id', $user['id']);
+            $request->session('img', $user['img']);
+
+            if ($user['role'] == 'admin')
+            {
+                return redirect('admin.index', ['user' => strtolower($request->session('username'))]);
+            }
+            else
+            {
+                return redirect('home.show');
+            }
+        }
+        else
+        {
+            return $request->validator([ 'password' => ['incorrect'] ]);
+        }
+    }
+
+    public function showUserList($usersData)
+    {
+        $users = [];
+        foreach ($usersData as $data)
+        {
+            $dataUser = (new Users())
+                ->setId($data['id'])
+                ->setUsername($data['username'])
+                ->setEmail($data['email'])
+                ->setCreatedAt($data['created_at'])
+                ->setRole($data['role'])
+            ;
+
+            $users[] = $dataUser;
+        }
+        return $users;
+    }
+
     public function deleteUser($id)
     {
         $request = new HTTPRequest();
@@ -38,4 +106,7 @@ class UserController extends FrontController
 
         return redirect('admin.adminUsers');
     }
+
+
+
 }

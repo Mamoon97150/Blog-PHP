@@ -4,7 +4,6 @@
 namespace App\Entity;
 
 
-use DateTime;
 
 class Users
 {
@@ -13,8 +12,8 @@ class Users
     protected string $username;
     protected string $email;
     protected string $password;
-    protected ?DateTime $createdAt;
-    protected ?DateTime $updatedAt;
+    protected ?string $createdAt;
+    protected ?string $updatedAt;
     protected string $role;
 
     /**
@@ -132,20 +131,20 @@ class Users
     }
 
     /**
-     * @param DateTime|null $createdAt
+     * @param string|null $createdAt
      * @return Users
      */
-    public function setCreatedAt(?DateTime $createdAt): Users
+    public function setCreatedAt(?string $createdAt): Users
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
     /**
-     * @param DateTime|null $updatedAt
+     * @param string|null $updatedAt
      * @return Users
      */
-    public function setUpdatedAt(?DateTime $updatedAt): Users
+    public function setUpdatedAt(?string $updatedAt): Users
     {
         $this->updatedAt = $updatedAt;
         return $this;

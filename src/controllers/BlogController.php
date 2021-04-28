@@ -4,7 +4,10 @@
 namespace App\Controller;
 
 
+use App\Entity\Categories;
 use App\Entity\Posts;
+use App\Entity\Comment;
+use App\Entity\Users;
 use App\Model\Posts as PostModel;
 use App\Model\Comments as CommentModel;
 use App\Model\Category as CategoryModel;
@@ -14,43 +17,60 @@ class BlogController extends FrontController
 {
     public function index()
     {
-        $posts = (new PostModel())->allPosts();
+        $postsData = (new PostModel())->allPosts();
+        $posts = (new PostController())->showPostList($postsData);
         $this->renderView('blog/blog', compact('posts'));
     }
 
-    public function indexUser($id)
+    public function indexUser($userId)
     {
-        $posts = (new PostModel())->postsBy('user_id', $id);
+        $postsData = (new PostModel())->postsBy('user_id', $userId);
+        $posts = (new PostController())->showPostList($postsData);
+
         $this->renderView('blog/blog', compact('posts'));
     }
 
-    public function indexCategory($id)
+    public function indexCategory($catId)
     {
-        $posts = (new PostModel())->postsBy('category_id', $id);
+        $postsData = (new PostModel())->postsBy('category_id', $catId);
+        $posts = (new PostController())->showPostList($postsData);
         $this->renderView('blog/blog', compact('posts'));
     }
 
-    public function show($id)
+    public function show($postId)
     {
-        $data = (new PostModel())->showPost($id);
-        $post = (new Posts())
-            ->setId($data['id'])
-            ->setHook($data['hook'])
-            ->setTitle($data['title'])
-            ->setContent($data['content'])
-            ->setCategoryId($data['category_id'])
-            ->setUserId($data['user_id'])
-            ->setImg($data['img'])
+        //show the post
+        $post = (new PostController())->showPost($postId);
+        $posts = ( new PostController())->showRecentPost();
+
+        //show comments and comments count
+        $comments = (new CommentController())->showComments($postId);
+        $count = (new CommentModel())->commentsCount('post_id', $postId);
+
+
+        // category filters
+        $categoryData = (new CategoryModel())->categoryOfPost($post);
+        $category = (new Categories())
+            ->setId($categoryData['id'])
+            ->setName($categoryData['name'])
         ;
-        $posts = ( new PostModel())->recentPosts();
 
-        $comments = (new CommentModel())->commentsByPost($id);
-        $count = (new CommentModel())->commentsCount('post_id', $id);
+        $categoriesDatum = (new CategoryModel())->allCategories();
+        $categories = [];
+        foreach ($categoriesDatum as $categoriesData)
+        {
+            $categories[] = (new Categories())
+                ->setId($categoriesData['id'])
+                ->setName($categoriesData['name'])
+            ;
+        }
 
-        $category = (new CategoryModel())->categoryOfPost($post);
-        $categories = (new CategoryModel())->allCategories();
-
-        $user = (new UserModel())->author($post);
+        //user filter
+        $userData = (new UserModel())->author($post);
+        $user = (new Users())
+            ->setId($userData['id'])
+            ->setUsername($userData['username'])
+        ;
 
         $this->renderView('blog/post/post', compact(['posts', 'post', 'categories', 'category', 'user', 'comments', 'count']));
     }

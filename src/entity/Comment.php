@@ -6,13 +6,13 @@ namespace App\Entity;
 
 class Comment
 {
-    protected int $id;
+    protected ?int $id;
     protected int $postId;
     protected int $userId;
     protected string $comment;
-    protected mixed $createdAt;
-    protected mixed $updatedAt;
-    protected mixed $approved;
+    protected ?string $createdAt;
+    protected ?string $updatedAt;
+    protected ?int $approved = 0;
 
     /**
      * @return int
@@ -71,10 +71,10 @@ class Comment
     }
 
     /**
-     * @param int $id
+     * @param int|null $id
      * @return Comment
      */
-    public function setId(int $id): Comment
+    public function setId(?int $id): Comment
     {
         $this->id = $id;
         return $this;
@@ -111,30 +111,30 @@ class Comment
     }
 
     /**
-     * @param mixed $createdAt
+     * @param string|null $createdAt
      * @return Comment
      */
-    public function setCreatedAt(mixed $createdAt): Comment
+    public function setCreatedAt(?string $createdAt): Comment
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
     /**
-     * @param mixed $updatedAt
+     * @param string|null $updatedAt
      * @return Comment
      */
-    public function setUpdatedAt(mixed $updatedAt): Comment
+    public function setUpdatedAt(?string $updatedAt): Comment
     {
         $this->updatedAt = $updatedAt;
         return $this;
     }
 
     /**
-     * @param mixed $approved
+     * @param int|null $approved
      * @return Comment
      */
-    public function setApproved(mixed $approved): Comment
+    public function setApproved(?int $approved): Comment
     {
         $this->approved = $approved;
         return $this;

@@ -4,9 +4,13 @@
 namespace App\Controller;
 
 
+use App\Entity\Categories;
+use App\Entity\Users;
 use App\HTTPRequest;
+use App\Model\Category as CategoryModel;
 use App\Model\Posts as PostModel;
 use App\Entity\Posts;
+use App\Model\Users as UserModel;
 
 class PostController extends FrontController
 {
@@ -69,5 +73,66 @@ class PostController extends FrontController
         (new PostModel())->erasePost($id);
 
         return redirect('admin.adminPost');
+    }
+
+    public function showPostList(array $postsData): array
+    {
+        $posts = [];
+        foreach ($postsData as $data)
+        {
+            $dataPost['post'] = (new Posts())
+                ->setId($data['id'])
+                ->setHook($data['hook'])
+                ->setTitle($data['title'])
+                ->setCategoryId($data['category_id'])
+                ->setUserId($data['user_id'])
+                ->setImg($data['img'])
+                ->setUpdatedAt($data['updated_at'])
+                ->setCreatedAt($data['created_at'])
+            ;
+
+            $userData = (new UserModel())->author($dataPost['post']);
+            $user = (new Users())
+                ->setId($userData['id'])
+                ->setUsername($userData['username'])
+            ;
+            $dataPost['user'] = $user;
+
+            $categoryData = (new CategoryModel())->categoryOfPost($dataPost['post']);
+            $category = (new Categories())
+                ->setId($categoryData['id'])
+                ->setName($categoryData['name'])
+            ;
+            $dataPost['category'] = $category;
+            $posts[] = $dataPost;
+        }
+        return $posts;
+    }
+
+    public function showPost($postId): Posts
+    {
+        $data = (new PostModel())->findPost($postId);
+        return (new Posts())
+            ->setId($data['id'])
+            ->setHook($data['hook'])
+            ->setTitle($data['title'])
+            ->setContent($data['content'])
+            ->setCategoryId($data['category_id'])
+            ->setUserId($data['user_id'])
+            ->setImg($data['img']);
+    }
+
+    public function showRecentPost(): array
+    {
+        $postsData = ( new PostModel())->recentPosts();
+        $posts = [];
+        foreach ($postsData as $data)
+        {
+            $posts[] = (new Posts())
+                ->setId($data['id'])
+                ->setTitle($data['title'])
+            ;
+        }
+        return $posts;
     }
 }

@@ -13,8 +13,8 @@ class Posts
     private string $title;
     private string $hook;
     private string $content;
-    private ?DateTime $createdAt;
-    private ?DateTime $updatedAt;
+    private ?string $createdAt;
+    private ?string $updatedAt;
     private string $img;
     private int $userId;
 
@@ -156,20 +156,20 @@ class Posts
     }
 
     /**
-     * @param DateTime|null $createdAt
+     * @param string|null $createdAt
      * @return Posts
      */
-    public function setCreatedAt(?DateTime $createdAt): Posts
+    public function setCreatedAt(?string $createdAt): Posts
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
     /**
-     * @param DateTime|null $updatedAt
+     * @param string|null $updatedAt
      * @return Posts
      */
-    public function setUpdatedAt(?DateTime $updatedAt): Posts
+    public function setUpdatedAt(?string $updatedAt): Posts
     {
         $this->updatedAt = $updatedAt;
         return $this;

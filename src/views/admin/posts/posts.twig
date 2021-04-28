@@ -82,8 +82,8 @@
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('admin.adminUsers') }}">All users</a>
-                    <a class="collapse-item" href="{{ route('admin.manageAdmin') }}">Admin</a>
-                    <a class="collapse-item" href="{{ route('admin.manageUser') }}">User</a>
+                    <a class="collapse-item" href="{{ route('admin.manageAdmin') }}">Administrator</a>
+                    <a class="collapse-item" href="{{ route('admin.manageUser') }}">Visitor</a>
                 </div>
             </div>
         </li>
@@ -310,13 +310,13 @@
                                 <tbody>
                                 {% for post in posts %}
                                 <tr>
-                                    <td><a href="{{ route('blog.show', {'id':post.id}) }}">{{ post.title }}</a></td>
+                                    <td><a href="{{ route('blog.show', {'id':post.post.id}) }}">{{ post.post.title }}</a></td>
                                     <td>{{ post.category.name | capitalize}}</td>
                                     <td>{{ post.user.username}}</td>
                                     <td>{{ post.created_at | format_datetime('short', 'short') }}</td>
                                     <td>{{ post.updated_at | format_datetime('short', 'short') }}</td>
-                                    <td><a href="{{ route('admin.editPost', {'id':post.id}) }}">Edit</a></td>
-                                    <td><a href="{{ route('admin.deletePost', {'id':post.id}) }}">Delete</a></td>
+                                    <td><a href="{{ route('admin.editPost', {'id':post.post.id}) }}">Edit</a></td>
+                                    <td><a href="{{ route('admin.deletePost', {'id':post.post.id}) }}">Delete</a></td>
                                 </tr>
                                 {% endfor %}
                                 </tbody>

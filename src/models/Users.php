@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\Entity\Comment;
 use App\Entity\Posts;
 
 class Users extends Model
@@ -14,9 +15,9 @@ class Users extends Model
         return $this->hasMany(Posts::class);
     }
 
-    public function author(Posts $post)
+    public function author(Posts|Comment $data)
     {
-        return self::where('id', $post->getUserId())->first();
+        return self::where('id', $data->getUserId())->first();
     }
 
     public function allUsers()

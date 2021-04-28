@@ -26,7 +26,7 @@ class Posts extends Model
         return self::with(['category','user'])->orderBy('created_at', 'desc')->get()->toArray();
     }
 
-    public function showPost($id)
+    public function findPost($id)
     {
         return self::find($id)->toArray();
     }

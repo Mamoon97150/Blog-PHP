@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Model;
+use App\Entity\Comment;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 class Comments extends Model
@@ -40,9 +41,13 @@ class Comments extends Model
         return self::where($column ,$value)->count();
     }
 
-    public function addComment($message)
+    public function addComment(Comment $data)
     {
-        return self::create($message);
+        return self::create([
+            'post_id' => $data->getPostId(),
+            'user_id' => $data->getUserId(),
+            'comment' => $data->getComment(),
+        ]);
     }
 
     public function eraseComment($id)

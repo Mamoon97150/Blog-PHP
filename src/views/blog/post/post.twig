@@ -53,7 +53,7 @@
                             </div>
                             <ul class="list-comments">
                                 {% for comment in comments %}
-                                    {% if comment.approved == '1' %}
+                                    {% if comment.comment.approved == '1' %}
                                         <li>
                                             <div class="comment-avatar col-sm-2">
                                                 <img src="{{ comment.user.img }}" alt="">
@@ -67,11 +67,11 @@
 
                                                 <h4 class="comment-author">{{ comment.user.username }}</h4>
                                                 <p>
-                                                    <span>published on {{ comment.updated_at | format_datetime('short', 'short')}}</span>
+                                                    <span>published on {{ comment.comment.updatedAt | format_datetime('short', 'short')}}</span>
                                                 </p>
-                                                {{ comment.comment | raw }}
+                                                {{ comment.comment.comment | raw }}
                                                 {% if auth.id == comment.user_id or auth.status == 'admin'%}
-                                                    <a class="float-end" href="{{ route('comment.delete', {'id':comment.id, 'postId':post.id}) }}">Delete</a>
+                                                    <a class="float-end" href="{{ route('comment.delete', {'id':comment.comment.id, 'postId':post.id}) }}">Delete</a>
                                                 {% endif %}
                                             </div>
                                         </li>

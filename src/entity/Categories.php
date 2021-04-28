@@ -38,9 +38,13 @@ class Categories
 
     /**
      * @param string $name
+     * @return Categories
      */
-    public function setName(string $name): void
+    public function setName(string $name): Categories
     {
         $this->name = $name;
+        return $this;
     }
+
+
 }

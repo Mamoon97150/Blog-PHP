@@ -82,8 +82,8 @@
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('admin.adminUsers') }}">All users</a>
-                    <a class="collapse-item" href="{{ route('admin.manageAdmin') }}">Admin</a>
-                    <a class="collapse-item" href="{{ route('admin.manageUser') }}">User</a>
+                    <a class="collapse-item" href="{{ route('admin.manageAdmin') }}">Administrator</a>
+                    <a class="collapse-item" href="{{ route('admin.manageUser') }}">Visitor</a>
                 </div>
             </div>
         </li>
@@ -295,8 +295,8 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">All comments</h1>
-                <p class="mb-4">Manage your comments</p>
+                <h1 class="h3 mb-2 text-gray-800">All Users</h1>
+                <p class="mb-4">Manage your users</p>
 
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
@@ -329,7 +329,7 @@
                                     <tr>
                                         <td>{{ user.username }}</td>
                                         <td>{{ user.email }}</td>
-                                        <td>{{ user.created_at | format_datetime('full', 'none') }}</td>
+                                        <td>{{ user.createdAt | format_datetime('full', 'none') }}</td>
                                         <td>{{ user.role | capitalize }}</td>
                                         <td><a href="{{ route('user.delete', {'id':user.id }) }}">Delete</a></td>
                                     </tr>

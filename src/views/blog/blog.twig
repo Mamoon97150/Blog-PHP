@@ -30,8 +30,8 @@
                     <div class="col-lg-4 col-md-6 blog-item filter-{{ post.category.name }}">
                         <div class="card blog-wrap">
                             <div class="card-img">
-                                <a href="{{ route('blog.show', {'id':post.id}) }}" data-gallery="blogDetailsGallery" data-glightbox="type: external" title="blog Details">
-                                    <img src="{{ post.img }}" class="img-fluid" alt="">
+                                <a href="{{ route('blog.show', {'id':post.post.id}) }}" data-gallery="blogDetailsGallery" data-glightbox="type: external" title="blog Details">
+                                    <img src="{{ post.post.img }}" class="img-fluid" alt="">
                                 </a>
                             </div>
                             <div class="card-body">
@@ -41,12 +41,12 @@
                                     </div>
                                 </div>
                                 <h3 class="card-title">
-                                    <a href="{{ route('blog.show', {'id':post.id}) }}" data-gallery="blogDetailsGallery" data-glightbox="type: external" title="blog Details">
-                                        {{ post.title | capitalize }}
+                                    <a href="{{ route('blog.show', {'id':post.post.id}) }}" data-gallery="blogDetailsGallery" data-glightbox="type: external" title="blog Details">
+                                        {{ post.post.title | capitalize }}
                                     </a>
                                 </h3>
                                 <p class="card-description">
-                                    {{ post.hook | raw }}
+                                    {{ post.post.hook | raw }}
                                 </p>
                             </div>
                             <div class="card-footer">
@@ -56,7 +56,7 @@
                                     </a>
                                 </div>
                                 <div class="post-date">
-                                    <i class="bi bi-calendar-plus"></i> {{ post.updated_at | format_datetime('medium','none') }}
+                                    <i class="bi bi-calendar-plus"></i> {{ post.post.updatedAt | format_datetime('medium','none') }}
                                 </div>
                             </div>
                         </div>

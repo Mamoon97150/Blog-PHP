@@ -11,9 +11,11 @@ use Swift_SmtpTransport;
 
 class MailController extends FrontController
 {
+    public function answerMessage()
+    {
 
-    // 1 message sent to dashboard (update db)
-    // 2 dasboard send daily report
+    }
+
     public function sendContactEmail(HTTPRequest $request)
     {
         $contact = $request->validator([

@@ -96,8 +96,8 @@
                     <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a class="collapse-item" href="{{ route('admin.adminUsers') }}">All users</a>
-                            <a class="collapse-item" href="{{ route('admin.manageAdmin') }}">Admin</a>
-                            <a class="collapse-item" href="{{ route('admin.manageUser') }}">User</a>
+                            <a class="collapse-item" href="{{ route('admin.manageAdmin') }}">Administrator</a>
+                            <a class="collapse-item" href="{{ route('admin.manageUser') }}">Visitor</a>
                         </div>
                     </div>
                 </li>
@@ -349,8 +349,9 @@
                                         <label for="inputCategory" class="form-label"></label>
                                         <select id="inputCategory" class="custom-select" name="category_id">
                                             <option selected>Choose post category...</option>
+
                                             {% for category in categories %}
-                                                {% if post.category_id == category.id %}
+                                                {% if post.categoryId == category.id %}
                                                     <option value="{{ category.id }}" selected>{{ category.name | capitalize}}</option>
                                                 {% else %}
                                                     <option value="{{ category.id }}">{{ category.name | capitalize}}</option>
@@ -367,7 +368,7 @@
                             </div>
                             <div class="row justify-content-center mt-4">
                                 <div class="col-6">
-                                    <button type="submit" class="btn btn-primary btn-block">Add post</button>
+                                    <button type="submit" class="btn btn-primary btn-block">Edit post</button>
                                 </div>
                             </div>
                         </form>

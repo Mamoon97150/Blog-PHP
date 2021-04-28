@@ -82,8 +82,8 @@
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('admin.adminUsers') }}">All users</a>
-                    <a class="collapse-item" href="{{ route('admin.manageAdmin') }}">Admin</a>
-                    <a class="collapse-item" href="{{ route('admin.manageUser') }}">User</a>
+                    <a class="collapse-item" href="{{ route('admin.manageAdmin') }}">Administrator</a>
+                    <a class="collapse-item" href="{{ route('admin.manageUser') }}">Visitor</a>
                 </div>
             </div>
         </li>
@@ -331,19 +331,19 @@
                                 <tbody>
                                 {% for comment in comments %}
                                     <tr>
-                                        <td>{{ comment.posts.title }}</td>
-                                        <td>{{ comment.comment | u.truncate(50, '...', false) | raw }}</td>
+                                        <td>{{ comment.post.title }}</td>
+                                        <td>{{ comment.comment.comment | u.truncate(50, '...', false) | raw }}</td>
                                         <td>{{ comment.user.username }}</td>
-                                        <td>{{ comment.created_at | format_datetime('short', 'short') }}</td>
-                                        <td>{{ comment.updated_at | format_datetime('short', 'short') }}</td>
+                                        <td>{{ comment.comment.createdAt | format_datetime('short', 'short') }}</td>
+                                        <td>{{ comment.comment.updatedAt | format_datetime('short', 'short') }}</td>
                                         <td>
-                                            {% if comment.approved == 1 %}
+                                            {% if comment.comment.approved == 1 %}
                                                 yes
                                             {% else %}
                                                 no
                                             {% endif %}
                                         </td>
-                                        <td><a href="{{ route('comment.delete', {'id':comment.id, 'postId':comment.post_id}) }}">Delete</a></td>
+                                        <td><a href="{{ route('comment.delete', {'id':comment.comment.id, 'postId':comment.post_id}) }}">Delete</a></td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
