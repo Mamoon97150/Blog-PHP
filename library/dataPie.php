@@ -25,4 +25,4 @@ foreach ($data as $row => $item)
 
 }
 
-print json_encode($data);
+print_r(json_encode($data)) ;
