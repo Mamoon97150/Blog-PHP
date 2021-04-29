@@ -23,22 +23,13 @@ class Comments extends Model
         return self::with(['posts','user'])->orderBy('created_at', 'desc')->get()->toArray();
     }
 
-    public function commentsByPost($id)
+    public function commentsByPost($postId)
     {
-        return self::with('user')->where('post_id', $id)->get()->toArray();
+        return self::with('user')->where('post_id', $postId)->get()->toArray();
     }
     public function commentsPendingApproval()
     {
         return self::with(['posts', 'user'])->where('approved', '=', '0' )->get()->toArray();
-    }
-
-    public function findComment($id)
-    {
-        return self::find($id)->toArray();
-    }
-    public function commentsCount($column, $value)
-    {
-        return self::where($column ,$value)->count();
     }
 
     public function addComment(Comment $data)
@@ -50,9 +41,14 @@ class Comments extends Model
         ]);
     }
 
-    public function eraseComment($id)
+    public function eraseComment($commentId)
     {
-        return self::destroy($id);
+        return self::destroy($commentId);
+    }
+
+    public function commentsCount($column, $value)
+    {
+        return self::where($column ,$value)->count();
     }
 
     public function countComments()
@@ -67,9 +63,9 @@ class Comments extends Model
             ->get()->toArray();
     }
 
-    public function approval($id)
+    public function approval($commentId)
     {
-        $comment = self::find($id);
+        $comment = self::find($commentId);
 
         $comment->approved = true;
         $comment->save();

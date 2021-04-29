@@ -34,14 +34,13 @@ class LoginController extends FrontController
 
         $user = (new UserModel())->findUser('username', $request->name('username'), 'email', $request->name('username'));
 
-        if (!is_null($user))
+        if ($user === null)
         {
             (new UserController())->verifyUser($request, $user);
         }
-        else
-        {
-            return $request->validator([ 'username' => ['incorrect'] ]);
-        }
+
+        return $request->validator([ 'username' => ['incorrect'] ]);
+
     }
 
     public function signOut()

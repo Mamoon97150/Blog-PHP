@@ -25,7 +25,6 @@ class MailController extends FrontController
             'message' => ['required']
         ]);
 
-        var_dump($contact);
         $transport = (new Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))
             ->setUsername(EMAIL)
             ->setPassword(PASSWORD)
@@ -38,6 +37,6 @@ class MailController extends FrontController
             ->setBody($contact['message'])
         ;
 
-        $result = $mailer->send($message);
+        $mailer->send($message);
     }
 }

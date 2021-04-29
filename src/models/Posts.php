@@ -16,24 +16,19 @@ class Posts extends Model
         return $this->belongsTo(Users::class);
     }
 
-    public function comments()
-    {
-        return $this->hasMany(Comments::class);
-    }
-
     public function allPosts()
     {
         return self::with(['category','user'])->orderBy('created_at', 'desc')->get()->toArray();
     }
 
-    public function findPost($id)
+    public function findPost($postId)
     {
-        return self::find($id)->toArray();
+        return self::find($postId)->toArray();
     }
 
-    public function postsBy($column, $id)
+    public function postsBy($column, $value)
     {
-        return self::with(['category','user'])->where($column, $id)->orderBy('created_at', 'desc')->get()->toArray();
+        return self::with(['category','user'])->where($column, $value)->orderBy('created_at', 'desc')->get()->toArray();
     }
 
     public function recentPosts()
@@ -46,7 +41,7 @@ class Posts extends Model
         return self::count();
     }
 
-    public function lastPosts()
+    public function lastPost()
     {
         return self::orderBy('created_at', 'desc')->first();
     }
@@ -63,13 +58,13 @@ class Posts extends Model
         ]);
     }
 
-    public function updatePost($id, $data)
+    public function updatePost($postId, $data)
     {
-        return self::where('id', $id)->update($data);
+        return self::where('id', $postId)->update($data);
     }
 
-    public function erasePost($id)
+    public function erasePost($postId)
     {
-        return self::destroy($id);
+        return self::destroy($postId);
     }
 }

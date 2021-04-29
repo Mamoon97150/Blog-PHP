@@ -16,7 +16,7 @@ class AdminController extends FrontController
     public function index()
     {
 
-        $post = (new PostModel())->lastPosts();
+        $post = (new PostModel())->lastPost();
         $users =(new UserModel())->countUsers();
         $commentsPending = (new CommentModel())->commentsCount('approved', '0');
         $comments = (new CommentModel())->countComments();
