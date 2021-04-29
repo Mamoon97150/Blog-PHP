@@ -22,15 +22,11 @@ class UserController extends FrontController
             {
                 $user->addUser($data);
             }
-            else
-            {
-                return $request->validator([ 'email' => ['exists'] ]);
-            }
+            return $request->validator([ 'email' => ['exists'] ]);
+
         }
-        else
-        {
-            return $request->validator([ 'username' => ['exists'] ]);
-        }
+        return $request->validator([ 'username' => ['exists'] ]);
+
 
     }
 
@@ -78,31 +74,31 @@ class UserController extends FrontController
         return $users;
     }
 
-    public function deleteUser($id)
+    public function deleteUser($userId)
     {
         $request = new HTTPRequest();
         $users = new UserModel();
 
         if ($request->session('auth') == 'admin')
         {
-            $users->eraseUser($id);
+            $users->eraseUser($userId);
         };
 
         return redirect('admin.adminUsers');
     }
 
-    public function makeAdmin($id)
+    public function makeAdmin($userId)
     {
         $users = new UserModel();
-        $users->changeRole($id , 'admin');
+        $users->changeRole($userId , 'admin');
 
         return redirect('admin.adminUsers');
     }
 
-    public function makeUser($id)
+    public function makeUser($userId)
     {
         $users = new UserModel();
-        $users->changeRole($id , 'user');
+        $users->changeRole($userId , 'user');
 
         return redirect('admin.adminUsers');
     }

@@ -41,7 +41,7 @@ class PostController extends FrontController
         return redirect('admin.adminPost');
     }
 
-    public function updatePost(HTTPRequest $request, $id)
+    public function updatePost(HTTPRequest $request, $postId)
     {
         $img = $request->loadFiles('image', 'img/loaders/', ['.jpg', '.JPG', '.png', '.PNG', '.jpeg', '.JPEG']);
         $values = $request->validator([
@@ -56,21 +56,21 @@ class PostController extends FrontController
             $values = $request->except('img', $values);
             $data = array_merge_recursive($values, ['img' => '/public/'.$img]);
 
-            (new PostModel())->updatePost($id, $data);
+            (new PostModel())->updatePost($postId, $data);
 
             return redirect('admin.adminPost');
         }
 
-        (new PostModel())->updatePost($id, $values);
+        (new PostModel())->updatePost($postId, $values);
 
         return redirect('admin.adminPost');
     }
 
 
 
-    public function deletePost($id)
+    public function deletePost($postId)
     {
-        (new PostModel())->erasePost($id);
+        (new PostModel())->erasePost($postId);
 
         return redirect('admin.adminPost');
     }

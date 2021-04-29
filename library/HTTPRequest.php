@@ -20,7 +20,6 @@ class HTTPRequest
         {
             return $_POST;
         }
-
         return $_POST[$name];
     }
 
@@ -34,14 +33,13 @@ class HTTPRequest
                 return $data;
             }
         }
-        else
+
+        if (array_key_exists($name, $this->name()))
         {
-            if (array_key_exists($name, $this->name()))
-            {
-                unset($_POST[$name]);
-                return $_POST;
-            }
+            unset($_POST[$name]);
+            return $_POST;
         }
+
     }
 
     //creation de la session
@@ -51,12 +49,9 @@ class HTTPRequest
         {
             $_SESSION[$name] = $data;
         }
-        else
-        {
-            return isset($_SESSION[$name]) ? $_SESSION[$name] : '';
-        }
-    }
+        return isset($_SESSION[$name]) ? $_SESSION[$name] : '';
 
+    }
 
     //gestion du téléchargement des images ou autre fichiers
     public function loadFiles($name, $file_destination, array $datatype)
@@ -92,28 +87,7 @@ class HTTPRequest
             {
                 foreach ($valueArray as $rule)
                 {
-                    switch ($rule)
-                    {
-                        case 'required' :
-                            $this->required($key, $this->posts[$key]);
-                            break;
-
-                        case substr($rule, 0, 3) === 'max' :
-                            $this->max($key, $this->posts[$key], $rule);
-                            break;
-
-                        case substr($rule, 0, 3) === 'min' :
-                            $this->min($key, $this->posts[$key], $rule);
-                            break;
-
-                        case 'exists' :
-                            $this->errors[$key][] = "<i class='fas fa-exclamation-triangle'></i> This <span class='fw-bolder text-decoration-underline'>$key</span> already exists !";
-                            break;
-
-                        case 'incorrect' :
-                            $this->errors[$key][] = "<i class='fas fa-exclamation-triangle'></i> Incorrect <span class='fw-bolder text-decoration-underline'>$key</span> !";
-                            break;
-                    }
+                    $this->checkRule($rule, $key);
                     $this->session('input', $this->posts);
                 }
             }
@@ -126,6 +100,32 @@ class HTTPRequest
         {
             unset($_SESSION['errors']);
             return $this->name();
+        }
+    }
+
+    public function checkRule($rule, $key)
+    {
+        switch ($rule)
+        {
+            case 'required' :
+                $this->required($key, $this->posts[$key]);
+                break;
+
+            case substr($rule, 0, 3) === 'max' :
+                $this->max($key, $this->posts[$key], $rule);
+                break;
+
+            case substr($rule, 0, 3) === 'min' :
+                $this->min($key, $this->posts[$key], $rule);
+                break;
+
+            case 'exists' :
+                $this->errors[$key][] = "<i class='fas fa-exclamation-triangle'></i> This <span class='fw-bolder text-decoration-underline'>$key</span> already exists !";
+                break;
+
+            case 'incorrect' :
+                $this->errors[$key][] = "<i class='fas fa-exclamation-triangle'></i> Incorrect <span class='fw-bolder text-decoration-underline'>$key</span> !";
+                break;
         }
     }
 
@@ -170,10 +170,9 @@ class HTTPRequest
             $this->session('errors', $this->errors);
             return ($this->session('errors') !== null) ? $this->session('errors') : [];
         }
-        else
-        {
-            return ($this->session('errors') !== null) ? null : [];
-        }
+
+        return ($this->session('errors') !== null) ? null : [];
+
     }
 
     private function lastUrl()

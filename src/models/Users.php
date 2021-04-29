@@ -63,14 +63,14 @@ class Users extends Model
         return self::count();
     }
 
-    public function eraseUser($id)
+    public function eraseUser($userId)
     {
-        return self::destroy($id);
+        return self::destroy($userId);
     }
 
-    public function changeRole($id, $status)
+    public function changeRole($userId, $status)
     {
-        $user = self::find($id);
+        $user = self::find($userId);
         $user->role = $status;
         $user->save();
     }

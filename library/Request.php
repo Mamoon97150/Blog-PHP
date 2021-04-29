@@ -45,10 +45,9 @@ class Request
         {
             $this->getRequest();
         }
-        else
-        {
-            $this->postRequest();
-        }
+
+        $this->postRequest();
+
     }
 
     public function getRequest()
