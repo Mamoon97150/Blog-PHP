@@ -1,0 +1,64 @@
+{% extends 'layout/admin.twig' %}
+{% set pageTitle = 'Sign in' %}
+{% block body %}
+    <body class="bg-gradient-primary">
+
+        <div class="container">
+
+            <!-- Outer Row -->
+            <div class="row justify-content-center">
+
+                <div class="col-xl-10 col-lg-12 col-md-9">
+
+                    <div class="card o-hidden border-0 shadow-lg my-5">
+                        <div class="card-body p-0">
+                            <!-- Nested Row within Card Body -->
+                            <div class="row">
+                                <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                                <div class="col-lg-6">
+                                    <div class="text-end float-end">
+                                        <a class="small" href="{{ route('home.show') }}"><i class="fas fa-chevron-left"></i> Go back</a>
+                                    </div>
+                                    <div class="p-5">
+                                        <div class="text-center">
+                                            <h1 class="h4 text-gray-100 mb-4">Welcome Back!</h1>
+                                        </div>
+                                        <form class="user" method="post" action="{{ route('user.signin') }}">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-user {{ (error.username in error) ? 'border border-danger' : '' }}"
+                                                       id="username" name="username" aria-describedby="emailHelp"
+                                                       placeholder="Enter Username..." value="{{ post.username }}">
+                                                <span class="text-danger">{{ error.username | markdown }}</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" class="form-control form-control-user {{ (error.username in error) ? 'border border-danger' : '' }}"
+                                                       id="password" name="password" placeholder="Password" value="{{ post.password }}">
+                                                <span class="text-danger">{{ error.password | markdown }}</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="custom-control custom-checkbox small">
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck">
+                                                    <label class="custom-control-label" for="customCheck">Remember Me</label>
+                                                </div>
+                                            </div>
+                                            <input type="submit" class="btn btn-primary btn-user btn-block" value="Login">
+                                        </form>
+                                        <hr>
+                                        <div class="text-center">
+                                            <a class="small" href="{{ route('user.forgot') }}">Forgot Password?</a>
+                                        </div>
+                                        <div class="text-center">
+                                            <a class="small" href="{{ route('user.register') }}">Create an Account!</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+{% endblock %}

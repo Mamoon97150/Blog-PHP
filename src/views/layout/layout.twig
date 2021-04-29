@@ -23,6 +23,9 @@
         <link href="../../../public/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
         <link href="../../../public/vendor/remixicon/remixicon.css" rel="stylesheet">
 
+        {# CKEditor4 script file #}
+        <script src="../../../public/vendor/ckeditor/ckeditor.js"></script>
+
         <!-- Template Main CSS File -->
         <link href="../../../public/css/style.css" rel="stylesheet">
 
@@ -46,12 +49,18 @@
 
                 <nav id="navbar" class="navbar">
                     <ul>
-                        <li><a class="nav-link active" href="/">Home</a></li>
-                        <li><a class="nav-link" href="/#about">About</a></li>
-                        <li><a class="nav-link" href="/#resume">Resume</a></li>
-                        <li><a class="nav-link" href="/blog#blo">Blog</a></li>
-                        <li><a class="nav-link" href="/#contact">Contact</a></li>
-                        <li><a class="nav-link" href="/" ><i class="bi bi-person-circle fs-5"></i></a></li>
+                        <li><a class="nav-link active" href="{{ route('home.show') }}">Home</a></li>
+                        <li><a class="nav-link" href="{{ route('home.show') }}#about">About</a></li>
+                        <li><a class="nav-link" href="{{ route('home.show') }}#resume">Resume</a></li>
+                        <li><a class="nav-link" href="{{ route('blog.index') }}#blog">Blog</a></li>
+                        <li><a class="nav-link" href="{{ route('home.show') }}#contact">Contact</a></li>
+
+                        {% if auth.status == empty %}
+                            <li><a class="nav-link" href="{{ route('user.login') }}" ><i class="bi bi-person-check" style="font-size: 1.5em"></i></a></li>
+                        {% else %}
+                            <li><a class="nav-link" href="{{ route('user.logout') }}" ><i class="bi bi-person-x" style="font-size: 1.5em"></i></a></li>
+                        {% endif %}
+
                     </ul>
 
                     <i class="bi bi-list mobile-nav-toggle"></i>
@@ -66,12 +75,16 @@
 
             </div>
         </header><!-- End Header -->
-
         {% block main %}
 
         {% endblock %}
 
         <div class="credits">
+            {% if auth.status == null %}
+                <a class="float-start " href="{{ route('user.login') }}" >Sign In</a>
+            {% else %}
+                <a class="float-start" href="{{ route('user.logout') }}" >Sign Out</a>
+            {% endif %}
             <!-- All the links in the footer should remain intact. -->
             <!-- You can delete the links only if you purchased the pro version. -->
             <!-- Licensing information: https://bootstrapmade.com/license/ -->
@@ -82,6 +95,7 @@
 
 
         <!-- Vendor JS Files -->
+
         <script src="../../../public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="../../../public/vendor/glightbox/js/glightbox.min.js"></script>
         <script src="../../../public/vendor/isotope-layout/isotope.pkgd.min.js"></script>
@@ -90,6 +104,7 @@
         <script src="../../../public/vendor/waypoints/noframework.waypoints.js"></script>
         <script src="../../../public/vendor/typed.js/typed.min.js"></script>
         <script src="https://kit.fontawesome.com/0028ca04e3.js" crossorigin="anonymous"></script>
+
 
         <!-- Template Main JS File -->
         <script src="../../../public/js/main.js"></script>

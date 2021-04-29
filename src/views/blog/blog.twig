@@ -1,10 +1,14 @@
 {% extends 'layout/layout.twig' %}
 {% block header %} class = "header-top" {% endblock %}
+{% set pageTitle = 'Blog' %}
 {% block active %} {% endblock %}
 {% block main %}
     <section id="blog" class="blog section-show">
         <div class="container">
             <div class="section-title">
+                {% if auth.status != null %}
+                    <div class="float-end">Welcome back, {{ auth.username }} ! </div>
+                {% endif %}
                 <h2>Blog</h2>
                 <p>My Posts</p>
             </div>
@@ -52,7 +56,7 @@
                                     </a>
                                 </div>
                                 <div class="post-date">
-                                    <i class="bi bi-calendar-plus"></i> {{ post.dateUpdated | format_datetime('medium','none') }}
+                                    <i class="bi bi-calendar-plus"></i> {{ post.updated_at | format_datetime('medium','none') }}
                                 </div>
                             </div>
                         </div>
