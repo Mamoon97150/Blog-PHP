@@ -19,4 +19,4 @@ foreach ($commentsData as $row => $item)
     $commentsData[$row] = $item;
 }
 
-print json_encode($commentsData);
+print_r(json_encode($commentsData));
