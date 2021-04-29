@@ -1,0 +1,126 @@
+{% extends 'layout/layout.twig' %}
+{% block header %} class = "header-top" {% endblock %}
+{% block main %}
+
+    <main id="main">
+
+        <!-- ======= blog Details ======= -->
+        <div id="blog-details" class="blog-details section-show">
+            <div class="container ">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="post-box">
+                            <div class="post-thumb blog-details-slider">
+                                <a href="{{ post.img }}" data-gallery="blogGallery" >
+                                    <img src="{{ post.img }}" alt="" class="img-fluid ">
+                                </a>
+                            </div>
+                            <div class="post-meta">
+                                <h1 class="post-title">{{ post.title | capitalize}}</h1>
+                                <ul>
+                                    <li>
+                                        <span class="bi bi-person"></span>
+                                        <a href="{{ route('blog.indexUser', {'id':user.id}) }}">{{ user.username }}</a>
+                                    </li>
+                                    <li>
+                                        <span class="bi bi-calendar-check"></span>
+                                        <a href="">{{ post.dateUpdated | format_datetime() }}</a>
+                                    </li>
+                                    <li>
+                                        <span class="bi bi-chat-left-text"></span>
+                                        <a href="#comments">{{ count }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="article-content">
+                                <p>
+                                    <strong>
+                                        {{ post.hook}}
+                                    </strong>
+                                </p>
+                                <p>
+                                    {{ post.content | u.wordwrap(50) }}
+                                </p>
+                            </div>
+                            <div>
+                                <span class="bi bi-tag"></span>
+                                <a href="{{ route('blog.indexCategory', {'id':category.id}) }}">{{ category.name }}</a>
+                            </div>
+                        </div>
+                        <div class="box-comments" id="comments">
+                            <div class="title-box-2">
+                                <h4 class="title-comments title-left">Comments ({{ count }})</h4>
+                            </div>
+                            <ul class="list-comments">
+                                {% for comment in comments %}
+                                    <li>
+                                        <div class="comment-avatar">
+                                            <img src="assets/img/testimonial-2.jpg" alt="">
+                                        </div>
+                                        <div class="comment-details">
+                                            <h4 class="comment-author">{{ comment.user.username }}</h4>
+                                            <span>{{ comment.dateUpdated }}</span>
+                                            <p>
+                                                {{ comment.comment }}
+                                            </p>
+                                            <a href="#">Reply</a>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="form-comments">
+                            <div class="title-box-2">
+                                <h3 class="title-left">
+                                    Leave a Reply
+                                </h3>
+                            </div>
+                            <form class="form-mf">
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        <div class="form-group">
+                                            <textarea id="textMessage" class="form-control input-mf" placeholder="Comment *" name="message" cols="45" rows="8" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button type="submit" class="button button-a button-big button-rounded">Send Message</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="widget-sidebar">
+                            <h5 class="sidebar-title">Recent Post</h5>
+                            <div class="sidebar-content">
+                                <ul class="list-sidebar">
+                                    {% for post in posts %}
+                                        <li>
+                                            <a href="{{ route('blog.show', {'id':post.id}) }}">{{ post.title }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="widget-sidebar widget-tags">
+                            <h5 class="sidebar-title">Tags</h5>
+                            <div class="sidebar-content">
+                                <ul>
+                                    {% for category in categories %}
+                                        <li>
+                                            <a href="{{ route('blog.indexCategory', {'id':category.id}) }}">{{ category.name | upper }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div><!-- End blog Details -->
+
+    </main><!-- End #main -->
+
+
+{% endblock %}

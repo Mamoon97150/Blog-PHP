@@ -54,7 +54,7 @@
   })
 
   /**
-   * Scrool with ofset on links with a class name .scrollto
+   * Scroll with offset on links with a class name .scrollto
    */
   on('click', '#navbar .nav-link', function(e) {
     let section = select(this.hash)
@@ -186,9 +186,9 @@
         }
       });
 
-      let blogFilters = select('#blog-flters li', true);
+      let blogFilters = select('#blog-filters li', true);
 
-      on('click', '#blog-flters li', function(e) {
+      on('click', '#blog-filters li', function(e) {
         e.preventDefault();
         blogFilters.forEach(function(el) {
           el.classList.remove('filter-active');
@@ -203,26 +203,27 @@
 
   });
 
+
   /**
-   * Initiate blog lightbox 
+   * Initiate blog lightbox
    */
   const blogLightbox = GLightbox({
     selector: '.blog-lightbox'
   });
 
   /**
-   * Initiate blog details lightbox 
+   * Initiate blog details lightbox
    */
-  const blogDetailsLightbox = GLightbox({
+  /*const blogDetailsLightbox = GLightbox({
     selector: '.blog-details-lightbox',
     width: '90%',
     height: '90vh'
-  });
+  });*/
 
   /**
    * blog details slider
    */
-  new Swiper('.blog-details-slider', {
+  /*new Swiper('.blog-details-slider', {
     speed: 400,
     loop: true,
     autoplay: {
@@ -235,7 +236,7 @@
       clickable: true
     }
   });
-
+*/
 
 
 })()
