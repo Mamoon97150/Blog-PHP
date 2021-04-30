@@ -34,15 +34,13 @@ function redirect($name, $parameters = [])
 function redirect404()
 {
     header('HTTP/1.0 404 Not Found');
-    (new FrontController())->renderView("404");
-    exit();
+    return (new FrontController())->renderView("404");
 }
 
 function redirect403()
 {
     header('HTTP/1.0 403 Access Denied');
-    (new FrontController())->renderView("403");
-    exit();
+    return (new FrontController())->renderView("403");
 }
 
 function setPost()

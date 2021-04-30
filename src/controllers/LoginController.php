@@ -4,12 +4,12 @@
 namespace App\Controller;
 
 
+use App\Entity\Users;
 use App\HTTPRequest;
 use App\Model\Users as UserModel;
 
 class LoginController extends FrontController
 {
-    //TO-DO : Add security to admin dashboard
     public function login()
     {
         $this->renderView('user/login/login');
@@ -32,15 +32,22 @@ class LoginController extends FrontController
             'password' => ['required']
         ]);
 
-        $user = (new UserModel())->findUser('username', $request->name('username'), 'email', $request->name('username'));
+        $userData = (new UserModel())->findUser('username', $request->name('username'), 'email', $request->name('username'));
+        $user = (new Users())
+            ->setId($userData['id'])
+            ->setUsername($userData['username'])
+            ->setPassword($userData['password'])
+            ->setEmail($userData['email'])
+            ->setCreatedAt($userData['created_at'])
+            ->setImg($userData['img'])
+            ->setRole($userData['role'])
+        ;
 
-        if ($user === null)
+        if (!($user === null))
         {
-            (new UserController())->verifyUser($request, $user);
+            return (new UserController())->verifyUser($request, $user);
         }
-
         return $request->validator([ 'username' => ['incorrect'] ]);
-
     }
 
     public function signOut()

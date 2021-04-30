@@ -33,8 +33,9 @@ class Router
         {
             if ($route->match(trim($_GET['url']), '/'))
             {
+                //TODO: check user role
                 $route->execute();
-                die();
+                exit();
             }
         }
         return redirect404();

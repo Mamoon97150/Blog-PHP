@@ -43,10 +43,10 @@ class Request
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET')
         {
-            $this->getRequest();
+            return $this->getRequest();
         }
 
-        $this->postRequest();
+        return $this->postRequest();
 
     }
 
@@ -58,12 +58,11 @@ class Request
             $controller = $action[0];
             $controller = new $controller;
             $method = $action[1];
-            call_user_func_array([$controller, $method], $this->parameters);
+            return call_user_func_array([$controller, $method], $this->parameters);
         }
-        else
-        {
-            call_user_func_array($this->action, $this->parameters);
-        }
+
+        return call_user_func_array($this->action, $this->parameters);
+
     }
 
     public function postRequest()
@@ -75,10 +74,8 @@ class Request
             $controller = new $controller;
             $method = $action[1];
             array_unshift($this->parameters, $this->request);
-            call_user_func_array([$controller, $method], $this->parameters);}
-        else
-        {
-            call_user_func_array($this->action, $this->parameters);
+            return call_user_func_array([$controller, $method], $this->parameters);
         }
+        return call_user_func_array($this->action, $this->parameters);
     }
 }

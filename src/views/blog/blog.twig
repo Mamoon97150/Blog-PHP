@@ -41,13 +41,13 @@
                                     </div>
                                 </div>
                                 <h3 class="card-title">
-                                    <a href="{{ route('blog.show', {'id':post.post.id}) }}" data-gallery="blogDetailsGallery" data-glightbox="type: external" title="blog Details">
+                                    <a href="{{ route('blog.show', {'id':post.post.id} ) }}" data-gallery="blogDetailsGallery" data-glightbox="type: external" title="blog Details">
                                         {{ post.post.title | capitalize }}
                                     </a>
                                 </h3>
-                                <p class="card-description">
+                                <div class="card-description">
                                     {{ post.post.hook | raw }}
-                                </p>
+                                </div>
                             </div>
                             <div class="card-footer">
                                 <div class="post-author">

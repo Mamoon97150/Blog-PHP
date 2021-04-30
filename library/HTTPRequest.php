@@ -92,9 +92,10 @@ class HTTPRequest
                 }
             }
         }
-        if ($this->getErrors() != null)
+
+        if ($this->getErrors() !== null)
         {
-            header('location: '.$this->lastUrl());
+            $this->lastRedirect();
         }
         else
         {

@@ -30,30 +30,25 @@ class UserController extends FrontController
 
     }
 
-    public function verifyUser(HTTPRequest $request, $user)
+    public function verifyUser(HTTPRequest $request, Users $user)
     {
-        $user->toArray();
-        if (password_verify($request->name('password'), $user['password']))
+        if (password_verify($request->name('password'), $user->getPassword()))
         {
-            $request->session('auth', $user['role']);
-            $request->session('username', $user['username']);
-            $request->session('email', $user['email']);
-            $request->session('id', $user['id']);
-            $request->session('img', $user['img']);
+            $request->session('auth', $user->getRole());
+            $request->session('username', $user->getUsername());
+            $request->session('email', $user->getEmail());
+            $request->session('id', $user->getId());
+            $request->session('img', $user->getImg());
 
-            if ($user['role'] == 'admin')
+            if ($user->getRole() == 'admin')
             {
                 return redirect('admin.index', ['user' => strtolower($request->session('username'))]);
             }
-            else
-            {
-                return redirect('home.show');
-            }
+            return redirect('home.show');
+
         }
-        else
-        {
-            return $request->validator([ 'password' => ['incorrect'] ]);
-        }
+        return $request->validator([ 'password' => ['incorrect'] ]);
+
     }
 
     public function showUserList($usersData)
