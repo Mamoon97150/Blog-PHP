@@ -35,19 +35,24 @@ class Users extends Model
         return self::where('role',$role)->get()->toArray();
     }
 
-    public function addUser(array $user)
+    public function addUser(\App\Entity\Users $user)
     {
         // Hashing password
-        $password = password_hash($user['password'], PASSWORD_DEFAULT);
+        $password = password_hash($user->getPassword(), PASSWORD_DEFAULT);
 
         // creating new user in db with hashed password
         return self::create([
-            'username' => $user['username'],
-            'email' => $user['email'],
+            'username' => $user->getUsername(),
+            'email' => $user->getEmail(),
             'password' => $password,
-            'img' => $user['img']
+            'img' => $user->getImg()
         ]);
 
+    }
+
+    public function changePassword(\App\Entity\Users $users)
+    {
+       //TODO : create password change query
     }
 
     public function userExists($column, $value)

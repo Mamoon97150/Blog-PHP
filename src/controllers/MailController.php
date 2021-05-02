@@ -4,25 +4,20 @@
 namespace App\Controller;
 
 require_once '../config/mailConfig.php';
+
+use App\Entity\Messages;
 use App\HTTPRequest;
+use App\Model\Messages as MessagesModel;
 use Swift_Mailer;
 use Swift_Message;
 use Swift_SmtpTransport;
 
 class MailController extends FrontController
 {
-    public function answerMessage()
-    {
-
-    }
-
-    public function sendContactEmail(HTTPRequest $request)
+    public function answerMessage(HTTPRequest $request)
     {
         $contact = $request->validator([
-            'name' => ['required'],
-            'email' => ['required'],
-            'subject' => ['required'],
-            'message' => ['required']
+            'answer' => ['required']
         ]);
 
         $transport = (new Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))
@@ -31,12 +26,17 @@ class MailController extends FrontController
         ;
         $mailer = new Swift_Mailer($transport);
 
-        $message = (new Swift_Message($contact['subject']))
+        $message = (new Swift_Message('Re:'.$contact['subject']))
             ->setFrom([EMAIL => 'PHP Blog'])
             ->setTo([$contact['email']])
-            ->setBody($contact['message'])
+            ->setBody($contact['answer'], 'text/html')
         ;
 
         $mailer->send($message);
+
+        (new MessagesModel())->markAnswered($contact['messageId'], $contact['answer']);
+        redirect('admin.Messages');
     }
+
+    //TODO: add forgotPassword()
 }

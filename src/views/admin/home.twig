@@ -35,12 +35,12 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-               aria-expanded="true" aria-controls="collapseTwo">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePost"
+               aria-expanded="true" aria-controls="collapsePost">
                 <i class="fas fa-fw fa-newspaper"></i>
                 <span>Posts</span>
             </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div id="collapsePost" class="collapse" aria-labelledby="headingPost" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('admin.adminPost') }}">All posts</a>
                     <a class="collapse-item" href="{{ route('admin.addPost') }}">Add new post</a>
@@ -50,12 +50,12 @@
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-               aria-expanded="true" aria-controls="collapseUtilities">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseComments"
+               aria-expanded="true" aria-controls="collapseComments">
                 <i class="fas fa-fw fa-comments fa-2x"></i>
                 <span>Comments</span>
             </a>
-            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+            <div id="collapseComments" class="collapse" aria-labelledby="headingComments"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('admin.adminComments') }}">All comments</a>
@@ -74,16 +74,31 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-               aria-expanded="true" aria-controls="collapsePages">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers"
+               aria-expanded="true" aria-controls="collapseUsers">
                 <i class="fas fa-fw fa-user-alt"></i>
                 <span>Users</span>
             </a>
-            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div id="collapseUsers" class="collapse" aria-labelledby="headingUsers" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('admin.adminUsers') }}">All users</a>
                     <a class="collapse-item" href="{{ route('admin.manageAdmin') }}">Administrator</a>
                     <a class="collapse-item" href="{{ route('admin.manageUser') }}">Visitor</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMessages"
+               aria-expanded="true" aria-controls="collapseMessages">
+                <i class="fas fa-fw fa-user-alt"></i>
+                <span>Messages</span>
+            </a>
+            <div id="collapseMessages" class="collapse" aria-labelledby="headingMessages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('admin.Messages') }}">All messages</a>
+                    <a class="collapse-item" href="{{ route('admin.messagesUnanswered') }}">Unanswered messages</a>
                 </div>
             </div>
         </li>

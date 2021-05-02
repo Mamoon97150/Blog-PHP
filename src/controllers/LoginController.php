@@ -22,7 +22,7 @@ class LoginController extends FrontController
 
     public function forgot()
     {
-        $this->renderView('user/login/forgot');
+        $this->renderView('user/forgot/forgot');
     }
 
     public function signIn(HTTPRequest $request)

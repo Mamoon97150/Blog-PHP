@@ -33,6 +33,7 @@
             Content
         </div>
 
+        <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePost"
                aria-expanded="true" aria-controls="collapsePost">
@@ -309,8 +310,8 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">Comments pending approval</h1>
-                <p class="mb-4">See all comments you need to approve</p>
+                <h1 class="h3 mb-2 text-gray-800">Unanswered messages</h1>
+                <p class="mb-4">See all messages you need to answer</p>
 
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
@@ -322,38 +323,39 @@
                             <table class="table table-bordered" id="postsTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
-                                    <th>Post</th>
-                                    <th>Comment</th>
-                                    <th>User</th>
-                                    <th>Created</th>
-                                    <th>Updated</th>
-                                    <th>Approve</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Subject</th>
+                                    <th>Sent on</th>
+                                    <th>Answered ?</th>
                                     <th>Delete</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th>Post</th>
-                                    <th>Comment</th>
-                                    <th>User</th>
-                                    <th>Created</th>
-                                    <th>Updated</th>
-                                    <th>Approve</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Subject</th>
+                                    <th>Sent on</th>
+                                    <th>Answered ?</th>
                                     <th>Delete</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                {% for comment in comments %}
+                                {% for message in messages %}
                                     <tr>
-                                        <td>{{ comment.post.title }}</td>
-                                        <td>{{ comment.comment.comment | u.truncate(50, '...', false) | raw }}</td>
-                                        <td>{{ comment.user.username }}</td>
-                                        <td>{{ comment.comment.createdAt | format_datetime('short', 'short') }}</td>
-                                        <td>{{ comment.comment.updatedAt | format_datetime('short', 'short') }}</td>
+                                        <td><a href="{{ route('admin.showMessage', {'id':message.id}) }}">{{ message.name }}</a></td>
+                                        <td>{{ message.email }}</td>
+                                        <td>{{ message.subject }}</td>
+                                        <td>{{ message.createdAt | format_datetime('short', 'short') }}</td>
                                         <td>
-                                            <a href="{{ route('admin.approveComments', {'id':comment.comment.id}) }}">Approve</a>
+                                            {% if message.answered == 1 %}
+                                                yes
+                                            {% else %}
+                                                no
+                                            {% endif %}
                                         </td>
-                                        <td><a href="{{ route('comment.delete', {'id':comment.comment.id, 'postId':comment.post.id}) }}">Delete</a></td>
+                                        <td><a href="{{ route('message.delete', {'id':message.id}) }}">Delete</a></td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

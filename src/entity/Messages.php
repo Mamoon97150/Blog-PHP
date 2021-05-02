@@ -14,6 +14,7 @@ class Messages
     protected ?string $createdAt;
     protected ?string $updatedAt;
     protected ?int $answered;
+    protected ?string $answer = null;
 
     /**
      * @return int|null
@@ -78,6 +79,15 @@ class Messages
     {
         return $this->answered;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getAnswer(): ?string
+    {
+        return $this->answer;
+    }
+
 
     /**
      * @param int|null $id
@@ -156,6 +166,16 @@ class Messages
     public function setAnswered(?int $answered): Messages
     {
         $this->answered = $answered;
+        return $this;
+    }
+
+    /**
+     * @param string|null $answer
+     * @return Messages
+     */
+    public function setAnswer(?string $answer): Messages
+    {
+        $this->answer = $answer;
         return $this;
     }
 

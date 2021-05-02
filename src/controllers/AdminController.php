@@ -10,6 +10,7 @@ use App\Model\Posts as PostModel;
 use App\Model\Comments as CommentModel;
 use App\Model\Category as CategoryModel;
 use App\Model\Users as UserModel;
+use App\Model\Messages as MessageModel;
 
 class AdminController extends FrontController
 {
@@ -87,4 +88,23 @@ class AdminController extends FrontController
         $this->renderView('admin/users/userRole', compact('users'));
     }
 
+    public function adminMessages()
+    {
+        $data = (new MessageModel())->allMessages();
+        $messages = (new MessageController())->showMessageList($data);
+        $this->renderView('admin/messages/messages', compact('messages'));
+    }
+
+    public function messagesUnanswered()
+    {
+        $data = (new MessageModel())->messageAnswered();
+        $messages = (new MessageController())->showMessageList($data);
+        $this->renderView('admin/messages/notAnswered', compact('messages'));
+    }
+
+    public function showMessage($messageId)
+    {
+        $message = (new MessageController())->showMessage($messageId);
+        $this->renderView('admin/messages/showMessage', compact('message'));
+    }
 }

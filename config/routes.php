@@ -48,3 +48,8 @@ App\Router::get('/admin/dashboard/users/delete', 'App\Controller\UserController@
 App\Router::get('/admin/dashboard/users/user/{id}', 'App\Controller\UserController@makeUser')->name('admin.makeUser');
 App\Router::get('/admin/dashboard/users/admin/{id}', 'App\Controller\UserController@makeAdmin')->name('admin.makeAdmin');
 //message
+App\Router::get('/admin/dashboard/messages', 'App\Controller\AdminController@adminMessages')->name('admin.Messages');
+App\Router::get('/admin/dashboard/messages/answered', 'App\Controller\AdminController@messagesUnanswered')->name('admin.messagesUnanswered');
+App\Router::get('/admin/dashboard/messages/show/{id}', 'App\Controller\AdminController@showMessage')->name('admin.showMessage');
+App\Router::get('/message/delete/{id}', 'App\Controller\MessageController@deleteMessage')->name('message.delete');
+App\Router::post('/admin/dashboard/messages/answer/{id}', 'App\Controller\MailController@answerMessage')->name('admin.answerMessage');

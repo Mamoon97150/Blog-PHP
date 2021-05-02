@@ -12,15 +12,22 @@ class UserController extends FrontController
 {
     public function createUser(HTTPRequest $request, array $data)
     {
-        $user = new UserModel();
+        $query = new UserModel();
+        $user = (new Users())
+            ->setUsername($data['username'])
+            ->setEmail($data['email'])
+            ->setPassword($data['password'])
+            ->setCreatedAt($data['created_at'])
+            ->setRole($data['role'])
+        ;
 
         // check if username exists
-        if ($user->userExists('username', $data['username']) == false)
+        if ($query->userExists('username', $user->getUsername()) == false)
         {
             //check if email exists
-            if ($user->userExists('email', $data['email']) == false)
+            if ($query->userExists('email', $user->getEmail()) == false)
             {
-                $user->addUser($data);
+                $query->addUser($user);
             }
             return $request->validator([ 'email' => ['exists'] ]);
 

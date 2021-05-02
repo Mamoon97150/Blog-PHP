@@ -33,7 +33,11 @@ class Router
         {
             if ($route->match(trim($_GET['url']), '/'))
             {
-                //TODO: check user role
+                $haystack = $_GET['url'];
+                if (str_contains($haystack, 'admin'))
+                {
+                    return self::accessDenied($route);
+                }
                 $route->execute();
                 exit();
             }
@@ -66,6 +70,21 @@ class Router
                 }
             }
         }
+    }
+
+
+    public static function accessDenied($route)
+    {
+        if (isset($_SESSION['auth']))
+        {
+            if ($_SESSION['auth'] == 'admin')
+            {
+                $route->execute();
+                exit();
+            }
+            return redirect403();
+        }
+        return redirect403();
     }
 
 
