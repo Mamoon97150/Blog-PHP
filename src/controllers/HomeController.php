@@ -9,4 +9,12 @@ class HomeController extends FrontController
     {
          $this->renderView('home');
     }
+
+    public function download()
+    {
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: attachment; filename="DjaminaCV.pdf"');
+        readfile('Djamina CV.pdf');
+        redirect('home.show');
+    }
 }
