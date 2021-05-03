@@ -19,56 +19,69 @@ class AdminController extends FrontController
 
         $post = (new PostModel())->lastPost();
         $users =(new UserModel())->countUsers();
-        $commentsPending = (new CommentModel())->commentsCount('approved', '0');
-        $comments = (new CommentModel())->countComments();
+        $pendingCount = (new CommentModel())->commentsCount('approved', '0');
+        $unansweredCount = (new MessageModel())->messagesCount('answered', '0');
 
-        $this->renderView('admin/home', compact(['post', 'users', 'commentsPending', 'comments']));
+        $this->renderView('admin/home', compact(['post', 'users', 'pendingCount', 'unansweredCount']));
     }
 
     public function adminPost()
     {
         $postsData = (new PostModel())->allPosts();
         $posts = (new PostController())->showPostList($postsData);
+        $pendingCount = (new CommentModel())->commentsCount('approved', '0');
+        $unansweredCount = (new MessageModel())->messagesCount('answered', '0');
 
-        $this->renderView('admin/posts/posts', compact('posts'));
+        $this->renderView('admin/posts/posts', compact(['posts', 'pendingCount', 'unansweredCount']));
     }
 
     public function addPost()
     {
         $categories = (new CategoryModel())->allCategories();
-        $this->renderView('admin/posts/addpost', compact('categories'));
+        $pendingCount = (new CommentModel())->commentsCount('approved', '0');
+        $unansweredCount = (new MessageModel())->messagesCount('answered', '0');
+
+        $this->renderView('admin/posts/addpost', compact(['categories', 'pendingCount', 'unansweredCount']));
     }
 
     public function editPost($postId)
     {
         $categories = (new CategoryModel())->allCategories();
         $post = (new PostController())->showPost($postId);
+        $pendingCount = (new CommentModel())->commentsCount('approved', '0');
+        $unansweredCount = (new MessageModel())->messagesCount('answered', '0');
 
-        $this->renderView('admin/posts/editpost', compact(['categories', 'post']));
+        $this->renderView('admin/posts/editpost', compact(['post', 'categories', 'pendingCount', 'unansweredCount']));
     }
 
     public function adminComments()
     {
         $commentsData = (new CommentModel())->allComments();
         $comments = (new CommentController())->showCommentList($commentsData);
+        $pendingCount = (new CommentModel())->commentsCount('approved', '0');
+        $unansweredCount = (new MessageModel())->messagesCount('answered', '0');
 
-        $this->renderView('admin/comments/comments', compact('comments'));
+        $this->renderView('admin/comments/comments', compact(['comments', 'pendingCount', 'unansweredCount']));
     }
 
     public function pendingComments()
     {
         $commentsData = (new CommentModel())->commentsPendingApproval();
         $comments = (new CommentController())->showCommentList($commentsData);
+        $pendingCount = (new CommentModel())->commentsCount('approved', '0');
+        $unansweredCount = (new MessageModel())->messagesCount('answered', '0');
 
-        $this->renderView('admin/comments/pending', compact('comments'));
+        $this->renderView('admin/comments/pending', compact(['comments', 'pendingCount', 'unansweredCount']));
     }
 
     public function adminUsers()
     {
         $usersData = (new UserModel())->allUsers();
         $users = (new UserController())->showUserList($usersData);
+        $pendingCount = (new CommentModel())->commentsCount('approved', '0');
+        $unansweredCount = (new MessageModel())->messagesCount('answered', '0');
 
-        $this->renderView('admin/users/users', compact('users'));
+        $this->renderView('admin/users/users', compact(['users', 'pendingCount', 'unansweredCount']));
 
     }
 
@@ -76,35 +89,48 @@ class AdminController extends FrontController
     {
         $usersData = (new UserModel())->userByRole('admin');
         $users = (new UserController())->showUserList($usersData);
+        $pendingCount = (new CommentModel())->commentsCount('approved', '0');
+        $unansweredCount = (new MessageModel())->messagesCount('answered', '0');
 
-        $this->renderView('admin/users/adminRole', compact('users'));
+        $this->renderView('admin/users/adminRole', compact(['users', 'pendingCount', 'unansweredCount']));
     }
 
     public function manageUser()
     {
         $usersData = (new UserModel())->userByRole('user');
         $users = (new UserController())->showUserList($usersData);
+        $pendingCount = (new CommentModel())->commentsCount('approved', '0');
+        $unansweredCount = (new MessageModel())->messagesCount('answered', '0');
 
-        $this->renderView('admin/users/userRole', compact('users'));
+        $this->renderView('admin/users/userRole', compact(['users', 'pendingCount', 'unansweredCount']));
     }
 
     public function adminMessages()
     {
         $data = (new MessageModel())->allMessages();
         $messages = (new MessageController())->showMessageList($data);
-        $this->renderView('admin/messages/messages', compact('messages'));
+        $pendingCount = (new CommentModel())->commentsCount('approved', '0');
+        $unansweredCount = (new MessageModel())->messagesCount('answered', '0');
+
+        $this->renderView('admin/messages/messages', compact(['messages', 'pendingCount', 'unansweredCount']));
     }
 
     public function messagesUnanswered()
     {
         $data = (new MessageModel())->messageAnswered();
         $messages = (new MessageController())->showMessageList($data);
-        $this->renderView('admin/messages/notAnswered', compact('messages'));
+        $pendingCount = (new CommentModel())->commentsCount('approved', '0');
+        $unansweredCount = (new MessageModel())->messagesCount('answered', '0');
+
+        $this->renderView('admin/messages/notAnswered', compact(['messages', 'pendingCount', 'unansweredCount']));
     }
 
     public function showMessage($messageId)
     {
         $message = (new MessageController())->showMessage($messageId);
-        $this->renderView('admin/messages/showMessage', compact('message'));
+        $pendingCount = (new CommentModel())->commentsCount('approved', '0');
+        $unansweredCount = (new MessageModel())->messagesCount('answered', '0');
+
+        $this->renderView('admin/messages/showMessage', compact(['message', 'pendingCount', 'unansweredCount']));
     }
 }

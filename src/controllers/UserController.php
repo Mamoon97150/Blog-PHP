@@ -7,18 +7,29 @@ namespace App\Controller;
 use App\HTTPRequest;
 use App\Model\Users as UserModel;
 use App\Entity\Users;
+use function Symfony\Component\String\u;
 
 class UserController extends FrontController
 {
+    public function hashPassword($password)
+    {
+        return password_hash($password, PASSWORD_DEFAULT);
+    }
+
+    public function verifyPassword($password, Users $user)
+    {
+        return password_verify($password, $user->getPassword());
+    }
+
     public function createUser(HTTPRequest $request, array $data)
     {
         $query = new UserModel();
+        $password = $this->hashPassword($data['password']);
         $user = (new Users())
             ->setUsername($data['username'])
             ->setEmail($data['email'])
-            ->setPassword($data['password'])
-            ->setCreatedAt($data['created_at'])
-            ->setRole($data['role'])
+            ->setPassword($password)
+            ->setImg($data['img'])
         ;
 
         // check if username exists
@@ -37,9 +48,27 @@ class UserController extends FrontController
 
     }
 
+    public function getUser(HTTPRequest $request): Users
+    {
+        $userData = (new UserModel())->findUser('username', $request->name('username'), 'email', $request->name('username'));
+
+        return (new Users())
+            ->setId($userData['id'])
+            ->setUsername($userData['username'])
+            ->setPassword($userData['password'])
+            ->setEmail($userData['email'])
+            ->setCreatedAt($userData['created_at'])
+            ->setImg($userData['img'])
+            ->setRole($userData['role'])
+            ->setExpDate($userData['expDate'])
+        ;
+    }
+
     public function verifyUser(HTTPRequest $request, Users $user)
     {
-        if (password_verify($request->name('password'), $user->getPassword()))
+        $password = $request->name('password');
+
+        if ($this->verifyPassword($password , $user))
         {
             $request->session('auth', $user->getRole());
             $request->session('username', $user->getUsername());
@@ -105,6 +134,13 @@ class UserController extends FrontController
         return redirect('admin.adminUsers');
     }
 
+    public function changePassword(HTTPRequest $request, $password)
+    {
+        $user = $this->getUser($request);
+        $passwordHashed = $this->hashPassword($password);
+        (new UserModel())->changePassword($user, $passwordHashed, null);
 
+        redirect('user.login');
+    }
 
 }

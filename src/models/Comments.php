@@ -51,10 +51,6 @@ class Comments extends Model
         return self::where($column ,$value)->count();
     }
 
-    public function countComments()
-    {
-        return self::count();
-    }
 
     public function commentsByDate()
     {

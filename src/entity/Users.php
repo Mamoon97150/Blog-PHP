@@ -14,12 +14,14 @@ class Users
     protected string $password;
     protected ?string $createdAt;
     protected ?string $updatedAt;
-    protected string $role;
+    protected ?string $role;
+    protected ?string $token;
+    protected ?string $expDate;
 
     /**
-     * @return mixed
+     * @return int|null
      */
-    public function getId(): mixed
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -57,17 +59,17 @@ class Users
     }
 
     /**
-     * @return mixed
+     * @return string|null
      */
-    public function getCreatedAt(): mixed
+    public function getCreatedAt(): ?string
     {
         return $this->createdAt;
     }
 
     /**
-     * @return mixed
+     * @return string|null
      */
-    public function getUpdatedAt(): mixed
+    public function getUpdatedAt(): ?string
     {
         return $this->updatedAt;
     }
@@ -78,6 +80,22 @@ class Users
     public function getRole(): string
     {
         return $this->role;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getExpDate(): ?string
+    {
+        return $this->expDate;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getToken(): ?string
+    {
+        return $this->token;
     }
 
     /**
@@ -151,12 +169,32 @@ class Users
     }
 
     /**
-     * @param string $role
+     * @param string|null $role
      * @return Users
      */
-    public function setRole(string $role): Users
+    public function setRole(?string $role): Users
     {
         $this->role = $role;
+        return $this;
+    }
+
+    /**
+     * @param string|null $expDate
+     * @return Users
+     */
+    public function setExpDate(?string $expDate): Users
+    {
+        $this->expDate = $expDate;
+        return $this;
+    }
+
+    /**
+     * @param string|null $token
+     * @return Users
+     */
+    public function setToken(?string $token): Users
+    {
+        $this->token = $token;
         return $this;
     }
 

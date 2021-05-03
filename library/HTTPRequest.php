@@ -127,6 +127,11 @@ class HTTPRequest
             case 'incorrect' :
                 $this->errors[$key][] = "<i class='fas fa-exclamation-triangle'></i> Incorrect <span class='fw-bolder text-decoration-underline'>$key</span> !";
                 break;
+
+            case 'notExist' :
+                $this->errors[$key][] = "<i class='fas fa-exclamation-triangle'></i> This <span class='fw-bolder text-decoration-underline'>$key</span> does not exist !";
+                break;
+
         }
     }
 

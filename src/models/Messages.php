@@ -47,4 +47,9 @@ class Messages extends Model
         $message->answered = true;
         $message->save();
     }
+
+    public function messagesCount($column, $value)
+    {
+        return self::where($column ,$value)->count();
+    }
 }

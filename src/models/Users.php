@@ -37,22 +37,30 @@ class Users extends Model
 
     public function addUser(\App\Entity\Users $user)
     {
-        // Hashing password
-        $password = password_hash($user->getPassword(), PASSWORD_DEFAULT);
-
         // creating new user in db with hashed password
         return self::create([
             'username' => $user->getUsername(),
             'email' => $user->getEmail(),
-            'password' => $password,
+            'password' => $user->getPassword(),
             'img' => $user->getImg()
         ]);
 
     }
 
-    public function changePassword(\App\Entity\Users $users)
+    public function changePassword(\App\Entity\Users $user, $newPassword, $expDate = null)
     {
-       //TODO : create password change query
+        $user = self::find($user->getId());
+        $user->password = $newPassword;
+        $user->expDate = $expDate;
+        $user->save();
+    }
+
+    public function addToken(\App\Entity\Users $user, $token, $expDate = null)
+    {
+        $user = self::find($user->getId());
+        $user->token = $token;
+        $user->expDate = $expDate;
+        $user->save();
     }
 
     public function userExists($column, $value)

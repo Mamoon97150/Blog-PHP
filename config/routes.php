@@ -2,6 +2,7 @@
 
 //HOMEPAGE
 App\Router::get('/', 'App\Controller\HomeController@show')->name('home.show');
+App\Router::get('/CV', 'App\Controller\HomeController@download')->name('home.download');
 App\Router::post('/', 'App\Controller\MessageController@createMessage')->name('home.contact');
 
 //BOLG PUBLIC-SIDE
@@ -20,11 +21,14 @@ App\Router::get('/comment/delete/{id}/{postId}', 'App\Controller\CommentControll
 App\Router::get('/user/login', 'App\Controller\LoginController@login')->name('user.login');
 App\Router::get('/user/forgot', 'App\Controller\LoginController@forgot')->name('user.forgot');
 App\Router::get('/user/register', 'App\Controller\LoginController@register')->name('user.register');
+App\Router::get('/user/change/{username}/{token}', 'App\Controller\LoginController@change')->name('user.edit');
+
 //method
 App\Router::post('/user/signin', 'App\Controller\LoginController@signIn')->name('user.signin');
 App\Router::get('/user/logout', 'App\Controller\LoginController@signOut')->name('user.logout');
 App\Router::post('/user/signUp', 'App\Controller\LoginController@signUp')->name('user.signUp');
-App\Router::post('/user/change-password', 'App\Controller\UserController@changePassword')->name('user.change');
+App\Router::post('/user/reset-password', 'App\Controller\MailController@resetPassword')->name('mail.reset');
+App\Router::post('/user/change-password', 'App\Controller\LoginController@resetPassword')->name('user.change');
 
 //ADMIN DASHBOARD
 //views

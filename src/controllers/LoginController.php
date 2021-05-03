@@ -25,6 +25,24 @@ class LoginController extends FrontController
         $this->renderView('user/forgot/forgot');
     }
 
+    public function change()
+    {
+        $url = explode("/",$_GET['url']);
+        $key = $url[2];
+        $token = $url[3];
+        $now = date('r');
+
+        $userData = (new UserModel())->findUser('username', $key, 'email', $key);
+        $user = (new Users())
+            ->setId($userData['id'])
+            ->setUsername($userData['username'])
+            ->setEmail($userData['email'])
+            ->setToken($userData['token'])
+            ->setExpDate($userData['expDate'])
+            ;
+        $this->renderView('user/forgot/new', compact(['key','token','user','now']));
+    }
+
     public function signIn(HTTPRequest $request)
     {
         $request->validator([
@@ -32,17 +50,7 @@ class LoginController extends FrontController
             'password' => ['required']
         ]);
 
-        $userData = (new UserModel())->findUser('username', $request->name('username'), 'email', $request->name('username'));
-        $user = (new Users())
-            ->setId($userData['id'])
-            ->setUsername($userData['username'])
-            ->setPassword($userData['password'])
-            ->setEmail($userData['email'])
-            ->setCreatedAt($userData['created_at'])
-            ->setImg($userData['img'])
-            ->setRole($userData['role'])
-        ;
-
+        $user = (new UserController())->getUser($request);
         if (!($user === null))
         {
             return (new UserController())->verifyUser($request, $user);
@@ -71,6 +79,16 @@ class LoginController extends FrontController
 
         return redirect('user.login');
 
+    }
+
+    public function resetPassword(HTTPRequest $request)
+    {
+        $form = $request->validator([
+            'username' => ['required'],
+            'password' => ['required']
+        ]);
+
+        (new UserController())->changePassword($request, $form['password']);
     }
 
 }

@@ -75,7 +75,12 @@ h6 {
   text-decoration: none;
   background-color: #ff9d00;
   color: #fff;
-  border-color: #cde1f8;
+}
+
+.button-a:hover {
+  text-decoration: none;
+  background-color: rgb(250, 193, 78);
+  color: #fff;
 }
 
 .button-big {
