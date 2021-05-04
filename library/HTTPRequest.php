@@ -67,15 +67,9 @@ class HTTPRequest
             {
                 return $file_destination;
             }
-            else
-            {
-                return null;
-            }
-        }
-        else
-        {
             return null;
         }
+        return null;
     }
 
     //validation des formulaire

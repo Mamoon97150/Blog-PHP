@@ -38,8 +38,7 @@ class Router
                 {
                     return self::accessDenied($route);
                 }
-                $route->execute();
-                exit();
+                return $route->execute();
             }
         }
         return redirect404();
