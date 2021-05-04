@@ -24,9 +24,9 @@ Aller dans le dossier public :
 
     -   cd public
 
-Installer composer :
+Installer les module node.js :
 
-    -   composer install
+    -   nmp install
 
 Le projet est maintenant prêt !
 Enjoy !
