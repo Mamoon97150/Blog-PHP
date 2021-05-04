@@ -32,11 +32,11 @@ class CommentController extends FrontController
         return redirect('blog.show',['id' => $postId]);
     }
 
-    public function delete($commentId, $postId)
+    public function delete($commentId, $postId, $userId)
     {
         $request = new HTTPRequest();
 
-        if ($request->session('id') == $comment['user_id'] || $request->session('auth') == 'admin')
+        if ($request->session('id') == $userId || $request->session('auth') == 'admin')
         {
             (new CommentModel())->eraseComment($commentId);
         };

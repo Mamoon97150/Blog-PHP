@@ -13,7 +13,7 @@ App\Router::get('/blog/post/show/{id}', 'App\Controller\BlogController@show')->n
 
 //COMMENTS
 App\Router::post('/comment/create', 'App\Controller\CommentController@createComment')->name('comment.createComment');
-App\Router::get('/comment/delete/{id}/{postId}', 'App\Controller\CommentController@delete')->name('comment.delete');
+App\Router::get('/comment/delete/{id}/{postId}/{userId}', 'App\Controller\CommentController@delete')->name('comment.delete');
 
 
 //AUTH
