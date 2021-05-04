@@ -153,7 +153,7 @@
 
                     <!-- Nav Item - Alerts -->
                     <li class="nav-item  mx-1">
-                        <a class="nav-link" href="{{ route('admin.adminComments') }}" id="alertsDropdown" role="button">
+                        <a class="nav-link" href="{{ route('admin.pendingComments') }}" id="alertsDropdown" role="button">
                             <i class="fas fa-comment fa-fw"></i>
                             <!-- Counter - Alerts -->
                             <span class="badge badge-danger badge-counter">{{ pendingCount }}</span>
@@ -162,7 +162,7 @@
 
                     <!-- Nav Item - Messages -->
                     <li class="nav-item mx-1">
-                        <a class="nav-link " href="{{ route('admin.Messages') }}" id="messagesDropdown" role="button">
+                        <a class="nav-link " href="{{ route('admin.messagesUnanswered') }}" id="messagesDropdown" role="button">
                             <i class="fas fa-envelope fa-fw"></i>
                             <!-- Counter - Messages -->
                             <span class="badge badge-danger badge-counter">{{ unansweredCount }}</span>
