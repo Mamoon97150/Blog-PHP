@@ -14,11 +14,11 @@ Open Classroom : Projet 5 : Création d'un blog
 ### Installation de composer
 Dans votre terminal aller dans le dossier library.
 
-    -   _cd library_
+    -   cd library
 
 installer composer dans ce dossier avec la commande:
 
-    -   _composer install_    
+    -   composer install    
 Retourner au dossier root (cd -). 
 Aller dans le dossier public :
 
@@ -26,7 +26,7 @@ Aller dans le dossier public :
 
 Installer composer :
 
-    -   _composer install_
+    -   composer install
 
 Le projet est maintenant prêt !
 Enjoy !
