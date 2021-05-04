@@ -78,8 +78,7 @@ class Router
         {
             if ($_SESSION['auth'] == 'admin')
             {
-                $route->execute();
-                exit();
+                return $route->execute();
             }
             return redirect403();
         }
