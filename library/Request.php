@@ -4,11 +4,11 @@ namespace App;
 
 class Request
 {
-    protected $path;
-    protected $action;
-    protected $parameters = [];
-    protected $request;
-    protected $routeName = [];
+    private $path;
+    private $action;
+    private $parameters = [];
+    private $request;
+    private $routeName = [];
 
     public function __construct(string $path, $action)
     {
@@ -17,13 +17,14 @@ class Request
         $this->action = $action;
     }
 
+
     public function name(string $name = null)
     {
         $this->routeName[$name][] = $this->path;
         return $this->routeName;
     }
 
-    public function match($url)
+    public function match($url): bool
     {
         $path = preg_replace('#({[\w]+})#', '([^/]+)', $this->path);
         $pathToMatch = "#^$path$#";
@@ -34,22 +35,19 @@ class Request
             $this->parameters = $results;
             return true;
         }
-        else
-        {
-            return false;
-        }
+
+        return false;
     }
 
     public function execute()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET')
         {
-            $this->getRequest();
+            return $this->getRequest();
         }
-        else
-        {
-            $this->postRequest();
-        }
+
+        return $this->postRequest();
+
     }
 
     public function getRequest()
@@ -60,12 +58,11 @@ class Request
             $controller = $action[0];
             $controller = new $controller;
             $method = $action[1];
-            return isset($this->parameters) ? $controller->$method(implode($this->parameters)) : $controller->$method();
+            return call_user_func_array([$controller, $method], $this->parameters);
         }
-        else
-        {
-            call_user_func_array($this->action, $this->parameters);
-        }
+
+        return call_user_func_array($this->action, $this->parameters);
+
     }
 
     public function postRequest()
@@ -76,11 +73,9 @@ class Request
             $controller = $action[0];
             $controller = new $controller;
             $method = $action[1];
-            return isset($this->parameters) ? $controller->$method($this->request, implode($this->parameters)) : $controller->$method($this->request);
+            array_unshift($this->parameters, $this->request);
+            return call_user_func_array([$controller, $method], $this->parameters);
         }
-        else
-        {
-            call_user_func_array($this->action, $this->parameters);
-        }
+        return call_user_func_array($this->action, $this->parameters);
     }
 }

@@ -1,10 +1,14 @@
 {% extends 'layout/layout.twig' %}
 {% block header %} class = "header-top" {% endblock %}
+{% set pageTitle = 'Blog' %}
 {% block active %} {% endblock %}
 {% block main %}
     <section id="blog" class="blog section-show">
         <div class="container">
             <div class="section-title">
+                {% if auth.status != null %}
+                    <div class="float-end">Welcome back, {{ auth.username }} ! </div>
+                {% endif %}
                 <h2>Blog</h2>
                 <p>My Posts</p>
             </div>
@@ -12,11 +16,11 @@
             <div class="row">
                 <div class="col-lg-12 d-flex justify-content-center">
                     <ul id="blog-filters">
-                        <li data-filter="*" class="filter-active">All</li>
-                        <li data-filter=".filter-lifestyle">Lifestyle</li>
-                        <li data-filter=".filter-tools">Tool</li>
-                        <li data-filter=".filter-projects">Projects</li>
-                        <li data-filter=".filter-tutorials">Tutorials</li>
+                        <li><a href="{{ route('blog.index') }}" style="color: white">All</a></li>
+                        <li><a href="{{ route('blog.indexCategory', {'id':1}) }}" style="color: white">Lifestyle</a></li>
+                        <li><a href="{{ route('blog.indexCategory', {'id':3}) }}" style="color: white">Tool</a></li>
+                        <li><a href="{{ route('blog.indexCategory', {'id':2}) }}" style="color: white">Projects</a></li>
+                        <li><a href="{{ route('blog.indexCategory', {'id':4}) }}" style="color: white">Tutorials</a></li>
                     </ul>
                 </div>
             </div>
@@ -26,8 +30,8 @@
                     <div class="col-lg-4 col-md-6 blog-item filter-{{ post.category.name }}">
                         <div class="card blog-wrap">
                             <div class="card-img">
-                                <a href="{{ route('blog.show', {'id':post.id}) }}" data-gallery="blogDetailsGallery" data-glightbox="type: external" title="blog Details">
-                                    <img src="{{ post.img }}" class="img-fluid" alt="">
+                                <a href="{{ route('blog.show', {'id':post.post.id}) }}" data-gallery="blogDetailsGallery" data-glightbox="type: external" title="blog Details">
+                                    <img src="{{ post.post.img }}" class="img-fluid" alt="">
                                 </a>
                             </div>
                             <div class="card-body">
@@ -37,22 +41,22 @@
                                     </div>
                                 </div>
                                 <h3 class="card-title">
-                                    <a href="{{ route('blog.show', {'id':post.id}) }}" data-gallery="blogDetailsGallery" data-glightbox="type: external" title="blog Details">
-                                        {{ post.title | capitalize }}
+                                    <a href="{{ route('blog.show', {'id':post.post.id} ) }}" data-gallery="blogDetailsGallery" data-glightbox="type: external" title="blog Details">
+                                        {{ post.post.title | capitalize }}
                                     </a>
                                 </h3>
-                                <p class="card-description">
-                                    {{ post.hook }}
-                                </p>
+                                <div class="card-description">
+                                    {{ post.post.hook | raw }}
+                                </div>
                             </div>
                             <div class="card-footer">
                                 <div class="post-author">
-                                    <a href="#">
+                                    <a href="{{ route('blog.indexUser', {'id':post.user.id}) }}">
                                         <span class="author">{{ post.user.username | capitalize }}</span>
                                     </a>
                                 </div>
                                 <div class="post-date">
-                                    <i class="bi bi-calendar-plus"></i> {{ post.dateUpdated | format_datetime('medium','none') }}
+                                    <i class="bi bi-calendar-plus"></i> {{ post.post.updatedAt | format_datetime('medium','none') }}
                                 </div>
                             </div>
                         </div>

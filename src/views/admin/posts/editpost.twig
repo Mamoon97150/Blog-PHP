@@ -1,0 +1,134 @@
+{% extends 'layout/admin.twig' %}
+{% block content %}
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+                        <!-- Page Heading -->
+                        <h1 class="h3 mb-2 text-gray-800">Edit post</h1>
+                        <p class="mb-4">Edit a post from my blog</p>
+                        <form method="post" action="{{ route('admin.updatePost', {'id': post.id}) }}" enctype="multipart/form-data">
+                            <div class="row g-3">
+                                <div class="form-group row col-12">
+                                    <div class="col-sm-2">
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <img src="{{ post.img }}" class="img-thumbnail" alt="img{{ post.name }}">
+                                    </div>
+                                </div>
+                                <div class="col-12 ">
+                                    <label for="author"></label>
+                                    <input type="hidden" class="form-control" id="author" name="user_id" value="{{ auth.id }}">
+                                </div>
+                                <div class="form-group row col-12">
+                                    <label for="inputTitle" class="col-form-label col-sm-2">Title :</label>
+                                    <input type="text" class="form-control col-sm-10" id="inputTitle" name="title" value="{{ post.title }}">
+                                    {{ error.title | raw }}
+                                </div>
+                                <div class="col-12 form-group row">
+                                    <label for="textareaHook" class="form-label col-sm-2">Hook :</label>
+                                    <textarea type="text" class="form-control col-sm-10" id="textareaHook" name="hook" rows="5">{{ post.hook }}</textarea>
+                                    <script>
+                                        CKEDITOR.replace( 'textareaHook',{
+                                            toolbar:'admin',
+                                            height:80,
+                                            width: '83%',
+                                            extraPlugins: 'autogrow',
+                                            autoGrow_minHeight: 100,
+                                            autoGrow_maxHeight: 600,
+                                            autoGrow_bottomSpace: 50,
+                                            removePlugins: 'resize'
+                                        })
+                                    </script>
+                                    {{ error.hook | raw }}
+                                </div>
+                                <div class="col-md-12 form-group row">
+                                    <label for="textareaPost" class="form-label col-sm-2">Post :</label>
+                                    <textarea type="text" class="form-control col-sm-10" id="textareaPost" name="content" placeholder="" rows="15">{{ post.content }}</textarea>
+                                    <script>
+                                        CKEDITOR.replace( 'textareaPost' , {
+                                            toolbar:'admin',
+                                            height:200,
+                                            width: '83%',
+                                            extraPlugins: 'autogrow',
+                                            autoGrow_minHeight: 300,
+                                            autoGrow_maxHeight: 600,
+                                            autoGrow_bottomSpace: 50,
+                                            removePlugins: 'resize'
+                                        });
+                                    </script>
+                                    {{ error.content | raw }}
+                                </div>
+                                <div class="form-group row col-12">
+                                    <div class="col-sm-2">
+                                    </div>
+                                    <div class="col-sm-5 form-label-group">
+                                        <label for="inputCategory" class="form-label"></label>
+                                        <select id="inputCategory" class="custom-select" name="category_id">
+                                            <option selected>Choose post category...</option>
+
+                                            {% for category in categories %}
+                                                {% if post.categoryId == category.id %}
+                                                    <option value="{{ category.id }}" selected>{{ category.name | capitalize}}</option>
+                                                {% else %}
+                                                    <option value="{{ category.id }}">{{ category.name | capitalize}}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-5 custom-file mt-4">
+                                        <input type="file" class="custom-file-input" id="image" name="image">
+                                        <input type="hidden" class="form-control" value="{{ post.img }}" name="img">
+                                        <label for="image" class="custom-file-label">Choose image...</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center mt-4">
+                                <div class="col-6">
+                                    <button type="submit" class="btn btn-primary btn-block">Edit post</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.container-fluid -->
+                </div>
+                <!-- End of Main Content -->
+                <!-- Footer -->
+                <footer class="sticky-footer bg-dark">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; Your Website 2020</span>
+                        </div>
+                    </div>
+                </footer>
+                <!-- End of Footer -->
+
+            </div>
+            <!-- End of Content Wrapper -->
+
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up fa-2x "></i>
+        </a>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="{{ route('user.logout') }}">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

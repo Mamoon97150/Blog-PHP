@@ -1,0 +1,123 @@
+{% extends 'layout/admin.twig' %}
+{% block content %}
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">Answer message</h1>
+                <p class="mb-4">Answer a contact message</p>
+                <div class="row">
+                    <p class="col-sm-3 font-weight-bold">Date :</p>
+                    <p class="col-sm-9">{{ message.createdAt | date}}</p>
+                </div>
+                <div class="row">
+                    <p class="col-sm-3 font-weight-bold">Name :</p>
+                    <p class="col-sm-9">{{ message.name }}</p>
+                </div>
+                <div class="row">
+                    <p class="col-sm-3 font-weight-bold">Email :</p>
+                    <p class="col-sm-9">{{ message.email }}</p>
+                </div>
+                <div class="row">
+                    <p class="col-sm-3 font-weight-bold">Subject :</p>
+                    <p class="col-sm-9">{{ message.subject }}</p>
+                </div>
+                <div class="row">
+                    <p class="col-sm-3 font-weight-bold">Content :</p>
+                    <p class="col-sm-9">{{ message.message | raw }}</p>
+                </div>
+                <div>
+                    <hr class="bg-primary text-primary">
+                </div>
+
+                {% if message.answer is null %}
+                <form method="post" action="{{ route('admin.answerMessage', {'id': message.id}) }}">
+                    <div class="row g-3">
+                        <div class="col-12 ">
+                            <label for="messageId"></label>
+                            <input type="hidden" class="form-control" id="messageId" name="messageId" value="{{ message.id }}">
+                        </div>
+                        <div class="col-12 ">
+                            <label for="name"></label>
+                            <input type="hidden" class="form-control" id="name" name="name" value="{{ message.name }}">
+                        </div>
+                        <div class="col-12 ">
+                            <label for="email"></label>
+                            <input type="hidden" class="form-control" id="email" name="email" value="{{ message.email }}">
+                        </div>
+                        <div class="col-12 ">
+                            <label for="subject"></label>
+                            <input type="hidden" class="form-control" id="subject" name="subject" value="{{ message.subject }}">
+                        </div>
+                        <div class="col-md-12 form-group row">
+                            <label for="textareaMail" class="form-label col-sm-2">Answer :</label>
+                            <textarea type="text" class="form-control col-sm-10" id="textareaMail" name="answer" placeholder="" rows="15"></textarea>
+                            <script>
+                                CKEDITOR.replace( 'textareaMail' , {
+                                    toolbar:'admin',
+                                    height:200,
+                                    width: '83%',
+                                    extraPlugins: 'autogrow',
+                                    autoGrow_minHeight: 300,
+                                    autoGrow_maxHeight: 600,
+                                    autoGrow_bottomSpace: 50,
+                                    removePlugins: 'resize'
+                                });
+                            </script>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center mt-4">
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-primary btn-block">Send Answer</button>
+                        </div>
+                    </div>
+                </form>
+                {% else %}
+                <div class="row">
+                    {{ message.answer | raw}}
+                </div>
+                {% endif %}
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+        <!-- Footer -->
+        <footer class="sticky-footer bg-dark">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Your Website 2020</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up fa-2x "></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="{{ route('user.logout') }}">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

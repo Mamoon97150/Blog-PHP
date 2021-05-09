@@ -4,49 +4,74 @@
 namespace App\Controller;
 
 
-use App\HTTPRequest;
+use App\Entity\Categories;
+use App\Entity\Posts;
+use App\Entity\Comment;
+use App\Entity\Users;
+use App\Model\Posts as PostModel;
+use App\Model\Comments as CommentModel;
+use App\Model\Category as CategoryModel;
+use App\Model\Users as UserModel;
 
 class BlogController extends FrontController
 {
     public function index()
     {
-
-        $posts = \Posts::with(['category','user'])->orderBy('dateAdded', 'desc')->get()->toArray();
+        $postsData = (new PostModel())->allPosts();
+        $posts = (new PostController())->showPostList($postsData);
         $this->renderView('blog/blog', compact('posts'));
     }
 
-    public function indexUser($id)
+    public function indexUser($userId)
     {
-        $posts = \Posts::with(['category','user'])->where('user_id', $id)->orderBy('dateAdded', 'desc')->get()->toArray();
-
-        $this->renderView('blog/blog', compact('posts'));
-    }
-
-    public function indexCategory($id)
-    {
-        $posts = \Posts::with(['category','user'])->where('category_id', $id)->orderBy('dateAdded', 'desc')->get()->toArray();
+        $postsData = (new PostModel())->postsBy('user_id', $userId);
+        $posts = (new PostController())->showPostList($postsData);
 
         $this->renderView('blog/blog', compact('posts'));
     }
 
-    public function show($id)
+    public function indexCategory($catId)
     {
-        $posts = \Posts::orderBy('dateAdded', 'desc')->limit(5)->get()->toArray();
-        $post = \Posts::find($id)->toArray();
+        $postsData = (new PostModel())->postsBy('category_id', $catId);
+        $posts = (new PostController())->showPostList($postsData);
+        $this->renderView('blog/blog', compact('posts'));
+    }
 
-        $comments = \Comments::with('user')->where('post_id', $id)->get()->toArray();
-        $count = \Comments::where('post_id',$id)->count();
+    public function show($postId)
+    {
+        //show the post
+        $post = (new PostController())->showPost($postId);
+        $posts = ( new PostController())->showRecentPost();
 
-        $categories = \Category::orderBy('name', 'asc')->get()->toArray();
-        $category = \Category::where('id', $post['category_id'])->first();
+        //show comments and comments count
+        $comments = (new CommentController())->showComments($postId);
+        $count = (new CommentModel())->commentsCount('post_id', $postId);
 
-        $user = \Users::where('id', $post['user_id'])->first();
+
+        // category filters
+        $categoryData = (new CategoryModel())->categoryOfPost($post);
+        $category = (new Categories())
+            ->setId($categoryData['id'])
+            ->setName($categoryData['name'])
+        ;
+
+        $categoriesDatum = (new CategoryModel())->allCategories();
+        $categories = [];
+        foreach ($categoriesDatum as $categoriesData)
+        {
+            $categories[] = (new Categories())
+                ->setId($categoriesData['id'])
+                ->setName($categoriesData['name'])
+            ;
+        }
+
+        //user filter
+        $userData = (new UserModel())->author($post);
+        $user = (new Users())
+            ->setId($userData['id'])
+            ->setUsername($userData['username'])
+        ;
 
         $this->renderView('blog/post/post', compact(['posts', 'post', 'categories', 'category', 'user', 'comments', 'count']));
-    }
-
-    public function create(HTTPRequest $request)
-    {
-
     }
 }

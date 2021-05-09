@@ -1,5 +1,7 @@
 RewriteEngine On
 
 RewriteCond %{REQUEST_FILENAME} !-f
-
 RewriteRule ^(.*)$ public/index.php?url=$1 [QSA,L]
+
+ErrorDocument 403 /views/403.twig
+ErrorDocument 404 /views/404.twig
