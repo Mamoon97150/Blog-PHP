@@ -42,8 +42,8 @@
                                     <td><a href="{{ route('blog.show', {'id':post.post.id}) }}">{{ post.post.title }}</a></td>
                                     <td>{{ post.category.name | capitalize}}</td>
                                     <td>{{ post.user.username}}</td>
-                                    <td>{{ post.created_at | format_datetime('short', 'short') }}</td>
-                                    <td>{{ post.updated_at | format_datetime('short', 'short') }}</td>
+                                    <td>{{ post.post.createdAt | format_datetime('short', 'short') }}</td>
+                                    <td>{{ post.post.updatedAt | format_datetime('short', 'short') }}</td>
                                     <td><a href="{{ route('admin.editPost', {'id':post.post.id}) }}">Edit</a></td>
                                     <td><a href="{{ route('admin.deletePost', {'id':post.post.id}) }}">Delete</a></td>
                                 </tr>

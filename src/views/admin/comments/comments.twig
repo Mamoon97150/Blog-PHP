@@ -51,7 +51,7 @@
                                                 no
                                             {% endif %}
                                         </td>
-                                        <td><a href="{{ route('comment.delete', {'id':comment.comment.comment.id, 'postId':comment.comment.postId, 'userId':comment.post.id}) }}">Delete</a></td>
+                                        <td><a href="{{ route('comment.delete', {'id':comment.comment.id, 'postId':comment.comment.postId, 'userId':comment.user.id}) }}">Delete</a></td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

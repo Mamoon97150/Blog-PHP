@@ -33,7 +33,7 @@ class MessageController extends FrontController
     public function deleteMessage($messageId)
     {
         (new MessageModel())->eraseMessage($messageId);
-        return redirect('admin.message');
+        return redirect('admin.Messages');
     }
 
     public function showMessageList($data)
