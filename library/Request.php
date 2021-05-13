@@ -18,12 +18,24 @@ class Request
     }
 
 
-    public function name(string $name = null)
+    /**
+     * retourne la liste du nom de toutes les routes
+     *
+     * @param string|null $name
+     * @return array
+     */
+    public function name(string $name = null): array
     {
         $this->routeName[$name][] = $this->path;
         return $this->routeName;
     }
 
+    /**
+     * verifie que le chemin est au bon format et récupère les paramètre
+     *
+     * @param $url
+     * @return bool
+     */
     public function match($url): bool
     {
         $path = preg_replace('#({[\w]+})#', '([^/]+)', $this->path);
@@ -39,6 +51,11 @@ class Request
         return false;
     }
 
+    /**
+     * execute la methode demander en fonction du type de requête
+     *
+     * @return false|mixed
+     */
     public function execute()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET')
@@ -50,7 +67,12 @@ class Request
 
     }
 
-    public function getRequest()
+    /**
+     * Récupère l'action afin de séparer le controller , la methode et les parametre si nécéssaire d'une requête GET
+     *
+     * @return mixed
+     */
+    public function getRequest(): mixed
     {
         if (is_string($this->action))
         {
@@ -65,7 +87,12 @@ class Request
 
     }
 
-    public function postRequest()
+    /**
+     * Récupère l'action afin de séparer le controller , la methode et les parametre si nécéssaire d'une requête POST
+     *
+     * @return mixed
+     */
+    public function postRequest(): mixed
     {
         if (is_string($this->action))
         {

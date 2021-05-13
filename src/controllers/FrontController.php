@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 use Twig\Extension\DebugExtension;
 use Twig\Extra\Intl\IntlExtension;
 use Twig\Extra\Markdown\MarkdownExtension;
@@ -15,7 +18,16 @@ use Twig\Loader\FilesystemLoader;
 
 class FrontController
 {
-    public function renderView(string $path, $data = [])
+    /**
+     * définis l'afichage des vues
+     *
+     * @param string $path
+     * @param array $data
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
+    public function renderView(string $path, array $data = [])
     {
         $path = str_replace(".", "/", $path);
         $loader = new FilesystemLoader(__DIR__.'/../views');

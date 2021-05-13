@@ -49,8 +49,8 @@ App\Router::get('/admin/dashboard/users', 'App\Controller\AdminController@adminU
 App\Router::get('/admin/dashboard/users/admin', 'App\Controller\AdminController@manageAdmin')->name('admin.manageAdmin');
 App\Router::get('/admin/dashboard/users/users', 'App\Controller\AdminController@manageUser')->name('admin.manageUser');
 App\Router::get('/admin/dashboard/users/delete/{id}', 'App\Controller\UserController@deleteUser')->name('user.delete');
-App\Router::get('/admin/dashboard/users/user/{id}', 'App\Controller\UserController@makeUser')->name('admin.makeUser');
-App\Router::get('/admin/dashboard/users/admin/{id}', 'App\Controller\UserController@makeAdmin')->name('admin.makeAdmin');
+App\Router::get('/admin/dashboard/users/user/{name}/{id}', 'App\Controller\UserController@changeStatus')->name('admin.makeUser');
+App\Router::get('/admin/dashboard/users/admin/{name}/{id}', 'App\Controller\UserController@changeStatus')->name('admin.makeAdmin');
 //message
 App\Router::get('/admin/dashboard/messages', 'App\Controller\AdminController@adminMessages')->name('admin.Messages');
 App\Router::get('/admin/dashboard/messages/answered', 'App\Controller\AdminController@messagesUnanswered')->name('admin.messagesUnanswered');

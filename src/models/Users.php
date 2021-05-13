@@ -8,7 +8,6 @@ use App\Entity\Posts;
 class Users extends Model
 {
     protected $guarded = [];
-/*    protected $fillable = ['name', 'email', 'password'];*/
 
    public function posts()
     {
@@ -63,7 +62,7 @@ class Users extends Model
         $user->save();
     }
 
-    public function userExists($column, $value)
+    public function userExists($column, $value): bool
     {
         $users = self::orderBy('username')->get()->toArray();
         $collection = collect($users);

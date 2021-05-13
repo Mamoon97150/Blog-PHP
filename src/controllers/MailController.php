@@ -15,6 +15,13 @@ use Swift_SmtpTransport;
 
 class MailController extends FrontController
 {
+
+
+    /**
+     * Envoie le mail de reponse aux messages contact
+     *
+     * @param HTTPRequest $request
+     */
     public function answerMessage(HTTPRequest $request)
     {
         $contact = $request->validator([
@@ -39,6 +46,12 @@ class MailController extends FrontController
         redirect('admin.Messages');
     }
 
+    /**
+     * Envoie le mail de reinitialisation du mot de passe
+     *
+     * @param HTTPRequest $request
+     * @return mixed|void
+     */
     public function resetPassword(HTTPRequest $request)
     {
         $forgot = $request->validator([

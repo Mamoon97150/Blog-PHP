@@ -39,7 +39,7 @@
                                         <td>{{ user.email }}</td>
                                         <td>{{ user.created_at | format_datetime('full', 'none') }}</td>
                                         <td>{{ user.role | capitalize }}</td>
-                                        <td><a href="{{ route('admin.makeAdmin', {'id':user.id }) }}">Make Admin</a></td>
+                                        <td><a href="{{ route('admin.makeAdmin', { 'name':user.username, 'id':user.id }) }}">Make Admin</a></td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

@@ -14,6 +14,9 @@ use App\Model\Messages as MessageModel;
 
 class AdminController extends FrontController
 {
+    /**
+     * Affiche la page d'acceuil du dashboard admin
+     */
     public function index()
     {
 
@@ -25,6 +28,9 @@ class AdminController extends FrontController
         $this->renderView('admin/home', compact(['post', 'users', 'pendingCount', 'unansweredCount']));
     }
 
+    /**
+     * Affiche la page de gestion des posts du dashboard admin
+     */
     public function adminPost()
     {
         $postsData = (new PostModel())->allPosts();
@@ -35,6 +41,9 @@ class AdminController extends FrontController
         $this->renderView('admin/posts/posts', compact(['posts', 'pendingCount', 'unansweredCount']));
     }
 
+    /**
+     * Affiche la page d'ajout de post du dashboard admin
+     */
     public function addPost()
     {
         $categories = (new CategoryModel())->allCategories();
@@ -44,6 +53,11 @@ class AdminController extends FrontController
         $this->renderView('admin/posts/addpost', compact(['categories', 'pendingCount', 'unansweredCount']));
     }
 
+    /**
+     * Affiche la page d'edition de post du dashboard admin
+     *
+     * @param $postId
+     */
     public function editPost($postId)
     {
         $categories = (new CategoryModel())->allCategories();
@@ -54,6 +68,9 @@ class AdminController extends FrontController
         $this->renderView('admin/posts/editpost', compact(['post', 'categories', 'pendingCount', 'unansweredCount']));
     }
 
+    /**
+     * Affiche la page de gestion des commentaire du dashboard admin
+     */
     public function adminComments()
     {
         $commentsData = (new CommentModel())->allComments();
@@ -64,6 +81,9 @@ class AdminController extends FrontController
         $this->renderView('admin/comments/comments', compact(['comments', 'pendingCount', 'unansweredCount']));
     }
 
+    /**
+     * Affiche la page d'approbation des commentaires du dashboard admin
+     */
     public function pendingComments()
     {
         $commentsData = (new CommentModel())->commentsPendingApproval();
@@ -74,6 +94,9 @@ class AdminController extends FrontController
         $this->renderView('admin/comments/pending', compact(['comments', 'pendingCount', 'unansweredCount']));
     }
 
+    /**
+     * Affiche la page de gestion des utilisateurs du dashboard admin
+     */
     public function adminUsers()
     {
         $usersData = (new UserModel())->allUsers();
@@ -85,6 +108,9 @@ class AdminController extends FrontController
 
     }
 
+    /**
+     * Affiche la page de gestion des droits des administrateurs du dashboard admin
+     */
     public function manageAdmin()
     {
         $usersData = (new UserModel())->userByRole('admin');
@@ -95,6 +121,9 @@ class AdminController extends FrontController
         $this->renderView('admin/users/adminRole', compact(['users', 'pendingCount', 'unansweredCount']));
     }
 
+    /**
+     * Affiche la page de gestion des droits des utilisateurs du dashboard admin
+     */
     public function manageUser()
     {
         $usersData = (new UserModel())->userByRole('user');
@@ -105,6 +134,9 @@ class AdminController extends FrontController
         $this->renderView('admin/users/userRole', compact(['users', 'pendingCount', 'unansweredCount']));
     }
 
+    /**
+     * Affiche la page de gestion des messages du dashboard admin
+     */
     public function adminMessages()
     {
         $data = (new MessageModel())->allMessages();
@@ -115,6 +147,9 @@ class AdminController extends FrontController
         $this->renderView('admin/messages/messages', compact(['messages', 'pendingCount', 'unansweredCount']));
     }
 
+    /**
+     * Affiche la page de gestion des messages non repondu du dashboard admin
+     */
     public function messagesUnanswered()
     {
         $data = (new MessageModel())->messageAnswered();
@@ -125,6 +160,11 @@ class AdminController extends FrontController
         $this->renderView('admin/messages/notAnswered', compact(['messages', 'pendingCount', 'unansweredCount']));
     }
 
+    /**
+     * Affiche la page de réponse au message du dashboard admin
+     *
+     * @param $messageId
+     */
     public function showMessage($messageId)
     {
         $message = (new MessageController())->showMessage($messageId);

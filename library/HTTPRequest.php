@@ -13,8 +13,13 @@ class HTTPRequest
         $this->posts = $this->name();
     }
 
-    // Récupère le nom des champs ou d'un champ spécifique
-    public function name(string $name = null)
+    /**
+     * Récupère le nom des champs ou d'un champ e formulaire spécifique
+     *
+     * @param string|null $name
+     * @return mixed
+     */
+    public function name(string $name = null): mixed
     {
         if ($name == null)
         {
@@ -23,7 +28,14 @@ class HTTPRequest
         return $_POST[$name];
     }
 
-    public function except(string $name, $data = [])
+    /**
+     * exclus un champs du formulaire de l'array
+     *
+     * @param string $name
+     * @param array $data
+     * @return mixed
+     */
+    public function except(string $name, $data = []): mixed
     {
         if (!empty($data))
         {
@@ -42,8 +54,14 @@ class HTTPRequest
 
     }
 
-    //creation de la session
-    public function session($name, $data = null)
+    /**
+     *  crée et assigne de valeur à la session
+     *
+     * @param $name
+     * @param null $data
+     * @return mixed
+     */
+    public function session($name, $data = null): mixed
     {
         if (!empty($data) | $data != null)
         {
@@ -53,8 +71,15 @@ class HTTPRequest
 
     }
 
-    //gestion du téléchargement des images ou autre fichiers
-    public function loadFiles($name, $file_destination, array $datatype)
+    /**
+     * gère le téléchargement des images ou autre fichiers
+     *
+     * @param $name
+     * @param $file_destination
+     * @param array $datatype
+     * @return string|null
+     */
+    public function loadFiles($name, $file_destination, array $datatype): ?string
     {
         $file_name = $_FILES[$name]['name'];
         $file_extension = strrchr($file_name, '.');
@@ -72,8 +97,13 @@ class HTTPRequest
         return null;
     }
 
-    //validation des formulaire
-    public function validator(array $rules)
+    /**
+     * validation des formulaires
+     *
+     * @param array $rules
+     * @return mixed
+     */
+    public function validator(array $rules): mixed
     {
         foreach ($rules as $key => $valueArray)
         {
@@ -89,15 +119,19 @@ class HTTPRequest
 
         if ($this->getErrors() !== null)
         {
-            $this->lastRedirect();
+            return $this->lastRedirect();
         }
-        else
-        {
-            unset($_SESSION['errors']);
-            return $this->name();
-        }
+        unset($_SESSION['errors']);
+        return $this->name();
+
     }
 
+    /**
+     * déclare les différentes règles de validation
+     *
+     * @param $rule
+     * @param $key
+     */
     public function checkRule($rule, $key)
     {
         switch ($rule)
@@ -129,6 +163,9 @@ class HTTPRequest
         }
     }
 
+     /*
+      * fonction détaillant les différentes règles
+      */
     private function required( $name, $value)
     {
         $value = trim($value);
@@ -162,8 +199,12 @@ class HTTPRequest
         }
     }
 
-    //récupération des erreurs  de la session
-    public function getErrors()
+    /**
+     * récupère les erreurs  de la session
+     *
+     * @return mixed
+     */
+    public function getErrors(): mixed
     {
         if ($this->errors !== null)
         {
@@ -175,11 +216,21 @@ class HTTPRequest
 
     }
 
-    private function lastUrl()
+    /**
+     * recupère le dernier lien
+     *
+     * @return mixed
+     */
+    private function lastUrl(): mixed
     {
         return $_SERVER['HTTP_REFERER'];
     }
 
+
+
+    /**
+     * redirige vers la derniere page visité
+     */
     public function lastRedirect()
     {
         header('location: '.$this->lastUrl());

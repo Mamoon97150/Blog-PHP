@@ -10,6 +10,12 @@ use App\HTTPRequest;
 
 class MessageController extends FrontController
 {
+    /**
+     * Récupère les données du message depuis le formulaire,
+     * hydrate l'objet Messages et l'ajoute à la base de données
+     *
+     * @param HTTPRequest $request
+     */
     public function createMessage(HTTPRequest $request)
     {
         $value = $request->validator([
@@ -30,13 +36,25 @@ class MessageController extends FrontController
         return redirect('home.show');
     }
 
+    /**
+     * Récupère les information du message et le supprime de la base de données
+     *
+     * @param $messageId
+     */
     public function deleteMessage($messageId)
     {
         (new MessageModel())->eraseMessage($messageId);
         return redirect('admin.Messages');
     }
 
-    public function showMessageList($data)
+    /**
+     *  Récupère la liste des messages depuis la base de donnée,
+     *  hydrate l'objet Messages par un message, l'ajoute a un array et l'affiche
+     *
+     * @param $data
+     * @return array
+     */
+    public function showMessageList($data): array
     {
         $messages = [];
         foreach ($data as $message)
@@ -53,7 +71,14 @@ class MessageController extends FrontController
         return $messages;
     }
 
-    public function showMessage($messageId)
+    /**
+     *  Récupère un message depuis la base de donnée,
+     * hydrate l'objet Messages et l'affiche
+     *
+     * @param $messageId
+     * @return Messages
+     */
+    public function showMessage($messageId): Messages
     {
         $data = (new MessageModel())->findMessage($messageId);
         return (new Messages())

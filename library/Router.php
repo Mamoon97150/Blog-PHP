@@ -9,24 +9,40 @@ class Router
 {
     private static $request;
 
-    //stockage d'une route GET dans $request
-    public static function get( string  $path, $action)
+    /**
+     * @param string $path
+     * @param $action
+     * @return Request
+     *
+     * stockage d'une route GET dans $request
+     */
+    public static function get(string  $path, $action): Request
     {
         $routes = new Request($path, $action);
         self::$request['GET'][] = $routes;
         return $routes;
     }
 
-    //stockage d'une route POST dans $request
-    public static function post( string  $path, $action)
+    /**
+     * stockage d'une route POST dans $request
+     *
+     * @param string $path
+     * @param $action
+     * @return Request
+     */
+    public static function post(string  $path, $action): Request
     {
         $routes = new Request($path, $action);
         self::$request['POST'][] = $routes;
         return $routes;
     }
 
-
-    //Démarre l'application, match et execute la route
+    /**
+     * Démarre l'application, recupère la route, vérifie si elle est administrateur puis exécute ou redirige en fonction des
+     * droits de l'utilisateur
+     *
+     * @return mixed|void
+     */
     public static function run()
     {
         foreach (self::$request[$_SERVER['REQUEST_METHOD']] as $route)
@@ -44,8 +60,14 @@ class Router
         return redirect404();
     }
 
-    //parcourir les routes stockées et trouver la route associé
-    public static function url( $name, $parameters = [])
+    /**
+     * parcoure les routes stockées et trouve la route associé et retourne le chemin
+     *
+     * @param $name
+     * @param array $parameters
+     * @return string
+     */
+    public static function url($name, $parameters = []): string
     {
         foreach (self::$request as $key => $value)
         {
@@ -72,6 +94,12 @@ class Router
     }
 
 
+    /**
+     * verifie que l'utilisateur à les droits d'accès admin
+     *
+     * @param $route
+     * @return mixed|void
+     */
     public static function accessDenied($route)
     {
         if (isset($_SESSION['auth']))
