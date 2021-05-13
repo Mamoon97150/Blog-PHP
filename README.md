@@ -1,5 +1,4 @@
 # Blog-PHP
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/815b008c6af44720b3ebd6234bd8c0c1)](https://www.codacy.com/gh/Mamoon97150/Blog-PHP/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Mamoon97150/Blog-PHP&amp;utm_campaign=Badge_Grade)
 
 Open Classroom : Projet 5 : Création d'un blog
 
