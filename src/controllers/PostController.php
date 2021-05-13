@@ -14,8 +14,12 @@ use App\Model\Users as UserModel;
 
 class PostController extends FrontController
 {
-
-
+    /**
+     * Récupère les données du post depuis le formulaire,
+     * hydrate l'objet Posts et l'ajoute à la base de données
+     *
+     * @param HTTPRequest $request
+     */
     public function createPost(HTTPRequest $request)
     {
         $img = $request->loadFiles('image', 'img/loaders/', ['.jpg', '.JPG', '.png', '.PNG', '.jpeg', '.JPEG']);
@@ -41,6 +45,13 @@ class PostController extends FrontController
         return redirect('admin.adminPost');
     }
 
+    /**
+     * Récupère les information du post depuis le formulaire,
+     * modifie ses données et le met a jour dans la base de données
+     *
+     * @param HTTPRequest $request
+     * @param $postId
+     */
     public function updatePost(HTTPRequest $request, $postId)
     {
         $img = $request->loadFiles('image', 'img/loaders/', ['.jpg', '.JPG', '.png', '.PNG', '.jpeg', '.JPEG']);
@@ -67,7 +78,11 @@ class PostController extends FrontController
     }
 
 
-
+    /**
+     * Récupère les information du post et le supprime de la base de données
+     *
+     * @param $postId
+     */
     public function deletePost($postId)
     {
         (new PostModel())->erasePost($postId);
@@ -75,6 +90,13 @@ class PostController extends FrontController
         return redirect('admin.adminPost');
     }
 
+    /**
+     * Récupère la liste des post depuis la base de donnée,
+     * hydrate les objet Post, User et Category , les ajoute a un array stocké dans un array et affiche l'array
+     *
+     * @param array $postsData
+     * @return array
+     */
     public function showPostList(array $postsData): array
     {
         $posts = [];
@@ -109,6 +131,13 @@ class PostController extends FrontController
         return $posts;
     }
 
+    /**
+     * Récupère un post depuis la base de donnée,
+     * hydrate l'objet Posts et l'affiche
+     *
+     * @param $postId
+     * @return Posts
+     */
     public function showPost($postId): Posts
     {
         $data = (new PostModel())->findPost($postId);
@@ -122,6 +151,12 @@ class PostController extends FrontController
             ->setImg($data['img']);
     }
 
+    /**
+     * Récupère la liste des posts récent depuis la base de donnée,
+     * hydrate l'objet Posts, l'ajoute a un array stocké dans un array et affiche l'array
+     *
+     * @return array
+     */
     public function showRecentPost(): array
     {
         $postsData = ( new PostModel())->recentPosts();

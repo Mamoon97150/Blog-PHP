@@ -14,6 +14,12 @@ use App\Model\Users as UserModel;
 
 class CommentController extends FrontController
 {
+    /**
+     * Récupère les données du commentaires depuis le formulaire,
+     * hydrate l'objet Comment et l'ajoute à la base de données
+     *
+     * @param HTTPRequest $request
+     */
     public function createComment(HTTPRequest $request)
     {
         $postId = $request->name('post_id');
@@ -32,6 +38,13 @@ class CommentController extends FrontController
         return redirect('blog.show',['id' => $postId]);
     }
 
+    /**
+     * Récupère les information du commentaire et le supprime de la base de données
+     *
+     * @param $commentId
+     * @param $postId
+     * @param $userId
+     */
     public function delete($commentId, $postId, $userId)
     {
         $request = new HTTPRequest();
@@ -44,6 +57,11 @@ class CommentController extends FrontController
         return redirect('blog.show', ['id' => $postId]);
     }
 
+    /**
+     * Récupère les information du commentaire, approuve son contenu et le met a jour dans la base de données
+     *
+     * @param $commentId
+     */
     public function approveComments($commentId)
     {
         (new CommentModel())->approval($commentId);
@@ -51,7 +69,14 @@ class CommentController extends FrontController
         return redirect('admin.pendingComments');
     }
 
-    public function showComments($postId)
+    /**
+     * Récupère la liste des commentaires du post depuis la base de donnée,
+     * hydrate les objet Comment et User , les ajoute a un array stocké dans un array et l'affiche en liste
+     *
+     * @param $postId
+     * @return array
+     */
+    public function showComments($postId): array
     {
         $commentsData = (new CommentModel())->commentsByPost($postId);
         $comments = [];
@@ -66,14 +91,28 @@ class CommentController extends FrontController
                 ->setUpdatedAt($comment['updated_at'])
             ;
 
-            $user = (new UserModel())->author($dataCom['comment']);
+            $userData = (new UserModel())->author($dataCom['comment']);
+            $user = (new Users())
+                ->setId($userData['id'])
+                ->setImg($userData['img'])
+                ->setUsername($userData['username'])
+                ->setRole($userData['role'])
+            ;
             $dataCom['user'] = $user;
+
             $comments[] = $dataCom;
         }
         return $comments;
     }
 
-    public function showCommentList(array $commentsData)
+    /**
+     * Récupère la liste des commentaires depuis la base de donnée,
+     * hydrate les objet Comment, User et Post , les ajoute a un array stocké dans un array et affiche l'array
+     *
+     * @param array $commentsData
+     * @return array
+     */
+    public function showCommentList(array $commentsData): array
     {
         $comments = [];
         foreach ($commentsData as $data)

@@ -15,6 +15,9 @@ use App\Model\Users as UserModel;
 
 class BlogController extends FrontController
 {
+    /**
+     * Affiche la page d'acceuil du blog an triant par post
+     */
     public function index()
     {
         $postsData = (new PostModel())->allPosts();
@@ -22,6 +25,11 @@ class BlogController extends FrontController
         $this->renderView('blog/blog', compact('posts'));
     }
 
+    /**
+     * Affiche la page d'acceuil du blog en triant par utilisateurs
+     *
+     * @param $userId
+     */
     public function indexUser($userId)
     {
         $postsData = (new PostModel())->postsBy('user_id', $userId);
@@ -30,6 +38,11 @@ class BlogController extends FrontController
         $this->renderView('blog/blog', compact('posts'));
     }
 
+    /**
+     * Affiche la page d'acceuil du dashboard admin en triant par categorie
+     *
+     * @param $catId
+     */
     public function indexCategory($catId)
     {
         $postsData = (new PostModel())->postsBy('category_id', $catId);
@@ -37,6 +50,11 @@ class BlogController extends FrontController
         $this->renderView('blog/blog', compact('posts'));
     }
 
+    /**
+     * Affiche le post et ses commentaires
+     *
+     * @param $postId
+     */
     public function show($postId)
     {
         //show the post
